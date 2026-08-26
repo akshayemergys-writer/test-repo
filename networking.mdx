@@ -6,7 +6,11 @@ icon: "network"
 keywords: ["Linux networking", "hostname", "interfaces", "routes", "ping", "curl", "traceroute"]
 ---
 
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
 Learn how Linux connects to and communicates across networks.
+
+<LinuxLabSafety />
 
 ## Topic
 
@@ -24,7 +28,7 @@ curl -I https://example.com
 traceroute example.com
 ```
 
-Use `sudo hostnamectl set-hostname new-name` to change a hostname. Run configuration commands only when you understand the network impact.
+Use `sudo hostnamectl set-hostname new-name` to change a hostname.
 
 ## Output
 

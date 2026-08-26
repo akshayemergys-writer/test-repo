@@ -12,6 +12,12 @@
     "pages": [
       {
         "group": "Linux Learning",
+      {
+        "group": "Mintlify Features",
+        "pages": [
+          "mintlify-features"
+        ]
+      }
         "pages": [
           "index",
           "basic-commands",
@@ -80,6 +86,9 @@
       "cursor",
       "vscode"
     ]
+  },
+  "metadata": {
+    "timestamp": true
   },
   "footer": {
     "socials": {

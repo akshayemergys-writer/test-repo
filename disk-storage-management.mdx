@@ -6,7 +6,11 @@ icon: "hard-drive"
 keywords: ["Linux storage", "partitions", "mount", "disk space", "LVM"]
 ---
 
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
 Learn the core tasks for preparing and managing Linux disks and file systems.
+
+<LinuxLabSafety />
 
 ## Topic
 
@@ -21,8 +25,6 @@ df -h
 du -sh /var/log
 findmnt
 ```
-
-The following commands are examples only. Never format or partition a disk until you have confirmed its device name and backed up its data.
 
 ```bash
 sudo mkfs.ext4 /dev/sdb1

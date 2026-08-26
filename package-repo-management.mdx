@@ -6,7 +6,12 @@ icon: "box"
 keywords: ["Linux packages", "yum", "dnf", "apt", "RPM", "DPKG", "repositories"]
 ---
 
+import PackageManagerNote from './snippets/package-manager-note.mdx';
+import PackageInstall from './snippets/package-install.mdx';
+
 Learn how Linux package managers install software and manage software sources.
+
+<PackageManagerNote />
 
 ## Topic
 
@@ -19,20 +24,22 @@ For Debian and Ubuntu:
 ```bash
 sudo apt update
 apt search curl
-sudo apt install curl
 dpkg -s curl
 sudo apt remove curl
 ```
+
+<PackageInstall packageManager="sudo apt" packageName="curl" />
 
 For Fedora, RHEL, and related systems:
 
 ```bash
 sudo dnf check-update
 dnf search curl
-sudo dnf install curl
 rpm -q curl
 sudo dnf remove curl
 ```
+
+<PackageInstall packageManager="sudo dnf" packageName="curl" />
 
 ## Output
 
@@ -47,5 +54,5 @@ curl.x86_64    8.5.0-1.fc40    @updates
 ```
 
 <Note>
-	`apt` works with `.deb` packages and `dpkg` manages individual Debian packages. `dnf` works with RPM packages and is the modern replacement for `yum` on many systems.
+	`dpkg` and `rpm` inspect individual package files, while `apt` and `dnf` resolve dependencies and retrieve packages from repositories.
 </Note>
