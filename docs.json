@@ -12,12 +12,6 @@
     "pages": [
       {
         "group": "Linux Learning",
-      {
-        "group": "Mintlify Features",
-        "pages": [
-          "mintlify-features"
-        ]
-      }
         "pages": [
           "index",
           "basic-commands",
@@ -40,6 +34,12 @@
         "group": "Git and GitHub",
         "pages": [
           "git-and-github"
+        ]
+      },
+      {
+        "group": "Mintlify Features",
+        "pages": [
+          "mintlify-features"
         ]
       }
     ],
