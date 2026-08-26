@@ -6,8 +6,366 @@ icon: "terminal"
 keywords: ["Linux commands", "terminal", "CLI"]
 ---
 
-Learn the essential commands used to navigate, inspect, and work with a Linux system from the terminal.
+Learn the essential commands used to navigate, inspect, and work with a Linux system from the terminal. Each command example is ready to copy and run.
 
-## Topics
+## Command syntax
 
-- Some basic Linux commands
+Most Linux commands follow this pattern:
+
+```bash
+command [options] [arguments]
+```
+
+For example, `ls -l /var/log` lists `/var/log` in a detailed format.
+
+## Navigation
+
+### Print the current directory
+
+```bash
+pwd
+```
+
+Example response:
+
+```text
+/home/student
+```
+
+### List files and directories
+
+```bash
+ls -la
+```
+
+Example response:
+
+```text
+total 32
+drwxr-xr-x 4 student student 4096 Aug 26 10:15 .
+drwxr-xr-x 3 root root 4096 Aug 26 09:00 ..
+-rw-r--r-- 1 student student 3526 Aug 26 09:00 .bashrc
+drwxr-xr-x 2 student student 4096 Aug 26 10:15 Documents
+```
+
+The `-l` option shows details and `-a` includes hidden files.
+
+### Change directories
+
+```bash
+cd /var/log
+```
+
+Example response:
+
+```text
+
+```
+
+Use `cd ..` for the parent directory and `cd ~` for your home directory.
+
+## Create and inspect content
+
+### Create directories and files
+
+```bash
+mkdir -p ~/linux-practice/logs
+```
+
+```bash
+touch ~/linux-practice/notes.txt
+```
+
+Example response:
+
+```text
+The command completes without output when successful.
+```
+
+### Write and read text
+
+```bash
+echo "Linux practice" > ~/linux-practice/notes.txt
+```
+
+```bash
+cat ~/linux-practice/notes.txt
+```
+
+Example response:
+
+```text
+Linux practice
+```
+
+### Read part of a file
+
+```bash
+head -n 3 /etc/passwd
+```
+
+Example response:
+
+```text
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+```
+
+```bash
+tail -n 3 /etc/passwd
+```
+
+Example response:
+
+```text
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+student:x:1000:1000:Student:/home/student:/bin/bash
+```
+
+Use `less /path/to/file` to read a file one screen at a time. Press `q` to exit.
+
+## Copy, move, and remove
+
+### Copy files and directories
+
+```bash
+cp ~/linux-practice/notes.txt ~/linux-practice/notes-backup.txt
+```
+
+```bash
+cp -r ~/linux-practice ~/linux-practice-copy
+```
+
+The `-r` option copies a directory and its contents recursively.
+
+### Move or rename a file
+
+```bash
+mv ~/linux-practice/notes-backup.txt ~/linux-practice/notes-old.txt
+```
+
+### Remove files and directories
+
+```bash
+rm ~/linux-practice/notes-old.txt
+```
+
+```bash
+rmdir ~/linux-practice/logs
+```
+
+`rm` permanently removes files. Check the path carefully before running it. Avoid `rm -rf` unless you fully understand which files it will delete.
+
+## Search and filter output
+
+### Search text
+
+```bash
+grep "root" /etc/passwd
+```
+
+Example response:
+
+```text
+root:x:0:0:root:/root:/bin/bash
+```
+
+### Find files
+
+```bash
+find ~/linux-practice -type f -name "*.txt"
+```
+
+Example response:
+
+```text
+/home/student/linux-practice/notes.txt
+```
+
+### Combine commands with a pipe
+
+```bash
+ls -la /var/log | grep "\.log$"
+```
+
+Example response:
+
+```text
+-rw-r--r-- 1 root root 12345 Aug 26 10:20 system.log
+```
+
+### Count lines, words, and bytes
+
+```bash
+wc -l /etc/passwd
+```
+
+Example response:
+
+```text
+32 /etc/passwd
+```
+
+## System information
+
+### Show the current user
+
+```bash
+whoami
+```
+
+Example response:
+
+```text
+student
+```
+
+### Show the hostname
+
+```bash
+hostname
+```
+
+Example response:
+
+```text
+linux-lab
+```
+
+### Show kernel information
+
+```bash
+uname -a
+```
+
+Example response:
+
+```text
+Linux linux-lab 6.8.0-31-generic x86_64 GNU/Linux
+```
+
+### Show the date and time
+
+```bash
+date
+```
+
+Example response:
+
+```text
+Wed Aug 26 10:30:00 UTC 2026
+```
+
+## Processes and resources
+
+### View running processes
+
+```bash
+ps
+```
+
+Example response:
+
+```text
+		PID TTY          TIME CMD
+	 2148 pts/0    00:00:00 bash
+	 3812 pts/0    00:00:00 ps
+```
+
+Use `top` to monitor processes interactively. Press `q` to exit.
+
+```bash
+top
+```
+
+### Check disk usage
+
+```bash
+df -h
+```
+
+Example response:
+
+```text
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        40G   18G   20G  48% /
+```
+
+```bash
+du -sh ~/linux-practice
+```
+
+Example response:
+
+```text
+12K     /home/student/linux-practice
+```
+
+## Help and history
+
+### Open a command manual
+
+```bash
+man ls
+```
+
+Press `q` to exit the manual.
+
+### Show command help
+
+```bash
+mkdir --help
+```
+
+Example response:
+
+```text
+Usage: mkdir [OPTION]... DIRECTORY...
+Create the DIRECTORY(ies), if they do not already exist.
+```
+
+### View command history
+
+```bash
+history 5
+```
+
+Example response:
+
+```text
+	101  pwd
+	102  ls -la
+	103  cd /var/log
+	104  history 5
+```
+
+### Clear the terminal
+
+```bash
+clear
+```
+
+## Command reference
+
+| Command | Purpose |
+| --- | --- |
+| `pwd` | Print the current directory |
+| `ls` | List directory contents |
+| `cd` | Change directory |
+| `mkdir` | Create a directory |
+| `touch` | Create an empty file |
+| `cat` | Display file contents |
+| `less` | Read a file interactively |
+| `head` / `tail` | Show the start or end of a file |
+| `cp` | Copy files or directories |
+| `mv` | Move or rename files |
+| `rm` / `rmdir` | Remove files or empty directories |
+| `grep` | Search text |
+| `find` | Search for files and directories |
+| `wc` | Count lines, words, and bytes |
+| `ps` / `top` | View running processes |
+| `df` / `du` | Check disk usage |
+| `man` | Open manual pages |
+| `history` | View previous commands |

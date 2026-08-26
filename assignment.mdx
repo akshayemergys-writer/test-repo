@@ -8,10 +8,34 @@ keywords: ["Linux assignment", "Linux assessment", "practical assessment"]
 
 Complete a practical assessment covering all Linux topics in this learning path.
 
-## Assessment scope
+## Topic
 
-- Basic commands
-- User and file system management
-- Services, storage, and permissions
-- Packages, logs, performance, and boot process
-- Networking, troubleshooting, and NFS
+Build and document a small Linux administration workflow that demonstrates the skills from every topic page.
+
+## Commands to implement it
+
+```bash
+mkdir -p ~/linux-assessment/{data,backup}
+touch ~/linux-assessment/data/report.txt
+chmod 640 ~/linux-assessment/data/report.txt
+cp ~/linux-assessment/data/report.txt ~/linux-assessment/backup/
+tar -czf ~/linux-assessment.tar.gz ~/linux-assessment
+df -h ~/linux-assessment
+```
+
+Also record the results of checking a service, a route, a log entry, and the current user.
+
+## Output
+
+```text
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda2        40G   18G   20G  48% /
+```
+
+```text
+Assessment complete: files created, permissions verified, archive created, and system checks recorded.
+```
+
+<Note>
+	Run storage, user, service, and network changes in a disposable lab environment or virtual machine.
+</Note>

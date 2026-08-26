@@ -8,10 +8,37 @@ keywords: ["Linux networking", "hostname", "interfaces", "routes", "ping", "curl
 
 Learn how Linux connects to and communicates across networks.
 
-## Topics
+## Topic
 
-- Configuring networking and the hostname
-- Configuring network services
-- Interface basics
-- Routing IP traffic
-- Networking commands: `ping`, `ss`, `curl`, and `traceroute`
+Inspect interfaces and routes, configure the hostname, test connectivity, and inspect listening services.
+
+## Commands to implement it
+
+```bash
+hostnamectl
+ip address show
+ip route
+ping -c 4 8.8.8.8
+ss -tuln
+curl -I https://example.com
+traceroute example.com
+```
+
+Use `sudo hostnamectl set-hostname new-name` to change a hostname. Run configuration commands only when you understand the network impact.
+
+## Output
+
+```text
+default via 192.168.1.1 dev eth0
+192.168.1.0/24 dev eth0 proto kernel scope link src 192.168.1.25
+```
+
+```text
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=18.4 ms
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss
+```
+
+<Note>
+	`ip` replaces older tools such as `ifconfig` and `route` on most modern Linux distributions.
+</Note>

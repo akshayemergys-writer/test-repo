@@ -8,9 +8,44 @@ keywords: ["Linux packages", "yum", "dnf", "apt", "RPM", "DPKG", "repositories"]
 
 Learn how Linux package managers install software and manage software sources.
 
-## Topics
+## Topic
 
-- Package managers: `yum`/`dnf` and `apt`
-- Installing, updating, and removing packages
-- Managing repositories
-- RPM and DPKG basics
+Search for, install, update, remove, and inspect software packages using Debian- or RPM-based tools.
+
+## Commands to implement it
+
+For Debian and Ubuntu:
+
+```bash
+sudo apt update
+apt search curl
+sudo apt install curl
+dpkg -s curl
+sudo apt remove curl
+```
+
+For Fedora, RHEL, and related systems:
+
+```bash
+sudo dnf check-update
+dnf search curl
+sudo dnf install curl
+rpm -q curl
+sudo dnf remove curl
+```
+
+## Output
+
+```text
+curl:
+	Installed: 7.88.1-10+deb12u8
+	Status: install ok installed
+```
+
+```text
+curl.x86_64    8.5.0-1.fc40    @updates
+```
+
+<Note>
+	`apt` works with `.deb` packages and `dpkg` manages individual Debian packages. `dnf` works with RPM packages and is the modern replacement for `yum` on many systems.
+</Note>

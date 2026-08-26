@@ -8,10 +8,47 @@ keywords: ["Linux storage", "partitions", "mount", "disk space", "LVM"]
 
 Learn the core tasks for preparing and managing Linux disks and file systems.
 
-## Topics
+## Topic
 
-- Disk partitioning
-- Formatting disks and partitions
-- Mounting and unmounting file systems
-- Checking disk space usage
-- Logical Volume Management (LVM)
+Inspect disks, create file systems, mount storage, check usage, and manage logical volumes.
+
+## Commands to implement it
+
+```bash
+lsblk
+sudo fdisk -l
+df -h
+du -sh /var/log
+findmnt
+```
+
+The following commands are examples only. Never format or partition a disk until you have confirmed its device name and backed up its data.
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+sudo mkdir -p /mnt/data
+sudo mount /dev/sdb1 /mnt/data
+sudo umount /mnt/data
+```
+
+Example LVM workflow on a test disk:
+
+```bash
+sudo pvcreate /dev/sdb1
+sudo vgcreate data_vg /dev/sdb1
+sudo lvcreate -L 5G -n data_lv data_vg
+sudo mkfs.ext4 /dev/data_vg/data_lv
+```
+
+## Output
+
+```text
+NAME   SIZE TYPE MOUNTPOINT
+sda     40G disk
+├─sda1  1G part /boot
+└─sda2 39G part /
+```
+
+<Note>
+	`lsblk` is a useful first check because it shows device names, partitions, file systems, and mount points without changing storage.
+</Note>
