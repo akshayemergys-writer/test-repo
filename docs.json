@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "SambaNova Offerings",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,10 +11,15 @@
   "navigation": {
     "pages": [
       {
-        "group": "Getting Started",
+        "group": "SambaNova Offerings",
         "pages": [
           "index",
-          "quickstart"
+          "sambacloud",
+          "sambamanaged",
+          "sambastack",
+          "sambarack",
+          "dataflow-architecture",
+          "rdu-ai-chips"
         ]
       }
     ],

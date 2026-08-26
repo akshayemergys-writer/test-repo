@@ -1,0 +1,53 @@
+---
+title: "SambaCloud"
+description: "Use SambaNova's cloud platform for building applications with fast AI inference."
+sidebarTitle: "SambaCloud"
+icon: "cloud"
+keywords: ["SambaCloud", "cloud AI", "inference", "SambaNova API"]
+---
+
+## Overview
+
+SambaCloud is SambaNova's cloud offering for accessing supported AI models and building inference-powered applications.
+
+## How it is used
+
+1. Create or access a SambaNova Cloud account.
+2. Create an API key and store it securely.
+3. Select a supported model.
+4. Send requests through the SambaNova API or an OpenAI-compatible client.
+
+## Example
+
+```bash
+export SAMBANOVA_API_KEY="your-api-key"
+```
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ["SAMBANOVA_API_KEY"],
+    base_url="https://api.sambanova.ai/v1",
+)
+
+response = client.chat.completions.create(
+    model="your-model-id",
+    messages=[{"role": "user", "content": "Explain SambaCloud in one sentence."}],
+)
+print(response.choices[0].message.content)
+```
+
+## Example response
+
+```text
+SambaCloud provides managed access to SambaNova inference capabilities.
+```
+
+This is a representative response. The exact response depends on the model and prompt used.
+
+<Note>
+  Model IDs, endpoints, limits, and pricing can change. Use the current SambaNova developer documentation for live values.
+</Note>
+
