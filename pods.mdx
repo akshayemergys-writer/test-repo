@@ -1,0 +1,52 @@
+---
+title: "Pods"
+description: "Learn Pod structure, lifecycle, networking, and single- and multi-container workloads."
+sidebarTitle: "Pods"
+icon: "boxes-stacked"
+keywords: ["Kubernetes Pod", "Pod lifecycle", "Pod networking", "multi-container Pod"]
+---
+
+## Topic
+
+A Pod is Kubernetes' smallest deployable unit. It can contain one container or multiple tightly coupled containers that share networking and storage.
+
+## Commands to implement it
+
+```bash
+kubectl run nginx --image=nginx:latest
+kubectl get pods -o wide
+kubectl describe pod nginx
+kubectl logs nginx
+kubectl delete pod nginx
+```
+
+Example multi-container manifest:
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-with-sidecar
+spec:
+  containers:
+    - name: web
+      image: nginx:latest
+    - name: logger
+      image: busybox:latest
+      command: ["sh", "-c", "while true; do date; sleep 10; done"]
+```
+
+## Output
+
+```text
+NAME    READY   STATUS    RESTARTS   AGE   IP
+nginx   1/1     Running   0          15s   10.244.0.5
+```
+
+<Note>
+  Pods receive an IP address, but Pods are replaceable. Use a Deployment and Service when an application needs stable management or networking.
+</Note>
+
+## Reference link
+
+[Kubernetes Pods](https://kubernetes.io/docs/concepts/workloads/pods/)

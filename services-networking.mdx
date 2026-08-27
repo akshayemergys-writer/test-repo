@@ -1,0 +1,42 @@
+---
+title: "Services and networking"
+description: "Expose Kubernetes workloads with Services, Ingress, DNS, and Pod networking."
+sidebarTitle: "Services and networking"
+icon: "network-wired"
+keywords: ["Kubernetes Service", "ClusterIP", "NodePort", "LoadBalancer", "Ingress", "DNS"]
+---
+
+## Topic
+
+A Service provides a stable virtual endpoint for a changing set of Pods. Kubernetes networking also supports Pod-to-Pod communication, cluster DNS, and external exposure.
+
+## Service types
+
+- **ClusterIP**: Internal cluster access, and the default type.
+- **NodePort**: Exposes a port on each node.
+- **LoadBalancer**: Requests an external load balancer from a supported environment.
+- **Ingress**: Routes HTTP or HTTPS traffic to Services through an Ingress controller.
+
+## Commands to implement it
+
+```bash
+kubectl expose deployment web --name=web-svc --port=80 --target-port=80
+kubectl get services
+kubectl describe service web-svc
+kubectl run temporary-client --rm -it --image=curlimages/curl -- curl http://web-svc
+```
+
+## Output
+
+```text
+NAME      TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)   AGE
+web-svc   ClusterIP   10.96.10.20    <none>        80/TCP    30s
+```
+
+<Note>
+  Kubernetes DNS lets Pods reach a Service by name, such as `web-svc.default.svc.cluster.local`, instead of tracking changing Pod IP addresses.
+</Note>
+
+## Reference link
+
+[Kubernetes Services, Load Balancing, and Networking](https://kubernetes.io/docs/concepts/services-networking/)

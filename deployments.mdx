@@ -1,0 +1,38 @@
+---
+title: "Deployments"
+description: "Manage Kubernetes application releases with rolling updates, strategies, and rollbacks."
+sidebarTitle: "Deployments"
+icon: "rocket"
+keywords: ["Kubernetes Deployment", "rolling update", "rollback", "deployment strategy"]
+---
+
+## Topic
+
+A Deployment manages ReplicaSets and provides declarative application updates, scaling, rollout history, and rollback support.
+
+## Commands to implement it
+
+```bash
+kubectl create deployment web --image=nginx:1.25
+kubectl get deployments
+kubectl set image deployment/web nginx=nginx:1.26
+kubectl rollout status deployment/web
+kubectl rollout history deployment/web
+kubectl rollout undo deployment/web
+```
+
+## Output
+
+```text
+deployment.apps/web successfully rolled out
+NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+web    3/3     3            3           2m
+```
+
+<Note>
+  Rolling updates replace Pods gradually. Configure readiness probes and resource limits to make releases safer and predictable.
+</Note>
+
+## Reference link
+
+[Kubernetes Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)

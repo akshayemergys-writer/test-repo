@@ -1,0 +1,36 @@
+---
+title: "ReplicaSets"
+description: "Maintain the desired number of Kubernetes Pod replicas and understand self-healing."
+sidebarTitle: "ReplicaSets"
+icon: "copy"
+keywords: ["Kubernetes ReplicaSet", "desired state", "Pod scaling", "self-healing"]
+---
+
+## Topic
+
+A ReplicaSet keeps a specified number of matching Pods running. It creates replacements when Pods fail or are removed.
+
+## Commands to implement it
+
+```bash
+kubectl create deployment web --image=nginx:latest
+kubectl get replicasets
+kubectl scale deployment web --replicas=3
+kubectl get pods -l app=web
+kubectl describe replicaset
+```
+
+## Output
+
+```text
+NAME              DESIRED   CURRENT   READY   AGE
+web-7d4f7c8d9f    3         3         3       1m
+```
+
+<Note>
+  Deployments normally create and manage ReplicaSets for you. Create a ReplicaSet directly only when you need lower-level control.
+</Note>
+
+## Reference link
+
+[Kubernetes ReplicaSets](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/)

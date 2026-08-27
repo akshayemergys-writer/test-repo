@@ -1,0 +1,57 @@
+---
+title: "Storage: PV and PVC"
+description: "Persist Kubernetes application data with volumes, PersistentVolumes, and PersistentVolumeClaims."
+sidebarTitle: "Storage: PV and PVC"
+icon: "hard-drive"
+keywords: ["Kubernetes storage", "volume", "PersistentVolume", "PV", "PersistentVolumeClaim", "PVC"]
+---
+
+## Topic
+
+Volumes provide storage to containers. A PersistentVolume (PV) represents storage, while a PersistentVolumeClaim (PVC) requests storage for an application.
+
+## Storage lifecycle
+
+1. A cluster administrator or provisioner makes storage available.
+2. A developer creates a PVC describing capacity and access mode.
+3. Kubernetes binds the PVC to a suitable PV.
+4. A Pod mounts the PVC and uses the storage.
+
+## Commands to implement it
+
+```bash
+kubectl get storageclass
+kubectl get persistentvolumes
+kubectl get persistentvolumeclaims
+kubectl describe pvc data-claim
+kubectl apply -f storage.yaml
+```
+
+Example claim:
+
+```yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: data-claim
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi
+```
+
+## Output
+
+```text
+NAME         STATUS   VOLUME   CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+data-claim   Bound    pvc-123  1Gi        RWO            standard       20s
+```
+
+<Note>
+  Storage behavior depends on the cluster's storage classes and provisioner. A PVC can outlive the Pod that uses it.
+</Note>
+
+## Reference link
+
+[Kubernetes storage](https://kubernetes.io/docs/concepts/storage/)

@@ -1,0 +1,38 @@
+---
+title: "Kubernetes overview"
+description: "Learn Kubernetes concepts, cluster basics, use cases, and how Kubernetes relates to Docker."
+sidebarTitle: "Kubernetes overview"
+icon: "dharmachakra"
+keywords: ["Kubernetes", "cluster", "Docker vs Kubernetes", "Kubernetes use cases"]
+---
+
+## Topic
+
+Kubernetes is an open-source platform for deploying and managing containerized workloads through a declarative API.
+
+## Commands to implement it
+
+```bash
+kubectl version
+kubectl cluster-info
+kubectl get nodes
+kubectl get namespaces
+kubectl get pods --all-namespaces
+kubectl explain pod
+```
+
+## Output
+
+```text
+Kubernetes control plane is running at https://127.0.0.1:6443
+NAME       STATUS   ROLES           AGE   VERSION
+worker-1   Ready    <none>          12m   v1.30.0
+```
+
+<Note>
+  Docker builds and runs container images. Kubernetes orchestrates containers across a cluster. Modern Kubernetes clusters commonly use containerd or another CRI-compatible runtime rather than Docker Engine directly.
+</Note>
+
+## Reference link
+
+[Kubernetes documentation](https://kubernetes.io/docs/home/)

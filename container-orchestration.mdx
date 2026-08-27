@@ -1,0 +1,46 @@
+---
+title: "Container orchestration"
+description: "Understand why container orchestration is needed and how Kubernetes and Docker Swarm help."
+sidebarTitle: "Container orchestration"
+icon: "sitemap"
+keywords: ["container orchestration", "Kubernetes", "Docker Swarm", "auto-scaling", "self-healing"]
+---
+
+## Topic
+
+Container orchestration automates the deployment, scheduling, networking, scaling, and recovery of containers across hosts.
+
+Without orchestration, teams must manually restart failed containers, distribute traffic, scale replicas, and coordinate deployments.
+
+## Commands to implement it
+
+```bash
+kubectl get nodes
+kubectl get pods --all-namespaces
+kubectl scale deployment web --replicas=3
+kubectl rollout status deployment/web
+kubectl get hpa
+```
+
+A Docker Swarm cluster can be initialized with:
+
+```bash
+docker swarm init
+docker service create --name web --replicas 3 -p 8080:80 nginx
+```
+
+## Output
+
+```text
+NAME   READY   UP-TO-DATE   AVAILABLE   AGE
+web    3/3     3            3           2m
+```
+
+<Note>
+  Orchestrators provide scheduling, auto-scaling, load balancing, self-healing, and declarative desired-state management. Kubernetes is widely adopted because of its ecosystem and extensibility.
+</Note>
+
+## Reference links
+
+- [Kubernetes documentation](https://kubernetes.io/docs/)
+- [Docker Swarm documentation](https://docs.docker.com/engine/swarm/)

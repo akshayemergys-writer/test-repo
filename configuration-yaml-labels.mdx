@@ -1,0 +1,51 @@
+---
+title: "Configuration, YAML, and labels"
+description: "Write Kubernetes manifests and organize resources with YAML, labels, selectors, annotations, and ConfigMaps."
+sidebarTitle: "Configuration and labels"
+icon: "file-code"
+keywords: ["Kubernetes YAML", "manifests", "labels", "selectors", "annotations", "ConfigMap"]
+---
+
+## Topic
+
+Kubernetes resources are commonly described in YAML manifests. Labels identify resources, selectors find matching resources, annotations store non-identifying metadata, and ConfigMaps hold non-sensitive configuration.
+
+## Commands to implement it
+
+```bash
+kubectl apply -f deployment.yaml
+kubectl get pods --show-labels
+kubectl get pods -l app=web
+kubectl label pod web-demo environment=dev
+kubectl annotate deployment web owner=platform
+kubectl create configmap app-config --from-literal=MODE=development
+kubectl get configmap app-config -o yaml
+```
+
+Example manifest:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+  labels:
+    app: web
+data:
+  MODE: development
+```
+
+## Output
+
+```text
+NAME        DATA   AGE
+app-config  1      10s
+```
+
+<Note>
+  YAML indentation matters. ConfigMaps are not designed for passwords or keys; use Secrets for sensitive values.
+</Note>
+
+## Reference link
+
+[Kubernetes Objects](https://kubernetes.io/docs/concepts/overview/working-with-objects/)
