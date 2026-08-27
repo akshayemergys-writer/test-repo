@@ -1,0 +1,37 @@
+---
+title: "Scaling and updates"
+description: "Scale Kubernetes workloads manually or automatically and release updates with minimal downtime."
+sidebarTitle: "Scaling and updates"
+icon: "arrows-up-down"
+keywords: ["Kubernetes scaling", "HPA", "rolling updates", "zero downtime", "rollback"]
+---
+
+## Topic
+
+Kubernetes supports manual replica scaling and Horizontal Pod Autoscaling (HPA). Deployments use rolling updates to replace old Pods gradually and can roll back failed releases.
+
+## Commands to implement it
+
+```bash
+kubectl scale deployment web --replicas=5
+kubectl autoscale deployment web --min=2 --max=10 --cpu-percent=70
+kubectl get hpa
+kubectl set image deployment/web nginx=nginx:1.26
+kubectl rollout status deployment/web
+kubectl rollout undo deployment/web
+```
+
+## Output
+
+```text
+NAME   REFERENCE         TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+web    Deployment/web    35%/70%   2         10        3          1m
+```
+
+<Note>
+  HPA needs metrics from a metrics provider. Readiness probes and multiple replicas help an application maintain availability during rolling updates.
+</Note>
+
+## Reference link
+
+[Kubernetes autoscaling](https://kubernetes.io/docs/concepts/workloads/autoscaling/)

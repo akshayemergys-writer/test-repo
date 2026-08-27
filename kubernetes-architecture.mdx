@@ -1,0 +1,45 @@
+---
+title: "Kubernetes architecture"
+description: "Explore Kubernetes control plane, worker nodes, and cluster communication."
+sidebarTitle: "Kubernetes architecture"
+icon: "diagram-project"
+keywords: ["Kubernetes architecture", "API server", "scheduler", "controller manager", "etcd", "kubelet"]
+---
+
+## Topic
+
+A Kubernetes cluster contains a control plane that makes decisions and worker nodes that run workloads.
+
+## Components
+
+- **API server**: Front door for Kubernetes API requests.
+- **Scheduler**: Selects a suitable node for new Pods.
+- **Controller manager**: Reconciles actual state with desired state.
+- **etcd**: Stores cluster state.
+- **Kubelet**: Runs and monitors Pods on each worker node.
+- **Kube-proxy**: Helps implement Service networking on nodes.
+
+## Commands to implement it
+
+```bash
+kubectl get nodes -o wide
+kubectl get pods -n kube-system
+kubectl cluster-info dump --namespaces kube-system
+kubectl get --raw='/readyz?verbose'
+```
+
+## Output
+
+```text
+NAME       STATUS   ROLES           INTERNAL-IP
+control-1  Ready    control-plane   192.168.1.10
+worker-1   Ready    <none>          192.168.1.11
+```
+
+<Note>
+  A typical request flows through the API server, is recorded in etcd, and is acted on by controllers or the scheduler before the kubelet starts the workload.
+</Note>
+
+## Reference link
+
+[Kubernetes components](https://kubernetes.io/docs/concepts/overview/components/)
