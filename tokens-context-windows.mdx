@@ -1,9 +1,9 @@
 ---
-title: \"Tokens and Context Windows\"
-description: \"Deep dive into token limits, context window constraints, and token counting tools.\"
-sidebarTitle: \"Tokens & Context Windows\"
-icon: \"window-restore\"
-keywords: [\"tokens\", \"context window\", \"cost\", \"token limits\", \"tokenizer\"]
+title: "Tokens and Context Windows"
+description: "Deep dive into token limits, context window constraints, and token counting tools."
+sidebarTitle: "Tokens & Context Windows"
+icon: "window-restore"
+keywords: ["tokens", "context window", "cost", "token limits", "tokenizer"]
 ---
 
 ## Topic
@@ -18,9 +18,9 @@ A token is a chunk of text. The tokenizer breaks text into tokens:
 import tiktoken
 
 # OpenAI's tokenizer
-enc = tiktoken.encoding_for_model(\"gpt-4\")
+enc = tiktoken.encoding_for_model("gpt-4")
 
-text = \"Hello, world!\"
+text = "Hello, world!"
 tokens = enc.encode(text)
 print(tokens)  # [9906, 11, 1917, 0]
 print(len(tokens))  # 4 tokens
@@ -34,9 +34,9 @@ Rough estimates (varies by language and tokenizer):
 1 token ≈ 0.75 words (or 4 characters)
 
 Examples:
-- \"Hello\" = 1 token
-- \"Beautiful\" = 2 tokens (\"Beau\" + \"tiful\")
-- \"Hello, how are you?\" = 6 tokens
+- "Hello" = 1 token
+- "Beautiful" = 2 tokens ("Beau" + "tiful")
+- "Hello, how are you?" = 6 tokens
 ```
 
 **Rule of thumb**: 1000 tokens ≈ 750 words
@@ -105,7 +105,7 @@ Retrieve only relevant chunks:
 
 ```
 Full document stored in vector DB
-User question: \"What's the revenue?\"
+User question: "What's the revenue?"
 Retrieve: Only revenue-related chunks (1K tokens)
 Feed to model with full context available
 ```
@@ -145,8 +145,8 @@ Total: $0.11 per API call
 ```python
 import tiktoken
 
-enc = tiktoken.encoding_for_model(\"gpt-4\")
-tokens = enc.encode(\"Your text here\")
+enc = tiktoken.encoding_for_model("gpt-4")
+tokens = enc.encode("Your text here")
 print(len(tokens))
 ```
 
@@ -155,8 +155,8 @@ print(len(tokens))
 ```python
 from transformers import AutoTokenizer
 
-tokenizer = AutoTokenizer.from_pretrained(\"gpt2\")
-tokens = tokenizer.encode(\"Your text here\")
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+tokens = tokenizer.encode("Your text here")
 print(len(tokens))
 ```
 

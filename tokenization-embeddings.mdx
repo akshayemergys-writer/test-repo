@@ -1,9 +1,9 @@
 ---
-title: \"Tokenization and Embeddings\"
-description: \"Understand how text is converted to tokens and vectors that models can process.\"
-sidebarTitle: \"Tokenization & Embeddings\"
-icon: \"cubes\"
-keywords: [\"tokenization\", \"embeddings\", \"tokens\", \"word vectors\", \"semantic meaning\"]
+title: "Tokenization and Embeddings"
+description: "Understand how text is converted to tokens and vectors that models can process."
+sidebarTitle: "Tokenization & Embeddings"
+icon: "cubes"
+keywords: ["tokenization", "embeddings", "tokens", "word vectors", "semantic meaning"]
 ---
 
 ## Topic
@@ -15,14 +15,14 @@ Models can't understand raw text. Tokenization breaks text into pieces, and embe
 **Tokenization**: Converting text into smaller units (tokens) that a model can process.
 
 ```
-Text: \"Hello world!\"
+Text: "Hello world!"
 
-Word tokens: [\"Hello\", \"world\", \"!\"]
+Word tokens: ["Hello", "world", "!"]
 
 Subword tokens (more common in modern models):
-[\"Hello\", \"world\", \"!\"]
+["Hello", "world", "!"]
 or
-[\"He\", \"##llo\", \"world\", \"!\"]
+["He", "##llo", "world", "!"]
 ```
 
 ## Why tokenization matters
@@ -44,8 +44,8 @@ Models often add special tokens:
 
 Example with BERT:
 ```
-Input: \"Hello world\"
-Tokenized: [\"[CLS]\", \"hello\", \"world\", \"[SEP]\"]
+Input: "Hello world"
+Tokenized: ["[CLS]", "hello", "world", "[SEP]"]
 Token IDs: [101, 7592, 2088, 102]
 ```
 
@@ -54,13 +54,13 @@ Token IDs: [101, 7592, 2088, 102]
 **Embedding**: A vector representation of a word/token that captures semantic meaning.
 
 ```
-Word \"king\":     [0.2, -0.5, 0.8, ...]
-Word \"queen\":    [0.1, -0.4, 0.7, ...]
-Word \"dog\":      [-0.3, 0.1, 0.2, ...]
+Word "king":     [0.2, -0.5, 0.8, ...]
+Word "queen":    [0.1, -0.4, 0.7, ...]
+Word "dog":      [-0.3, 0.1, 0.2, ...]
 ```
 
 In this space:
-- Similar words have similar vectors (\"king\" and \"queen\" are close)
+- Similar words have similar vectors ("king" and "queen" are close)
 - You can do math: `king - man + woman ≈ queen`
 - Distance between vectors = semantic similarity
 
@@ -71,8 +71,8 @@ In this space:
 **With embeddings**: Model sees tokens as points in a semantic space where meaning is captured.
 
 ```
-Token ID 100 = \"cat\" → Embedding [0.2, 0.5, -0.1, ...]
-Token ID 101 = \"dog\" → Embedding [0.3, 0.4,  0.0, ...]
+Token ID 100 = "cat" → Embedding [0.2, 0.5, -0.1, ...]
+Token ID 101 = "dog" → Embedding [0.3, 0.4,  0.0, ...]
 
 These vectors are close, reflecting that cats and dogs are similar animals.
 ```
@@ -80,7 +80,7 @@ These vectors are close, reflecting that cats and dogs are similar animals.
 ## Understanding model inputs and outputs
 
 ```
-Text: \"The movie was great!\"
+Text: "The movie was great!"
     ↓ Tokenizer
 Token IDs: [1045, 2062, 2011, 2307, 999]
     ↓ Embedding Layer
@@ -91,7 +91,7 @@ Output: Prediction or representation
 ```
 
 <Note>
-  Different tokenizers produce different tokens. Context window limits matter: \"How do I fit my long document in the model?\" → \"Maybe summarize it or chunk it into smaller parts first.\"
+  Different tokenizers produce different tokens. Context window limits matter: "How do I fit my long document in the model?" → "Maybe summarize it or chunk it into smaller parts first."
 </Note>
 
 ## Reference

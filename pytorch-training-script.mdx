@@ -1,9 +1,9 @@
 ---
-title: \"Reading a PyTorch Training Script\"
-description: \"Understand the anatomy of a training loop: dataset, model, forward pass, loss, backward, optimizer step.\"
-sidebarTitle: \"PyTorch Training Script\"
-icon: \"graduation-cap\"
-keywords: [\"training loop\", \"forward pass\", \"backward pass\", \"optimizer\", \"loss\"]
+title: "Reading a PyTorch Training Script"
+description: "Understand the anatomy of a training loop: dataset, model, forward pass, loss, backward, optimizer step."
+sidebarTitle: "PyTorch Training Script"
+icon: "graduation-cap"
+keywords: ["training loop", "forward pass", "backward pass", "optimizer", "loss"]
 ---
 
 ## Topic
@@ -23,7 +23,7 @@ train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
 # 2. Define model
 model = MyNeuralNetwork()
-device = torch.device(\"cuda\" if torch.cuda.is_available() else \"cpu\")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 # 3. Define loss function and optimizer
@@ -47,7 +47,7 @@ for epoch in range(num_epochs):
         
         # Log progress
         if batch_idx % 100 == 0:
-            print(f\"Epoch {epoch}, Batch {batch_idx}, Loss {loss.item()}\")
+            print(f"Epoch {epoch}, Batch {batch_idx}, Loss {loss.item()}")
 ```
 
 ## Key components explained

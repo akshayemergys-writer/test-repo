@@ -1,9 +1,9 @@
 ---
-title: \"Model Save/Load and Deployment Basics\"
-description: \"Understand model artifact formats and how to serve models as REST APIs.\"
-sidebarTitle: \"Model Save/Load & Deployment\"
-icon: \"arrow-right-from-bracket\"
-keywords: [\"model serving\", \"REST API\", \"state_dict\", \"deployment\", \"FastAPI\"]
+title: "Model Save/Load and Deployment Basics"
+description: "Understand model artifact formats and how to serve models as REST APIs."
+sidebarTitle: "Model Save/Load & Deployment"
+icon: "arrow-right-from-bracket"
+keywords: ["model serving", "REST API", "state_dict", "deployment", "FastAPI"]
 ---
 
 ## Topic
@@ -18,11 +18,11 @@ Once a model is trained, you need to save it, load it for inference, and typical
 
 ```python
 # Save
-torch.save(model.state_dict(), \"model.pth\")
+torch.save(model.state_dict(), "model.pth")
 
 # Load
 model = MyModel()
-model.load_state_dict(torch.load(\"model.pth\"))
+model.load_state_dict(torch.load("model.pth"))
 model.eval()
 ```
 
@@ -31,11 +31,11 @@ model.eval()
 ```python
 # Save
 from safetensors.torch import save_file
-save_file(model.state_dict(), \"model.safetensors\")
+save_file(model.state_dict(), "model.safetensors")
 
 # Load
 from safetensors.torch import load_file
-state = load_file(\"model.safetensors\")
+state = load_file("model.safetensors")
 model.load_state_dict(state)
 ```
 
@@ -60,21 +60,21 @@ Only save weights, not the full model object (more portable).
 
 ```python
 # Save only weights (recommended)
-torch.save(model.state_dict(), \"weights.pth\")
+torch.save(model.state_dict(), "weights.pth")
 
 # Save entire model object (not recommended - can break if code changes)
-torch.save(model, \"model.pth\")  # ❌ Avoid this
+torch.save(model, "model.pth")  # ❌ Avoid this
 ```
 
 ## Loading for inference
 
 ```python
-device = torch.device(\"cuda\" if torch.cuda.is_available() else \"cpu\")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Define architecture
 model = MyModel()
 # Load weights
-model.load_state_dict(torch.load(\"model.pth\", map_location=device))
+model.load_state_dict(torch.load("model.pth", map_location=device))
 model.to(device)
 model.eval()  # Set to evaluation mode
 
@@ -94,13 +94,13 @@ app = FastAPI()
 
 # Load model once at startup
 model = MyModel()
-model.load_state_dict(torch.load(\"model.pth\"))
+model.load_state_dict(torch.load("model.pth"))
 model.eval()
 
 class InputData(BaseModel):
     features: list[float]
 
-@app.post(\"/predict\")
+@app.post("/predict")
 def predict(data: InputData):
     # Convert to tensor
     input_tensor = torch.tensor([data.features])
@@ -109,7 +109,7 @@ def predict(data: InputData):
     with torch.no_grad():
         output = model(input_tensor)
     
-    return {\"prediction\": output.item()}
+    return {"prediction": output.item()}
 ```
 
 Run with:
@@ -123,8 +123,8 @@ Use it:
 
 ```bash
 curl -X POST http://localhost:8000/predict \\
-  -H \"Content-Type: application/json\" \\
-  -d '{\"features\": [1.0, 2.0, 3.0]}'
+  -H "Content-Type: application/json" \\
+  -d '{"features": [1.0, 2.0, 3.0]}'
 ```
 
 ## Model artifacts

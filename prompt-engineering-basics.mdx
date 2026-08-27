@@ -1,9 +1,9 @@
 ---
-title: \"Prompt Engineering Basics\"
-description: \"Understand prompts, system prompts, and techniques like zero-shot and few-shot prompting.\"
-sidebarTitle: \"Prompt Engineering Basics\"
-icon: \"pen-fancy\"
-keywords: [\"prompting\", \"system prompt\", \"zero-shot\", \"few-shot\", \"prompt templates\"]
+title: "Prompt Engineering Basics"
+description: "Understand prompts, system prompts, and techniques like zero-shot and few-shot prompting."
+sidebarTitle: "Prompt Engineering Basics"
+icon: "pen-fancy"
+keywords: ["prompting", "system prompt", "zero-shot", "few-shot", "prompt templates"]
 ---
 
 ## Topic
@@ -17,9 +17,9 @@ How you phrase requests to language models dramatically affects results. Prompt 
 Context and instructions for the model's behavior (optional but powerful).
 
 ```
-System: \"You are a helpful assistant that speaks like a pirate.\"
-User: \"How do I bake cookies?\"
-Assistant: \"Ahoy, me hearty! 'Tis a simple task...\"
+System: "You are a helpful assistant that speaks like a pirate."
+User: "How do I bake cookies?"
+Assistant: "Ahoy, me hearty! 'Tis a simple task..."
 ```
 
 ### User prompt
@@ -27,7 +27,7 @@ Assistant: \"Ahoy, me hearty! 'Tis a simple task...\"
 The actual question or request.
 
 ```
-User: \"What is machine learning?\"
+User: "What is machine learning?"
 ```
 
 ## Prompting techniques
@@ -37,8 +37,8 @@ User: \"What is machine learning?\"
 Ask the model without examples. The model uses its pre-training knowledge.
 
 ```
-Prompt: \"Classify the sentiment: 'This product is terrible.'\"
-Model: \"Negative\"
+Prompt: "Classify the sentiment: 'This product is terrible.'"
+Model: "Negative"
 ```
 
 **Pros**: Simple, fast.
@@ -50,14 +50,14 @@ Provide examples before the actual request.
 
 ```
 Prompt:
-\"Here are examples:
+"Here are examples:
 - 'Great movie!' → Positive
 - 'I hated it.' → Negative
 - 'It was okay.' → Neutral
 
-Classify: 'This is amazing!'\"
+Classify: 'This is amazing!'"
 
-Model: \"Positive\"
+Model: "Positive"
 ```
 
 **Pros**: Better control, more consistent.
@@ -65,17 +65,17 @@ Model: \"Positive\"
 
 ### Chain-of-thought prompting
 
-Ask the model to \"think step-by-step\" before answering.
+Ask the model to "think step-by-step" before answering.
 
 ```
-Prompt: \"A store has 50 apples. They sell 30. How many are left? 
-         Think step-by-step.\"
+Prompt: "A store has 50 apples. They sell 30. How many are left? 
+         Think step-by-step."
 
 Model: 
-\"Step 1: Start with 50 apples
+"Step 1: Start with 50 apples
  Step 2: Subtract 30 that were sold
  Step 3: 50 - 30 = 20
- Answer: 20 apples remain\"
+ Answer: 20 apples remain"
 ```
 
 **Pros**: Better reasoning, fewer errors on complex tasks.
@@ -110,22 +110,22 @@ top_p=0.5 → More focused, less diverse
 Store prompt templates as files or in code:
 
 ```python
-CLASSIFICATION_TEMPLATE = \"\"\"
+CLASSIFICATION_TEMPLATE = """
 You are a sentiment classifier.
 Classify the following text as positive, negative, or neutral.
 
 Text: {text}
 
 Classification:
-\"\"\"
+"""
 
-prompt = CLASSIFICATION_TEMPLATE.format(text=\"This is great!\")
+prompt = CLASSIFICATION_TEMPLATE.format(text="This is great!")
 ```
 
 ## Best practices
 
-1. **Be specific**: \"Summarize this article\" → \"Summarize this article in 2-3 sentences for a 10-year-old.\"
-2. **Provide context**: Tell the model its role (\"You are a Python expert...\")
+1. **Be specific**: "Summarize this article" → "Summarize this article in 2-3 sentences for a 10-year-old."
+2. **Provide context**: Tell the model its role ("You are a Python expert...")
 3. **Use examples**: Few-shot prompting improves consistency
 4. **Test variations**: Small prompt changes can have big impacts
 5. **Document prompts**: Keep track of what works for reproducibility

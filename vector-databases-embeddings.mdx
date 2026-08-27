@@ -1,9 +1,9 @@
 ---
-title: \"Vector Databases and Embeddings\"
-description: \"Understand vector databases, semantic search, similarity metrics, and popular solutions.\"
-sidebarTitle: \"Vector Databases & Embeddings\"
-icon: \"database\"
-keywords: [\"vector database\", \"embeddings\", \"semantic search\", \"cosine similarity\", \"Pinecone\", \"Chroma\"]
+title: "Vector Databases and Embeddings"
+description: "Understand vector databases, semantic search, similarity metrics, and popular solutions."
+sidebarTitle: "Vector Databases & Embeddings"
+icon: "database"
+keywords: ["vector database", "embeddings", "semantic search", "cosine similarity", "Pinecone", "Chroma"]
 ---
 
 ## Topic
@@ -24,10 +24,10 @@ Alice     | 25  | LA
 Vector databases store embeddings (high-dimensional vectors):
 
 ```
-Text: \"John Smith works at Google in NYC\"
+Text: "John Smith works at Google in NYC"
 Embedding: [0.2, -0.5, 0.8, 0.1, ..., -0.3]  (1536 dims)
 
-Metadata: {name: \"John\", job: \"Google\", city: \"NYC\"}
+Metadata: {name: "John", job: "Google", city: "NYC"}
 ```
 
 ## Why embeddings enable semantic search
@@ -35,15 +35,15 @@ Metadata: {name: \"John\", job: \"Google\", city: \"NYC\"}
 **Traditional search** (keyword matching):
 
 ```
-Query: \"machine learning\"
-Matches: Only docs with \"machine\" AND \"learning\"
+Query: "machine learning"
+Matches: Only docs with "machine" AND "learning"
 Problem: Misses synonyms (AI, deep learning, neural nets)
 ```
 
 **Semantic search** (embedding similarity):
 
 ```
-Query: \"machine learning\"
+Query: "machine learning"
 Embedding: [0.3, -0.1, 0.7, ...]
 
 Matches: Docs about AI, deep learning, neural networks, LLMs
@@ -85,13 +85,13 @@ Managed service (no self-hosting needed):
 import pinecone
 
 # Initialize
-pinecone.init(api_key=\"your-key\", environment=\"us-west1-gcp\")
-index = pinecone.Index(\"my-index\")
+pinecone.init(api_key="your-key", environment="us-west1-gcp")
+index = pinecone.Index("my-index")
 
 # Insert vectors
 index.upsert(vectors=[
-    (\"vec1\", [0.1, 0.2, 0.3], {\"text\": \"Hello world\"}),
-    (\"vec2\", [0.15, 0.25, 0.35], {\"text\": \"Hi there\"})
+    ("vec1", [0.1, 0.2, 0.3], {"text": "Hello world"}),
+    ("vec2", [0.15, 0.25, 0.35], {"text": "Hi there"})
 ])
 
 # Query
@@ -107,13 +107,13 @@ Open-source, lightweight, Python library:
 import chromadb
 
 client = chromadb.Client()
-collection = client.create_collection(name=\"my-collection\")
+collection = client.create_collection(name="my-collection")
 
 # Add documents
 collection.add(
-    documents=[\"Hello world\", \"Hi there\"],
+    documents=["Hello world", "Hi there"],
     embeddings=[[0.1, 0.2], [0.15, 0.25]],
-    ids=[\"id1\", \"id2\"]
+    ids=["id1", "id2"]
 )
 
 # Query
@@ -130,18 +130,18 @@ Open-source graph database:
 ```python
 import weaviate
 
-client = weaviate.Client(\"http://localhost:8080\")
+client = weaviate.Client("http://localhost:8080")
 
 # Create class
 client.schema.create_class({
-    \"class\": \"Document\",
-    \"properties\": [{\"name\": \"content\", \"dataType\": [\"text\"]}],
-    \"vectorizer\": \"text2vec-openai\"
+    "class": "Document",
+    "properties": [{"name": "content", "dataType": ["text"]}],
+    "vectorizer": "text2vec-openai"
 })
 
 # Query
-result = client.query.get(\"Document\").with_near_text({
-    \"concepts\": [\"machine learning\"]
+result = client.query.get("Document").with_near_text({
+    "concepts": ["machine learning"]
 }).do()
 ```
 
@@ -169,7 +169,7 @@ from langchain.vectorstores import Chroma
 from langchain.document_loaders import PDFLoader
 
 # 1. Load documents
-loader = PDFLoader(\"document.pdf\")
+loader = PDFLoader("document.pdf")
 docs = loader.load()
 
 # 2. Create embeddings
@@ -179,7 +179,7 @@ embeddings = OpenAIEmbeddings()
 vectorstore = Chroma.from_documents(docs, embeddings)
 
 # 4. Semantic search
-results = vectorstore.similarity_search(\"machine learning\", k=3)
+results = vectorstore.similarity_search("machine learning", k=3)
 print(results[0].page_content)
 ```
 

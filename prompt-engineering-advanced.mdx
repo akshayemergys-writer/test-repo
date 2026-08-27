@@ -1,9 +1,9 @@
 ---
-title: \"Prompt Engineering Fundamentals\"
-description: \"Master advanced prompting techniques: system prompts, zero-shot, few-shot, and chain-of-thought.\"
-sidebarTitle: \"Prompt Engineering Advanced\"
-icon: \"wand-magic-sparkles\"
-keywords: [\"prompt engineering\", \"system prompt\", \"few-shot\", \"chain-of-thought\"]
+title: "Prompt Engineering Fundamentals"
+description: "Master advanced prompting techniques: system prompts, zero-shot, few-shot, and chain-of-thought."
+sidebarTitle: "Prompt Engineering Advanced"
+icon: "wand-magic-sparkles"
+keywords: ["prompt engineering", "system prompt", "few-shot", "chain-of-thought"]
 ---
 
 ## Topic
@@ -16,16 +16,16 @@ A system prompt sets the model's personality and behavior:
 
 ```python
 client.chat.completions.create(
-    model=\"gpt-4\",
+    model="gpt-4",
     messages=[
         {
-            \"role\": \"system\",
-            \"content\": \"\"\"You are an expert Python programmer.
+            "role": "system",
+            "content": """You are an expert Python programmer.
             Provide clear, concise explanations.
             Use code examples when appropriate.
-            If you don't know something, say so.\"\"\"
+            If you don't know something, say so."""
         },
-        {\"role\": \"user\", \"content\": \"How do I read a file?\"}
+        {"role": "user", "content": "How do I read a file?"}
     ]
 )
 ```
@@ -34,7 +34,7 @@ Effective system prompts:
 - Define role/expertise
 - Specify output format
 - Set tone and style
-- Provide constraints (\"be concise\", \"don't use jargon\")
+- Provide constraints ("be concise", "don't use jargon")
 
 ## Few-shot prompting (in-context learning)
 
@@ -42,18 +42,18 @@ Show examples to guide the model:
 
 ```python
 messages = [
-    {\"role\": \"user\", \"content\": \"Classify sentiment: 'Great product!' → POSITIVE\"},
-    {\"role\": \"assistant\", \"content\": \"Understood. I'll classify sentiment as POSITIVE or NEGATIVE.\"},
-    {\"role\": \"user\", \"content\": \"Classify sentiment: 'Very disappointed.' → NEGATIVE\"},
-    {\"role\": \"assistant\", \"content\": \"Got it.\"},
-    {\"role\": \"user\", \"content\": \"Classify sentiment: 'It's okay, nothing special.'\"}
+    {"role": "user", "content": "Classify sentiment: 'Great product!' → POSITIVE"},
+    {"role": "assistant", "content": "Understood. I'll classify sentiment as POSITIVE or NEGATIVE."},
+    {"role": "user", "content": "Classify sentiment: 'Very disappointed.' → NEGATIVE"},
+    {"role": "assistant", "content": "Got it."},
+    {"role": "user", "content": "Classify sentiment: 'It's okay, nothing special.'"}
 ]
 ```
 
 **Benefits**:
 - More consistent output format
 - Better handling of edge cases
-- \"Teaches\" the model your preferences
+- "Teaches" the model your preferences
 
 ## Chain-of-thought prompting
 
@@ -81,9 +81,9 @@ Results in better reasoning and fewer errors.
 Assign a specific role for more authentic responses:
 
 ```
-\"As a medical student, explain what causes type 2 diabetes.\"
+"As a medical student, explain what causes type 2 diabetes."
 vs
-\"Explain what causes type 2 diabetes.\"
+"Explain what causes type 2 diabetes."
 
 The first leads to more medically-accurate, educational language.
 ```
@@ -93,19 +93,19 @@ The first leads to more medically-accurate, educational language.
 Store templates as files for consistency:
 
 ```python
-SENTIMENT_TEMPLATE = \"\"\"
+SENTIMENT_TEMPLATE = """
 Classify the sentiment of the following text as POSITIVE, NEGATIVE, or NEUTRAL.
 Respond with only the classification, no explanation.
 
 Text: {text}
 Classification:
-\"\"\"
+"""
 
 def classify_sentiment(text):
     prompt = SENTIMENT_TEMPLATE.format(text=text)
     response = client.chat.completions.create(
-        model=\"gpt-4\",
-        messages=[{\"role\": \"user\", \"content\": prompt}],
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
         temperature=0.0
     )
     return response.choices[0].message.content
@@ -116,17 +116,17 @@ def classify_sentiment(text):
 Guide the model to output specific format:
 
 ```
-Prompt: \"Extract the following information and return as JSON:
+Prompt: "Extract the following information and return as JSON:
 - Name (string)
 - Age (number)
 - Occupation (string)
 
 Text: 'John Smith, 35, is a software engineer.'
 
-Return ONLY valid JSON, no other text.\"
+Return ONLY valid JSON, no other text."
 
 Expected output:
-{\"name\": \"John Smith\", \"age\": 35, \"occupation\": \"software engineer\"}
+{"name": "John Smith", "age": 35, "occupation": "software engineer"}
 ```
 
 ## Temperature and parameters
@@ -157,8 +157,8 @@ def test_prompt(prompt_template, test_cases):
     for test_input, expected in test_cases:
         prompt = prompt_template.format(input=test_input)
         response = client.chat.completions.create(
-            model=\"gpt-4\",
-            messages=[{\"role\": \"user\", \"content\": prompt}],
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
             temperature=0.0
         )
         actual = response.choices[0].message.content
@@ -171,10 +171,10 @@ def test_prompt(prompt_template, test_cases):
 
 ## Common pitfalls
 
-1. **Vague prompts**: \"Summarize this\" → \"Summarize this in 2-3 sentences for a business executive\"
+1. **Vague prompts**: "Summarize this" → "Summarize this in 2-3 sentences for a business executive"
 2. **Conflicting instructions**: Ask for brevity AND detail
 3. **Assuming understanding**: Don't rely on implied context
-4. **No output format spec**: \"Give me results\" → \"Return a JSON object with keys: name, score, category\"
+4. **No output format spec**: "Give me results" → "Return a JSON object with keys: name, score, category"
 
 <Tip>
   Test your prompts with multiple inputs. One example doesn't guarantee consistency.

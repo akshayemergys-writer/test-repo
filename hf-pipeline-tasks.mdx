@@ -1,9 +1,9 @@
 ---
-title: \"pipeline() and Common Tasks\"
-description: \"Use Hugging Face pipeline() for NLP, vision, and audio tasks with just a few lines of code.\"
-sidebarTitle: \"pipeline() & Tasks\"
-icon: \"water-ladder\"
-keywords: [\"pipeline\", \"transformers\", \"NLP tasks\", \"text-classification\", \"NER\"]
+title: "pipeline() and Common Tasks"
+description: "Use Hugging Face pipeline() for NLP, vision, and audio tasks with just a few lines of code."
+sidebarTitle: "pipeline() & Tasks"
+icon: "water-ladder"
+keywords: ["pipeline", "transformers", "NLP tasks", "text-classification", "NER"]
 ---
 
 ## Topic
@@ -57,7 +57,7 @@ Generate a shorter summary of a text.
 
 ```python
 summarizer = pipeline("summarization")
-result = summarizer(\"Long text here...\")
+result = summarizer("Long text here...")
 # [{'summary_text': 'Condensed version...'}]
 ```
 
@@ -68,8 +68,8 @@ Answer questions based on a provided context.
 ```python
 qa = pipeline("question-answering")
 result = qa({
-    "question": \"Where was John born?\",
-    \"context\": \"John was born in New York and moved to LA.\"
+    "question": "Where was John born?",
+    "context": "John was born in New York and moved to LA."
 })
 # {'answer': 'New York', 'score': 0.95...}
 ```
@@ -79,8 +79,8 @@ result = qa({
 Generate text given a prompt.
 
 ```python
-generator = pipeline("text-generation\")
-result = generator("Once upon a time\")
+generator = pipeline("text-generation")
+result = generator("Once upon a time")
 # [{'generated_text': 'Once upon a time there was a...'}]
 ```
 
@@ -89,8 +89,8 @@ result = generator("Once upon a time\")
 Translate text between languages.
 
 ```python
-translator = pipeline("translation_en_to_fr\")
-result = translator(\"Hello, how are you?\")
+translator = pipeline("translation_en_to_fr")
+result = translator("Hello, how are you?")
 # [{'translation_text': 'Bonjour, comment allez-vous?'}]
 ```
 
@@ -110,21 +110,21 @@ Output: List of dictionaries with predictions
 
 ```python
 # Use default model for the task
-classifier = pipeline("sentiment-analysis\")
+classifier = pipeline("sentiment-analysis")
 
 # Use a specific model
 classifier = pipeline("sentiment-analysis", 
-                     model="distilbert-base-uncased-finetuned-sst-2-english\")
+                     model="distilbert-base-uncased-finetuned-sst-2-english")
 ```
 
 ## Specifying device
 
 ```python
 # Use GPU if available
-pipeline(\"sentiment-analysis\", device=0)
+pipeline("sentiment-analysis", device=0)
 
 # Use CPU explicitly
-pipeline(\"sentiment-analysis\", device=-1)
+pipeline("sentiment-analysis", device=-1)
 ```
 
 <Note>
