@@ -1,0 +1,102 @@
+---
+title: "Jupyter Notebooks Basics"
+description: "Understand Jupyter notebooks, cells, kernels, and their use in AI/ML projects."
+sidebarTitle: "Jupyter Notebooks Basics"
+icon: "book"
+keywords: ["jupyter", "notebooks", "ipynb", "cells", "kernel", "interactive"]
+---
+
+## Topic
+
+Jupyter notebooks combine code, text, and visualizations in interactive documents. They're essential for data science and ML exploration.
+
+## What is Jupyter?
+
+Jupyter is an open-source tool that runs in your browser. It lets you write and execute Python code in cells.
+
+## Installation and launch
+
+```bash
+pip install jupyter
+
+# Start Jupyter
+jupyter notebook
+
+# Or use JupyterLab (newer interface)
+pip install jupyterlab
+jupyter lab
+```
+
+This opens a browser at `http://localhost:8888`.
+
+## Cell types
+
+**Code cells** run Python:
+
+```python
+import numpy as np
+
+arr = np.array([1, 2, 3])
+print(arr)
+```
+
+**Markdown cells** format text:
+
+```markdown
+# Title
+## Subtitle
+
+This is **bold** and this is *italic*.
+- Bullet point
+- Another point
+```
+
+## Running cells
+
+- **Shift + Enter**: Run cell and move to next
+- **Ctrl + Enter**: Run cell and stay in place
+- **Alt + Enter**: Run cell and insert new cell below
+
+## Kernel concepts
+
+The "kernel" is the Python process running your code. If it stops responding:
+
+- **Restart kernel**: Clears all variables and resets state
+- **Interrupt kernel**: Stops a running cell (long computation)
+
+Menu: **Kernel → Restart** or use the ⏹ button.
+
+## Reading .ipynb files
+
+Jupyter notebook files (`.ipynb`) are actually JSON:
+
+```json
+{
+  "cells": [
+    {
+      "cell_type": "code",
+      "source": ["print('Hello')"],
+      "outputs": [...]
+    }
+  ]
+}
+```
+
+You can view them on GitHub or open them with Jupyter.
+
+## Common use in AI/ML projects
+
+- **Exploration**: Load data, visualize, experiment
+- **Documentation**: Mix code with explanations
+- **Prototyping**: Quick iteration and visualization
+- **Sharing**: Share analysis with non-technical stakeholders
+
+<Tip>
+  Notebooks are great for exploration but can become messy. Move final code into `.py` files for production.
+</Tip>
+
+## Reference
+
+[DataQuest – Jupyter Notebook Tutorial](https://www.dataquest.io/blog/jupyter-notebook-tutorial/)
+
+**Estimated time: 1-2 hours**

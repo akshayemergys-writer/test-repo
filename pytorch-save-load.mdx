@@ -1,0 +1,152 @@
+---
+title: \"Model Save/Load and Deployment Basics\"
+description: \"Understand model artifact formats and how to serve models as REST APIs.\"
+sidebarTitle: \"Model Save/Load & Deployment\"
+icon: \"arrow-right-from-bracket\"
+keywords: [\"model serving\", \"REST API\", \"state_dict\", \"deployment\", \"FastAPI\"]
+---
+
+## Topic
+
+Once a model is trained, you need to save it, load it for inference, and typically serve it via an API.
+
+## File formats
+
+### PyTorch formats
+
+**`.pt` / `.pth`** (PyTorch default):
+
+```python
+# Save
+torch.save(model.state_dict(), \"model.pth\")
+
+# Load
+model = MyModel()
+model.load_state_dict(torch.load(\"model.pth\"))
+model.eval()
+```
+
+**`.safetensors`** (safer, faster, becoming standard):
+
+```python
+# Save
+from safetensors.torch import save_file
+save_file(model.state_dict(), \"model.safetensors\")
+
+# Load
+from safetensors.torch import load_file
+state = load_file(\"model.safetensors\")
+model.load_state_dict(state)
+```
+
+**Benefits**: Secure (can't execute code), fast, human-readable format.
+
+## Understanding state_dict
+
+`state_dict` is a dictionary mapping parameter names to tensors:
+
+```python
+model.state_dict()
+# Output:
+# OrderedDict([
+#     ('layer1.weight', tensor([[...]],
+#     ('layer1.bias', tensor([...]),
+#     ('layer2.weight', tensor([[...]]),
+#     ('layer2.bias', tensor([...]))
+# ])
+```
+
+Only save weights, not the full model object (more portable).
+
+```python
+# Save only weights (recommended)
+torch.save(model.state_dict(), \"weights.pth\")
+
+# Save entire model object (not recommended - can break if code changes)
+torch.save(model, \"model.pth\")  # ❌ Avoid this
+```
+
+## Loading for inference
+
+```python
+device = torch.device(\"cuda\" if torch.cuda.is_available() else \"cpu\")
+
+# Define architecture
+model = MyModel()
+# Load weights
+model.load_state_dict(torch.load(\"model.pth\", map_location=device))
+model.to(device)
+model.eval()  # Set to evaluation mode
+
+# Make predictions
+with torch.no_grad():
+    output = model(input_tensor)
+```
+
+## REST API serving with FastAPI
+
+```python
+from fastapi import FastAPI
+import torch
+from pydantic import BaseModel
+
+app = FastAPI()
+
+# Load model once at startup
+model = MyModel()
+model.load_state_dict(torch.load(\"model.pth\"))
+model.eval()
+
+class InputData(BaseModel):
+    features: list[float]
+
+@app.post(\"/predict\")
+def predict(data: InputData):
+    # Convert to tensor
+    input_tensor = torch.tensor([data.features])
+    
+    # Inference
+    with torch.no_grad():
+        output = model(input_tensor)
+    
+    return {\"prediction\": output.item()}
+```
+
+Run with:
+
+```bash
+pip install fastapi uvicorn
+uvicorn app:app --host 0.0.0.0 --port 8000
+```
+
+Use it:
+
+```bash
+curl -X POST http://localhost:8000/predict \\
+  -H \"Content-Type: application/json\" \\
+  -d '{\"features\": [1.0, 2.0, 3.0]}'
+```
+
+## Model artifacts
+
+In production, a model artifact typically includes:
+
+```
+model-v1/
+├── model.safetensors    # Model weights
+├── config.json          # Hyperparameters
+├── tokenizer.json       # For NLP models
+└── README.md            # Documentation
+```
+
+This structure lets others download and use your model.
+
+<Note>
+  Always test loading and inference thoroughly. Check that predictions match what you got during training.
+</Note>
+
+## Reference
+
+[PyTorch – Saving and Loading Models](https://pytorch.org/tutorials/beginner/basics/saveload_tutorial.html)
+
+**Estimated time: 2-3 hours**

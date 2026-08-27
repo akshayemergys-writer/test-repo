@@ -1,0 +1,204 @@
+---
+title: \"LLM APIs and How They Work\"
+description: \"Understand REST API structure, request/response formats, and common fields.\"
+sidebarTitle: \"LLM APIs\"
+icon: \"server\"
+keywords: [\"API\", \"REST\", \"chat completion\", \"messages\", \"tokens\", \"response format\"]
+---
+
+## Topic
+
+Most LLMs are accessed via REST APIs. Understanding the request/response format lets you build LLM applications.
+
+## Basic API request structure
+
+```python
+import openai
+
+client = openai.OpenAI()
+
+response = client.chat.completions.create(
+    model=\"gpt-4\",
+    messages=[
+        {\"role\": \"system\", \"content\": \"You are helpful.\"},
+        {\"role\": \"user\", \"content\": \"What is Python?\"}
+    ],
+    temperature=0.7,
+    max_tokens=100
+)
+```
+
+## Request fields
+
+### model
+
+Which model to use:
+
+```python
+model=\"gpt-4\"              # Latest GPT-4
+model=\"gpt-3.5-turbo\"      # Faster, cheaper
+model=\"gpt-4-turbo\"        # Larger context window
+```
+
+### messages
+
+Conversation history as a list of message objects:
+
+```python
+messages=[
+    {\"role\": \"system\", \"content\": \"You are a Python expert.\"},
+    {\"role\": \"user\", \"content\": \"How do I read a file?\"},
+    {\"role\": \"assistant\", \"content\": \"Use the open() function...\"},
+    {\"role\": \"user\", \"content\": \"Can I read JSON?\"}
+]
+```
+
+**Roles**:
+- **system**: Instructions for the model's behavior
+- **user**: User messages/questions
+- **assistant**: Model's previous responses
+
+### temperature
+
+Controls randomness (0 = deterministic, 1+ = creative):
+
+```python
+temperature=0.0      # Always same response (deterministic)
+temperature=0.7      # Balanced (default)
+temperature=1.0      # Creative/random
+```
+
+Use cases:
+- 0.0: Classification, extraction (need consistency)
+- 0.7: Chat, general tasks (balanced)
+- 1.0+: Creative writing, brainstorming (need variety)
+
+### max_tokens
+
+Maximum response length in tokens:
+
+```python
+max_tokens=50       # Short response (~40 words)
+max_tokens=500      # Medium response (~400 words)
+max_tokens=2000     # Long response (~1500 words)
+```
+
+### top_p (nucleus sampling)
+
+Keep only top p% of probability mass:
+
+```python
+top_p=0.9    # Keep 90% (more diverse)
+top_p=0.5    # Keep 50% (more focused)
+```
+
+## Response object
+
+```python
+response = {
+    \"id\": \"chatcmpl-8Z7...\",
+    \"object\": \"chat.completion\",
+    \"created\": 1699564200,
+    \"model\": \"gpt-4\",
+    \"choices\": [
+        {
+            \"index\": 0,
+            \"message\": {
+                \"role\": \"assistant\",
+                \"content\": \"Python is a programming language...\"
+            },
+            \"finish_reason\": \"stop\"
+        }
+    ],
+    \"usage\": {
+        \"prompt_tokens\": 15,
+        \"completion_tokens\": 42,
+        \"total_tokens\": 57
+    }
+}
+```
+
+### Response fields
+
+- **id**: Unique request identifier
+- **model**: Model that processed request
+- **choices**: Array of response options (usually 1)
+- **choices[0].message.content**: The actual response text
+- **choices[0].finish_reason**: Why generation stopped
+  - \"stop\": Reached natural end
+  - \"length\": Hit max_tokens limit
+  - \"content_filter\": Blocked by safety filter
+- **usage**: Token counts for cost calculation
+
+## Extracting the response
+
+```python
+# Get the text
+response_text = response.choices[0].message.content
+
+# Get token usage
+tokens_used = response.usage.total_tokens
+input_tokens = response.usage.prompt_tokens
+output_tokens = response.usage.completion_tokens
+
+# Calculate cost (example for GPT-4)
+cost = (input_tokens * 0.01 + output_tokens * 0.03) / 1000
+print(f\"Cost: ${cost:.4f}\")
+```
+
+## Common patterns
+
+### Single turn (question-answer)
+
+```python
+response = client.chat.completions.create(
+    model=\"gpt-4\",
+    messages=[{\"role\": \"user\", \"content\": \"What is AI?\"}],
+    max_tokens=200
+)
+```
+
+### Multi-turn (conversation)
+
+```python
+messages = [
+    {\"role\": \"user\", \"content\": \"What is Python?\"},
+]
+
+for turn in range(3):
+    response = client.chat.completions.create(
+        model=\"gpt-4\",
+        messages=messages,
+        max_tokens=100
+    )
+    
+    # Add response to conversation
+    messages.append({\"role\": \"assistant\", \"content\": response.choices[0].message.content})
+    messages.append({\"role\": \"user\", \"content\": \"Tell me more.\"})
+```
+
+### Streaming
+
+Get response token-by-token:
+
+```python
+response = client.chat.completions.create(
+    model=\"gpt-4\",
+    messages=[{\"role\": \"user\", \"content\": \"What is AI?\"}],
+    stream=True
+)
+
+for chunk in response:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end=\"\")
+```
+
+<Note>
+  Always include error handling for API failures, timeouts, and rate limits in production.
+</Note>
+
+## Reference
+
+[OpenAI – Chat Completions API Reference](https://platform.openai.com/docs/api-reference/chat/create)
+
+**Estimated time: 1-2 hours**

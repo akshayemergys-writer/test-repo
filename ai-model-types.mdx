@@ -1,0 +1,133 @@
+---
+title: \"AI Model Types at a Glance\"
+description: \"Understand different model types: language, image, multimodal, embeddings, and classification models.\"
+sidebarTitle: \"AI Model Types\"
+icon: \"cube\"
+keywords: [\"language models\", \"image models\", \"multimodal\", \"embeddings\", \"model types\"]
+---
+
+## Topic
+
+Different models solve different problems. Recognizing model types helps you choose the right tool for your task.
+
+## Model types
+
+### Language Models (LMs)
+
+**What**: Generate or understand text.
+
+**Examples**:
+- GPT-4, Claude, Gemini (large language models)
+- BERT (understanding-focused)
+- T5, BART (understanding and generation)
+
+**Capabilities**:
+- Text completion and generation
+- Question answering
+- Summarization
+- Translation
+- Reasoning and planning
+
+**Input**: Text
+**Output**: Text
+
+### Image Models
+
+**What**: Process and understand images.
+
+**Examples**:
+- DALL-E, Stable Diffusion (image generation)
+- ResNet, Vision Transformer (image classification)
+- YOLOv8 (object detection)
+
+**Capabilities**:
+- Image classification (\"is this a cat?\")
+- Object detection (\"where are cars in this image?\")
+- Image generation (\"create an image of...\")
+- Image description (caption generation)
+
+**Input**: Image
+**Output**: Classification, detection, or generated image
+
+### Multimodal Models
+
+**What**: Process multiple types of input (text + image, text + audio, etc.).
+
+**Examples**:
+- GPT-4 Vision (text + image understanding)
+- CLIP (text-image matching)
+- Whisper (speech-to-text)
+
+**Capabilities**:
+- Answering questions about images
+- Finding images matching text descriptions
+- Transcribing speech
+- Video understanding
+
+**Input**: Text + Image (or other combinations)
+**Output**: Text, classification, or match score
+
+### Embedding Models
+
+**What**: Convert text, images, or audio into vectors that capture meaning.
+
+**Examples**:
+- Sentence Transformers
+- OpenAI text-embedding-3
+
+**Capabilities**:
+- Semantic search (find similar documents)
+- Clustering (group similar items)
+- Similarity comparison
+
+**Input**: Text (or image)
+**Output**: Vector (embedding)
+
+### Classification Models
+
+**What**: Assign input to predefined categories.
+
+**Examples**:
+- Sentiment classifiers
+- Spam detectors
+- Intent classifiers (\"book flight\", \"check weather\")
+
+**Capabilities**:
+- Binary classification (yes/no)
+- Multi-class classification (A/B/C/D)
+- Multi-label classification (multiple labels per input)
+
+**Input**: Text (or features)
+**Output**: Category label(s) and confidence score
+
+## When to use each
+
+| Goal | Model Type |
+|------|-----------|
+| Generate text | Language model (LLM) |
+| Classify text | Classification model or small LLM |
+| Generate images | Image model (diffusion) |
+| Understand images | Vision model or multimodal |
+| Find similar text/images | Embedding model |
+| Transcribe speech | Multimodal (speech-to-text) |
+| Complex reasoning | Large language model (LLM) |
+
+## Model selection example
+
+**Task**: Build a chatbot that answers questions about your company's knowledge base.
+
+1. **Embedding model**: Convert knowledge base into embeddings
+2. **Retrieval**: Find relevant docs using embeddings
+3. **Language model**: Generate answer using retrieved docs + user question
+
+This architecture combines multiple model types for best results.
+
+<Note>
+  No single model is best for everything. The trend is toward combining multiple specialized models to solve complex problems.
+</Note>
+
+## Reference
+
+[Hugging Face – Task Overview](https://huggingface.co/tasks)
+
+**Estimated time: 1-2 hours**

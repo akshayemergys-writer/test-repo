@@ -1,0 +1,89 @@
+---
+title: "Variables, Data Types, and Basic Data Structures"
+description: "Learn Python's core data types and collections: strings, numbers, lists, dictionaries, and tuples."
+sidebarTitle: "Variables, Data Types & Structures"
+icon: "cube"
+keywords: ["variables", "data types", "strings", "lists", "dictionaries", "tuples"]
+---
+
+## Topic
+
+Python stores information in variables using different data types. Understanding these types is essential for writing correct code.
+
+## Core data types
+
+```python
+# Strings
+name = "Alice"
+message = 'Hello, World!'
+
+# Integers
+age = 30
+count = -5
+
+# Floats (decimals)
+height = 5.9
+price = 19.99
+
+# Booleans
+is_active = True
+has_permission = False
+```
+
+## Collections
+
+```python
+# Lists (ordered, mutable)
+fruits = ["apple", "banana", "orange"]
+numbers = [1, 2, 3, 4, 5]
+fruits.append("grape")  # Add an item
+print(fruits[0])  # "apple"
+
+# Dictionaries (key-value pairs)
+person = {
+    "name": "Bob",
+    "age": 25,
+    "city": "New York"
+}
+print(person["name"])  # "Bob"
+print(person.keys())  # dict_keys(['name', 'age', 'city'])
+print(person.items())  # dict_items([...])
+
+# Tuples (ordered, immutable)
+coordinates = (10, 20)
+print(coordinates[0])  # 10
+# coordinates[0] = 5  # ERROR: tuples can't be changed
+
+# Sets (unique, unordered)
+unique_ids = {1, 2, 3, 3, 4}
+print(unique_ids)  # {1, 2, 3, 4}
+```
+
+## Common methods
+
+```python
+# String methods
+text = "hello world"
+print(text.upper())  # "HELLO WORLD"
+print(text.split())  # ["hello", "world"]
+
+# List methods
+items = [3, 1, 2]
+items.sort()  # Sort in place
+print(items)  # [1, 2, 3]
+
+# Dictionary methods
+data = {"a": 1, "b": 2}
+print(list(data.keys()))  # ['a', 'b']
+print(list(data.values()))  # [1, 2]
+```
+
+<Note>
+  Lists and dictionaries are mutable (can change). Tuples and strings are immutable. This affects how you use them in functions.
+</Note>
+
+## Reference
+
+[Real Python – Basic Data Types](https://realpython.com/python-data-types/)
+
+**Estimated time: 1-2 hours**

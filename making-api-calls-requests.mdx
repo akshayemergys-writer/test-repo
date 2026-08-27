@@ -1,0 +1,89 @@
+---
+title: "Making API Calls with requests"
+description: "Send HTTP requests (GET, POST) and parse responses using the requests library."
+sidebarTitle: "Making API Calls with requests"
+icon: "arrow-up-from-line"
+keywords: ["HTTP", "requests", "GET", "POST", "API", "headers", "status codes"]
+---
+
+## Topic
+
+The `requests` library makes it easy to communicate with web APIs and fetch data over HTTP.
+
+## Install requests
+
+```bash
+pip install requests
+```
+
+## GET requests
+
+```python
+import requests
+
+# Simple GET request
+response = requests.get("https://api.example.com/users")
+print(response.status_code)  # 200 if successful
+print(response.text)  # Response body as string
+print(response.json())  # Parse JSON response
+```
+
+## POST requests
+
+```python
+import requests
+
+data = {"name": "Alice", "age": 30}
+response = requests.post(
+    "https://api.example.com/users",
+    json=data
+)
+print(response.status_code)
+print(response.json())
+```
+
+## Headers and authentication
+
+```python
+import requests
+
+headers = {
+    "Authorization": "Bearer your-token-here",
+    "User-Agent": "MyApp/1.0"
+}
+
+response = requests.get(
+    "https://api.example.com/data",
+    headers=headers
+)
+```
+
+## Understanding status codes
+
+- **200-299**: Success
+- **300-399**: Redirect
+- **400-499**: Client error (bad request, not found, unauthorized)
+- **500-599**: Server error
+
+## Error handling basics
+
+```python
+import requests
+
+try:
+    response = requests.get("https://api.example.com/data", timeout=5)
+    response.raise_for_status()  # Raise exception for bad status codes
+    data = response.json()
+except requests.exceptions.RequestException as e:
+    print(f"Error: {e}")
+```
+
+<Note>
+  Always include a timeout to prevent requests from hanging indefinitely.
+</Note>
+
+## Reference
+
+[DataCamp – Making HTTP Requests in Python](https://www.datacamp.com/tutorial/making-http-requests-in-python)
+
+**Estimated time: 1 hour**

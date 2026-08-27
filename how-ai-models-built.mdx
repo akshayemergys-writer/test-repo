@@ -1,0 +1,133 @@
+---
+title: \"How AI Models Are Built and Trained\"
+description: \"Understand training data, weights, loss functions, gradient descent, pretraining, and fine-tuning.\"
+sidebarTitle: \"How AI Models Work\"
+icon: \"wrench\"
+keywords: [\"training data\", \"gradient descent\", \"pretraining\", \"fine-tuning\", \"foundation models\"]
+---
+
+## Topic
+
+Understanding the mechanics of how models learn helps you troubleshoot issues and make informed decisions.
+
+## Training data
+
+**High quality training data** is foundational. It determines:
+- What patterns the model learns
+- Model biases and limitations
+- Performance on similar data
+
+```
+Good dataset:
+- Large (millions to billions of examples)
+- Diverse (represents real-world variation)
+- Clean (minimal errors or noise)
+- Balanced (if classification, similar class sizes)
+
+Bad dataset:
+- Too small (model memorizes instead of learns)
+- Biased (over-represents certain groups)
+- Noisy (contains errors or mislabeled data)
+- Imbalanced (one class dominates)
+```
+
+## Model weights and parameters
+
+During training, the model adjusts its **weights** (also called **parameters**) to reduce error.
+
+```
+Before training:
+weights = [0.1, -0.3, 0.8, 0.2]  # Random initialization
+
+After training:
+weights = [0.85, -0.12, 0.43, 0.91]  # Learned from data
+```
+
+These learned weights let the model make accurate predictions.
+
+## Loss function
+
+A loss function measures \"how wrong\" predictions are:
+
+```
+Loss = average(| prediction - true_value |)
+
+Lower loss = better fit to data
+```
+
+Common loss functions:
+- **Cross-entropy loss**: Classification (which category?)
+- **Mean squared error (MSE)**: Regression (what number?)
+
+## Gradient descent (conceptual)
+
+The algorithm for learning weights:
+
+1. Start with random weights
+2. Calculate loss on current batch
+3. Calculate gradients (which direction improves loss?)
+4. Move weights slightly in that direction
+5. Repeat thousands of times
+6. Result: Weights tuned to minimize loss
+
+Think of it like hiking in fog: feel the slope, step downhill repeatedly, eventually reach the valley (minimum loss).
+
+## Pretraining vs fine-tuning
+
+### Pretraining
+
+Train a large model on a massive, general dataset (e.g., all of Wikipedia, Internet text):
+
+- **Goal**: Learn general language/vision understanding
+- **Data**: Billions of examples, general knowledge
+- **Time**: Weeks to months on thousands of GPUs
+- **Cost**: Millions of dollars (only large organizations do this)
+
+Result: A **foundation model** with broad capabilities.
+
+### Fine-tuning
+
+Take a pretrained model and adapt it to a specific task:
+
+- **Goal**: Optimize for your specific task
+- **Data**: Thousands to millions of task-specific examples
+- **Time**: Hours to days on consumer GPUs
+- **Cost**: Affordable for individuals
+
+Example:
+
+```
+Pretrained BERT (understands English generally)
+    ↓ Fine-tune on medical texts
+    ↓
+Medical BERT (understands medical text better)
+```
+
+## Why pretraining matters
+
+**Without pretraining**: Train from scratch on your small dataset → model doesn't learn much, poor performance.
+
+**With pretraining**: Start from a model that already understands the domain → fine-tune on your data → excellent performance with less data.
+
+This is why foundation models (GPT-4, BERT, LLaMA) are revolutionary: they're pretrained once, fine-tuned for hundreds of tasks.
+
+## Scale matters
+
+Larger models trained on larger datasets generally perform better:
+
+```
+Parameters: 1M → 10M → 100M → 1B → 10B → 100B
+Performance: ↑ (roughly proportional to scale)
+```
+
+But there's a cost (memory, compute, latency). Trade-offs matter in production.
+
+<Note>
+  Most modern AI is built on \"foundation models\" pretrained on massive data and then fine-tuned. You rarely train from scratch anymore.
+</Note>
+
+## Reference
+
+[DeepLearning.AI – AI for Everyone](https://www.deeplearning.ai/courses/ai-for-everyone/)
+
+**Estimated time: 1-2 hours**

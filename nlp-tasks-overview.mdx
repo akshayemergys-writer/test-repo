@@ -1,0 +1,112 @@
+---
+title: \"NLP Tasks at a Glance\"
+description: \"Understand common NLP tasks: classification, NER, summarization, translation, QA, and text generation.\"
+sidebarTitle: \"NLP Tasks Overview\"
+icon: \"message\"
+keywords: [\"NLP\", \"tasks\", \"classification\", \"NER\", \"summarization\", \"translation\"]
+---
+
+## Topic
+
+Natural Language Processing (NLP) involves many specialized tasks. Recognizing task names helps you understand papers, code, and project requirements.
+
+## Core NLP tasks
+
+### Text Classification
+
+**What**: Assign text to categories.
+
+**Examples**:
+- Sentiment analysis (positive, negative, neutral)
+- Spam detection (spam, not spam)
+- Topic classification (politics, sports, technology)
+- Intent classification (book flight, check weather)
+
+**Industry use**: Email filtering, content moderation, customer feedback analysis.
+
+### Named Entity Recognition (NER)
+
+**What**: Identify and label entities like names, places, organizations, dates.
+
+**Output structure**:
+```
+Text: "Elon Musk founded Tesla in Palo Alto."
+
+Entity labels:
+- Elon Musk: PERSON
+- Tesla: ORGANIZATION
+- Palo Alto: LOCATION
+```
+
+**Industry use**: Resume parsing, news article processing, knowledge graph construction.
+
+### Summarization
+
+**What**: Generate a shorter version capturing key points.
+
+**Types**:
+- **Extractive**: Copy important sentences from the original
+- **Abstractive**: Generate new sentences with the same meaning
+
+**Industry use**: News summarization, meeting transcripts, document condensing.
+
+### Machine Translation
+
+**What**: Translate text between languages.
+
+**Examples**:
+- English → French, Spanish → German, etc.
+- Real-time chat translation
+- Multilingual document processing
+
+**Industry use**: International customer support, content localization.
+
+### Question Answering (QA)
+
+**What**: Answer questions based on a context.
+
+**Types**:
+- **Extractive**: Find the answer within the context
+- **Generative**: Generate an answer (may not appear verbatim)
+
+**Example**:
+```
+Context: "Paris is the capital of France and is known as the City of Light."
+Question: "What is the capital of France?"
+Answer: "Paris"
+```
+
+**Industry use**: Customer support chatbots, documentation search, tutoring systems.
+
+### Text Generation
+
+**What**: Generate coherent text given a prompt.
+
+**Examples**:
+- Completing sentences
+- Writing essays
+- Generating code
+- Creative writing
+
+**Industry use**: Content creation, code generation (GitHub Copilot), chatbots.
+
+## Task recognition in practice
+
+When reading project documentation or code:
+
+- `task=\"text-classification\"` → Categorizing text
+- `task=\"ner\"` → Finding and labeling entities
+- `task=\"summarization\"` → Making text shorter
+- `task=\"translation\"` → Converting between languages
+- `task=\"question-answering\"` → Answering questions
+- `task=\"text-generation\"` → Creating text
+
+<Note>
+  Understanding task types helps you choose the right model and evaluate results correctly. Each task has different best practices.
+</Note>
+
+## Reference
+
+[Hugging Face – NLP Task Overview](https://huggingface.co/tasks)
+
+**Estimated time: 1-2 hours**

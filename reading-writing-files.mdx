@@ -1,0 +1,76 @@
+---
+title: "Reading and Writing Files"
+description: "Work with text files using the open() function and context managers."
+sidebarTitle: "Reading & Writing Files"
+icon: "file"
+keywords: ["files", "open", "read", "write", "with statement", "file handling"]
+---
+
+## Topic
+
+File operations let you save and load data from your hard drive. Always use the `with` statement to ensure files close properly.
+
+## Reading files
+
+```python
+# Read entire file
+with open("data.txt", "r") as file:
+    content = file.read()
+    print(content)
+
+# Read line by line
+with open("data.txt", "r") as file:
+    for line in file:
+        print(line.strip())
+
+# Read all lines into a list
+with open("data.txt", "r") as file:
+    lines = file.readlines()
+    print(lines[0])
+```
+
+## Writing files
+
+```python
+# Write (overwrites existing content)
+with open("output.txt", "w") as file:
+    file.write("Hello, World!\n")
+    file.write("This is a new file.\n")
+
+# Append (adds to existing content)
+with open("output.txt", "a") as file:
+    file.write("New line added.\n")
+```
+
+## Working with JSON files
+
+```python
+import json
+
+# Write JSON
+data = {"name": "Alice", "age": 30, "city": "New York"}
+with open("data.json", "w") as file:
+    json.dump(data, file)
+
+# Read JSON
+with open("data.json", "r") as file:
+    data = json.load(file)
+    print(data["name"])  # "Alice"
+```
+
+## File modes
+
+- **`"r"`**: Read (file must exist)
+- **`"w"`**: Write (overwrites, creates if not exists)
+- **`"a"`**: Append (adds to end, creates if not exists)
+- **`"r+"`**: Read and write
+
+<Warning>
+  Always use `with` statements. They automatically close files, even if an error occurs.
+</Warning>
+
+## Reference
+
+[GeeksforGeeks – Reading and Writing Files](https://www.geeksforgeeks.org/python/reading-writing-text-files-python/)
+
+**Estimated time: 1-2 hours**

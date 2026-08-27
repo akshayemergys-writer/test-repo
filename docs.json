@@ -1,20 +1,87 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Python and Machine Learning Learning",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#0f62fe",
+    "light": "#0043ce",
+    "dark": "#002d9c"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "pages": [
       {
-        "group": "Getting Started",
+        "group": "Overview",
         "pages": [
-          "index",
-          "quickstart"
+          "index"
+        ]
+      },
+      {
+        "group": "Python Fundamentals",
+        "pages": [
+          "python-overview-setup",
+          "project-folder-structure",
+          "pip-managing-packages",
+          "virtual-environments-requirements",
+          "variables-data-types",
+          "loops-conditionals",
+          "functions-docstrings",
+          "reading-writing-files",
+          "json-basics",
+          "environment-variables-env",
+          "making-api-calls-requests",
+          "stack-traces-debugging",
+          "logging-basics",
+          "ai-ml-libraries-overview",
+          "jupyter-notebooks",
+          "git-usage-python",
+          "numpy-dataframes"
+        ]
+      },
+      {
+        "group": "Machine Learning Basics",
+        "pages": [
+          "what-is-machine-learning",
+          "ml-terminology",
+          "ml-workflow",
+          "model-evaluation-metrics"
+        ]
+      },
+      {
+        "group": "Hugging Face",
+        "pages": [
+          "hf-ecosystem",
+          "hf-pipeline-tasks",
+          "hf-model-cards"
+        ]
+      },
+      {
+        "group": "NLP and Deep Learning",
+        "pages": [
+          "nlp-tasks-overview",
+          "tokenization-embeddings",
+          "prompt-engineering-basics",
+          "pytorch-overview",
+          "pytorch-training-script",
+          "pytorch-save-load"
+        ]
+      },
+      {
+        "group": "AI Fundamentals",
+        "pages": [
+          "how-ai-models-built",
+          "ai-model-types"
+        ]
+      },
+      {
+        "group": "Generative AI",
+        "pages": [
+          "large-language-models",
+          "tokens-context-windows",
+          "llm-apis",
+          "prompt-engineering-advanced",
+          "rag-architecture",
+          "vector-databases-embeddings"
         ]
       }
     ],

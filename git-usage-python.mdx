@@ -1,0 +1,122 @@
+---
+title: "Basic Git Usage with Python Projects"
+description: "Use Git to version control Python projects and understand key commands."
+sidebarTitle: "Git Usage with Python"
+icon: "code-branch"
+keywords: ["git", "version control", "clone", "commit", "gitignore", "branches"]
+---
+
+## Topic
+
+Git tracks changes to your code. Python projects require a good `.gitignore` to avoid committing unnecessary files.
+
+## Essential commands
+
+```bash
+# Clone a repository
+git clone https://github.com/user/repo.git
+
+# Check status
+git status
+
+# Stage files for commit
+git add file.py
+git add .  # Stage all changes
+
+# Commit changes
+git commit -m "Add feature X"
+
+# Push to remote (GitHub)
+git push
+
+# Pull latest changes
+git pull
+
+# View commit history
+git log
+git log --oneline  # Abbreviated
+```
+
+## .gitignore for Python projects
+
+Create a `.gitignore` file in your project root:
+
+```
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Dependencies
+__pycache__/
+*.pyc
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+
+# Environment variables
+.env
+.env.local
+
+# Data and logs
+*.log
+data/raw/
+*.pkl
+
+# OS files
+.DS_Store
+Thumbs.db
+```
+
+## Understanding branches
+
+```bash
+# Create and switch to a new branch
+git checkout -b feature/new-feature
+
+# Switch to an existing branch
+git checkout main
+
+# List all branches
+git branch
+
+# Merge a branch into current branch
+git merge feature/new-feature
+```
+
+## Typical workflow
+
+1. **Clone** the project: `git clone ...`
+2. **Create a branch**: `git checkout -b feature/my-feature`
+3. **Make changes**: Edit files
+4. **Stage changes**: `git add .`
+5. **Commit**: `git commit -m "Description"`
+6. **Push**: `git push origin feature/my-feature`
+7. **Create pull request** on GitHub (discuss, review, merge)
+
+## Reading commit history
+
+```bash
+git log --oneline
+# Output:
+# a1b2c3d Add feature X
+# d4e5f6g Fix bug Y
+# h7i8j9k Initial commit
+```
+
+Each line shows:
+- **Commit hash**: `a1b2c3d` (unique identifier)
+- **Message**: "Add feature X"
+
+<Note>
+  Always write clear commit messages. "Fix bug" is vague; "Fix API timeout error in user validation" is better.
+</Note>
+
+## Reference
+
+[Real Python – Introduction to Git and GitHub](https://realpython.com/python-introduction-to-git-and-github/)
+
+**Estimated time: 1-2 hours**

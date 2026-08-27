@@ -1,0 +1,165 @@
+---
+title: \"RAG Architecture and Components\"
+description: \"Understand Retrieval Augmented Generation: document ingestion, chunking, embeddings, and retrieval.\"
+sidebarTitle: \"RAG Architecture\"
+icon: \"book-bookmark\"
+keywords: [\"RAG\", \"retrieval\", \"augmented generation\", \"pipeline\", \"chunking\"]
+---
+
+## Topic
+
+Retrieval Augmented Generation (RAG) combines information retrieval with LLM generation. It lets models answer questions about specific documents without retraining.
+
+## The RAG pipeline
+
+```
+User Question: \"What is the company's revenue?\"
+    ↓
+Retriever: Search document database
+    ↓
+Retrieved Docs: \"Q3 revenue was $50M, Q4 was $62M\"
+    ↓
+Augment Prompt: Combine question + docs
+    ↓
+LLM: Generate answer using docs + training knowledge
+    ↓
+Answer: \"Q3 revenue was $50M and Q4 was $62M\"
+```
+
+## Core components
+
+### 1. Document ingestion
+
+Load documents from various sources:
+
+```
+PDFs, Word docs, websites, databases
+    ↓
+Parse to extract text
+    ↓
+Store in vector database
+```
+
+### 2. Chunking
+
+Split long documents into manageable pieces:
+
+```
+Document: 50-page report (20K tokens)
+    ↓
+Chunk size: 1K tokens (~750 words)
+    ↓
+Result: 20 chunks
+```
+
+**Why chunk?**
+- Reduce noise (more relevant results per query)
+- Fit within model context window
+- Improve retrieval efficiency
+
+### 3. Embeddings
+
+Convert text chunks to vectors:
+
+```
+Chunk: \"Apple's revenue in 2023 was $394B\"
+    ↓
+Embedding model
+    ↓
+Vector: [0.2, -0.5, 0.8, ..., 0.1]  (1536 dimensions)
+```
+
+### 4. Vector database
+
+Store and search embeddings:
+
+```
+Vector DB:
+├── Chunk 1: [0.2, -0.5, ...]
+├── Chunk 2: [0.1, 0.3, ...]
+└── Chunk 3: [-0.4, 0.7, ...]
+
+Query: [0.18, -0.48, ...]  (similar to Chunk 1)
+Results: Chunk 1, Chunk 2, ... (sorted by similarity)
+```
+
+### 5. Similarity search
+
+Find chunks closest to the user's question:
+
+```
+User: \"How much did Apple make?\"
+    ↓
+Embed question: [0.18, -0.48, 0.82, ...]
+    ↓
+Cosine similarity search in vector DB
+    ↓
+Top 3 similar chunks about Apple revenue
+```
+
+### 6. Retriever + Generator
+
+Use retrieved documents to prompt the LLM:
+
+```
+System: \"You are a helpful assistant.\"
+
+Context (from retrieved docs):
+\"Apple's revenue in 2023 was $394B. 
+ In 2022 it was $394.3B.
+ Main products: iPhone, Services, Mac, iPad, Wearables.\"
+
+User: \"How much did Apple make?\"
+
+LLM: \"Based on the provided information, Apple's revenue in 2023 was $394B...\"
+```
+
+## RAG advantages
+
+1. **Accuracy**: Answer based on your documents, not training data
+2. **Currency**: No need to retrain when documents update
+3. **Transparency**: Can cite sources (show which docs were used)
+4. **Scalability**: Add new documents anytime
+
+## Common RAG frameworks
+
+- **LangChain**: Python library for building RAG and agent applications
+- **LlamaIndex**: Specialized for working with documents
+- **Semantic Kernel**: Microsoft's framework for combining AI and code
+- **Haystack**: End-to-end framework for RAG pipelines
+
+Example with LangChain:
+
+```python
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.chains import RetrievalQA
+from langchain.llms import OpenAI
+
+# Load documents
+docs = load_documents(\"data/\")
+
+# Create embeddings and store
+embeddings = OpenAIEmbeddings()
+vectorstore = Chroma.from_documents(docs, embeddings)
+
+# Create RAG chain
+qa = RetrievalQA.from_chain_type(
+    llm=OpenAI(),
+    chain_type=\"stuff\",
+    retriever=vectorstore.as_retriever()
+)
+
+# Ask questions
+result = qa.run(\"What is the company's revenue?\")
+```
+
+<Note>
+  RAG is powerful for document-based Q&A. For real-time or frequently-updated info, combine with web search.
+</Note>
+
+## Reference
+
+[LangChain – RAG Concepts](https://docs.langchain.com/docs/components/retrievers)
+
+**Estimated time: 1-2 hours**

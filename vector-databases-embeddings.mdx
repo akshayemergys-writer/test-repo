@@ -1,0 +1,194 @@
+---
+title: \"Vector Databases and Embeddings\"
+description: \"Understand vector databases, semantic search, similarity metrics, and popular solutions.\"
+sidebarTitle: \"Vector Databases & Embeddings\"
+icon: \"database\"
+keywords: [\"vector database\", \"embeddings\", \"semantic search\", \"cosine similarity\", \"Pinecone\", \"Chroma\"]
+---
+
+## Topic
+
+Vector databases are specialized databases optimized for storing and searching embeddings. They power semantic search and RAG systems.
+
+## What vector databases store
+
+Traditional databases store structured data (rows, columns):
+
+```
+Name      | Age | City
+----------|-----|----------
+John      | 30  | NYC
+Alice     | 25  | LA
+```
+
+Vector databases store embeddings (high-dimensional vectors):
+
+```
+Text: \"John Smith works at Google in NYC\"
+Embedding: [0.2, -0.5, 0.8, 0.1, ..., -0.3]  (1536 dims)
+
+Metadata: {name: \"John\", job: \"Google\", city: \"NYC\"}
+```
+
+## Why embeddings enable semantic search
+
+**Traditional search** (keyword matching):
+
+```
+Query: \"machine learning\"
+Matches: Only docs with \"machine\" AND \"learning\"
+Problem: Misses synonyms (AI, deep learning, neural nets)
+```
+
+**Semantic search** (embedding similarity):
+
+```
+Query: \"machine learning\"
+Embedding: [0.3, -0.1, 0.7, ...]
+
+Matches: Docs about AI, deep learning, neural networks, LLMs
+(similar embeddings even without exact keywords)
+```
+
+## Cosine similarity
+
+The most common similarity metric:
+
+```python
+import numpy as np
+
+def cosine_similarity(vec1, vec2):
+    return np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
+
+vec_apple = [0.5, -0.3, 0.8]
+vec_orange = [0.6, -0.2, 0.7]
+vec_dog = [0.1, 0.9, -0.2]
+
+sim_apple_orange = cosine_similarity(vec_apple, vec_orange)   # 0.98 (similar)
+sim_apple_dog = cosine_similarity(vec_apple, vec_dog)         # 0.32 (different)
+```
+
+Ranges from -1 to 1:
+- **1**: Identical vectors
+- **0.9+**: Very similar
+- **0.5**: Somewhat related
+- **0**: Orthogonal (unrelated)
+- **-1**: Opposite
+
+## Popular vector databases
+
+### Pinecone
+
+Managed service (no self-hosting needed):
+
+```python
+import pinecone
+
+# Initialize
+pinecone.init(api_key=\"your-key\", environment=\"us-west1-gcp\")
+index = pinecone.Index(\"my-index\")
+
+# Insert vectors
+index.upsert(vectors=[
+    (\"vec1\", [0.1, 0.2, 0.3], {\"text\": \"Hello world\"}),
+    (\"vec2\", [0.15, 0.25, 0.35], {\"text\": \"Hi there\"})
+])
+
+# Query
+results = index.query([0.1, 0.2, 0.3], top_k=3)
+# Returns: 3 most similar vectors
+```
+
+### Chroma
+
+Open-source, lightweight, Python library:
+
+```python
+import chromadb
+
+client = chromadb.Client()
+collection = client.create_collection(name=\"my-collection\")
+
+# Add documents
+collection.add(
+    documents=[\"Hello world\", \"Hi there\"],
+    embeddings=[[0.1, 0.2], [0.15, 0.25]],
+    ids=[\"id1\", \"id2\"]
+)
+
+# Query
+results = collection.query(
+    query_embeddings=[[0.1, 0.2]],
+    n_results=3
+)
+```
+
+### Weaviate
+
+Open-source graph database:
+
+```python
+import weaviate
+
+client = weaviate.Client(\"http://localhost:8080\")
+
+# Create class
+client.schema.create_class({
+    \"class\": \"Document\",
+    \"properties\": [{\"name\": \"content\", \"dataType\": [\"text\"]}],
+    \"vectorizer\": \"text2vec-openai\"
+})
+
+# Query
+result = client.query.get(\"Document\").with_near_text({
+    \"concepts\": [\"machine learning\"]
+}).do()
+```
+
+### Others
+
+- **FAISS** (Facebook): CPU-based, very fast indexing
+- **Milvus** (Open-source): Scalable, self-hosted
+- **Supabase**: Postgres with pgvector extension
+
+## Vector database use cases
+
+| Use Case | Why VectorDB |
+|----------|------------|
+| Semantic search | Find related docs without keywords |
+| Recommendation | Similar items based on embeddings |
+| Duplicate detection | Find very similar documents |
+| Clustering | Group similar items |
+| RAG (Retrieval Augmented Generation) | Retrieve context for LLMs |
+
+## Building with vector databases
+
+```python
+from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
+from langchain.document_loaders import PDFLoader
+
+# 1. Load documents
+loader = PDFLoader(\"document.pdf\")
+docs = loader.load()
+
+# 2. Create embeddings
+embeddings = OpenAIEmbeddings()
+
+# 3. Store in vector DB
+vectorstore = Chroma.from_documents(docs, embeddings)
+
+# 4. Semantic search
+results = vectorstore.similarity_search(\"machine learning\", k=3)
+print(results[0].page_content)
+```
+
+<Note>
+  Vector databases democratize semantic search. You don't need complex custom systems anymore—most have simple Python libraries.
+</Note>
+
+## Reference
+
+[Pinecone – What is a Vector Database?](https://www.pinecone.io/learn/vector-database/)
+
+**Estimated time: 1-2 hours**

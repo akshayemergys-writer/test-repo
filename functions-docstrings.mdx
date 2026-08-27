@@ -1,0 +1,96 @@
+---
+title: "Functions and Docstrings"
+description: "Define reusable functions with parameters, return values, and documentation."
+sidebarTitle: "Functions & Docstrings"
+icon: "function"
+keywords: ["functions", "def", "parameters", "docstrings", "return values"]
+---
+
+## Topic
+
+Functions let you write code once and reuse it. Docstrings document what functions do.
+
+## Defining functions
+
+```python
+def greet(name):
+    return f"Hello, {name}!"
+
+# Call the function
+result = greet("Alice")
+print(result)  # "Hello, Alice!"
+```
+
+## Parameters and default arguments
+
+```python
+def add(a, b, verbose=False):
+    result = a + b
+    if verbose:
+        print(f"{a} + {b} = {result}")
+    return result
+
+add(3, 5)  # 8
+add(3, 5, verbose=True)  # Prints "3 + 5 = 8"
+```
+
+## Writing docstrings (Google style)
+
+```python
+def calculate_discount(price, discount_percent):
+    """Calculate the final price after applying a discount.
+    
+    Args:
+        price (float): The original price.
+        discount_percent (float): The discount as a percentage (0-100).
+    
+    Returns:
+        float: The price after discount.
+    
+    Example:
+        >>> calculate_discount(100, 20)
+        80.0
+    """
+    return price * (1 - discount_percent / 100)
+```
+
+## NumPy style docstrings
+
+```python
+def multiply(a, b):
+    """Multiply two numbers.
+    
+    Parameters
+    ----------
+    a : float
+        First number.
+    b : float
+        Second number.
+    
+    Returns
+    -------
+    float
+        The product.
+    """
+    return a * b
+```
+
+## Multiple return values
+
+```python
+def get_name_and_age():
+    return "Alice", 30
+
+name, age = get_name_and_age()
+print(name, age)  # Alice 30
+```
+
+<Note>
+  Always document your functions. A future reader (or future you) will appreciate it.
+</Note>
+
+## Reference
+
+[Real Python – Defining Functions](https://realpython.com/defining-your-own-python-function/)
+
+**Estimated time: 1-2 hours**

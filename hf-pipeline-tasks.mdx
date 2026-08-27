@@ -1,0 +1,138 @@
+---
+title: \"pipeline() and Common Tasks\"
+description: \"Use Hugging Face pipeline() for NLP, vision, and audio tasks with just a few lines of code.\"
+sidebarTitle: \"pipeline() & Tasks\"
+icon: \"water-ladder\"
+keywords: [\"pipeline\", \"transformers\", \"NLP tasks\", \"text-classification\", \"NER\"]
+---
+
+## Topic
+
+The `pipeline()` function is a one-liner API for running pre-trained models on common tasks. No need to manage models, tokenizers, or postprocessing.
+
+## Using pipeline()
+
+```python
+from transformers import pipeline
+
+# Create a pipeline for a task
+classifier = pipeline("sentiment-analysis")
+
+# Use it
+result = classifier("This movie is amazing!")
+print(result)  # [{'label': 'POSITIVE', 'score': 0.9998...}]
+```
+
+## Common task strings
+
+### Text Classification
+
+Classify text into categories.
+
+```python
+classifier = pipeline("text-classification")
+result = classifier("I hate waiting in lines.")
+# [{'label': 'NEGATIVE', 'score': 0.999...}]
+```
+
+**Use cases**: Sentiment analysis, spam detection, topic classification.
+
+### Named Entity Recognition (NER)
+
+Identify and label named entities (people, places, organizations).
+
+```python
+ner = pipeline("ner")
+result = ner("John Smith works at Google in Mountain View.")
+# [
+#   {'entity': 'B-PER', 'word': 'John Smith', ...},
+#   {'entity': 'B-ORG', 'word': 'Google', ...},
+#   {'entity': 'B-LOC', 'word': 'Mountain View', ...}
+# ]
+```
+
+### Summarization
+
+Generate a shorter summary of a text.
+
+```python
+summarizer = pipeline("summarization")
+result = summarizer(\"Long text here...\")
+# [{'summary_text': 'Condensed version...'}]
+```
+
+### Question Answering
+
+Answer questions based on a provided context.
+
+```python
+qa = pipeline("question-answering")
+result = qa({
+    "question": \"Where was John born?\",
+    \"context\": \"John was born in New York and moved to LA.\"
+})
+# {'answer': 'New York', 'score': 0.95...}
+```
+
+### Text Generation
+
+Generate text given a prompt.
+
+```python
+generator = pipeline("text-generation\")
+result = generator("Once upon a time\")
+# [{'generated_text': 'Once upon a time there was a...'}]
+```
+
+### Translation
+
+Translate text between languages.
+
+```python
+translator = pipeline("translation_en_to_fr\")
+result = translator(\"Hello, how are you?\")
+# [{'translation_text': 'Bonjour, comment allez-vous?'}]
+```
+
+## Input/output patterns
+
+Most pipelines follow this pattern:
+
+```
+Input: Text (or context + question)
+    ↓
+Pipeline (loads model, tokenizes, runs inference)
+    ↓
+Output: List of dictionaries with predictions
+```
+
+## Specifying a model
+
+```python
+# Use default model for the task
+classifier = pipeline("sentiment-analysis\")
+
+# Use a specific model
+classifier = pipeline("sentiment-analysis", 
+                     model="distilbert-base-uncased-finetuned-sst-2-english\")
+```
+
+## Specifying device
+
+```python
+# Use GPU if available
+pipeline(\"sentiment-analysis\", device=0)
+
+# Use CPU explicitly
+pipeline(\"sentiment-analysis\", device=-1)
+```
+
+<Note>
+  `pipeline()` is high-level and easy but slower. For production, use models directly with batch processing.
+</Note>
+
+## Reference
+
+[Hugging Face – Pipelines Documentation](https://huggingface.co/docs/transformers/task_summary)
+
+**Estimated time: 1-2 hours**

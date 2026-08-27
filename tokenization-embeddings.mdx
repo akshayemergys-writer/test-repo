@@ -1,0 +1,101 @@
+---
+title: \"Tokenization and Embeddings\"
+description: \"Understand how text is converted to tokens and vectors that models can process.\"
+sidebarTitle: \"Tokenization & Embeddings\"
+icon: \"cubes\"
+keywords: [\"tokenization\", \"embeddings\", \"tokens\", \"word vectors\", \"semantic meaning\"]
+---
+
+## Topic
+
+Models can't understand raw text. Tokenization breaks text into pieces, and embeddings convert those pieces into vectors that capture meaning.
+
+## Tokenization basics
+
+**Tokenization**: Converting text into smaller units (tokens) that a model can process.
+
+```
+Text: \"Hello world!\"
+
+Word tokens: [\"Hello\", \"world\", \"!\"]
+
+Subword tokens (more common in modern models):
+[\"Hello\", \"world\", \"!\"]
+or
+[\"He\", \"##llo\", \"world\", \"!\"]
+```
+
+## Why tokenization matters
+
+1. **Text → Numbers**: Models need numerical input. Tokens are mapped to integer IDs.
+2. **Vocabulary size**: Models have a fixed vocabulary (30K-50K tokens common).
+3. **Cost**: Longer sequences = more computation and memory.
+4. **Context window**: Models have limits (512, 2048, 4096 tokens).
+
+## Special tokens
+
+Models often add special tokens:
+
+- **`[CLS]`**: Classification token (start of sequence for BERT)
+- **`[SEP]`**: Separator token (between sentences)
+- **`[PAD]`**: Padding token (fill short sequences to fixed length)
+- **`[UNK]`**: Unknown token (words not in vocabulary)
+- **`[MASK]`**: Mask token (used during pretraining for BERT)
+
+Example with BERT:
+```
+Input: \"Hello world\"
+Tokenized: [\"[CLS]\", \"hello\", \"world\", \"[SEP]\"]
+Token IDs: [101, 7592, 2088, 102]
+```
+
+## Embeddings conceptually
+
+**Embedding**: A vector representation of a word/token that captures semantic meaning.
+
+```
+Word \"king\":     [0.2, -0.5, 0.8, ...]
+Word \"queen\":    [0.1, -0.4, 0.7, ...]
+Word \"dog\":      [-0.3, 0.1, 0.2, ...]
+```
+
+In this space:
+- Similar words have similar vectors (\"king\" and \"queen\" are close)
+- You can do math: `king - man + woman ≈ queen`
+- Distance between vectors = semantic similarity
+
+## Why embeddings matter
+
+**Without embeddings**: Model sees tokens as arbitrary numbers (1, 2, 3, 4...).
+
+**With embeddings**: Model sees tokens as points in a semantic space where meaning is captured.
+
+```
+Token ID 100 = \"cat\" → Embedding [0.2, 0.5, -0.1, ...]
+Token ID 101 = \"dog\" → Embedding [0.3, 0.4,  0.0, ...]
+
+These vectors are close, reflecting that cats and dogs are similar animals.
+```
+
+## Understanding model inputs and outputs
+
+```
+Text: \"The movie was great!\"
+    ↓ Tokenizer
+Token IDs: [1045, 2062, 2011, 2307, 999]
+    ↓ Embedding Layer
+Embeddings: [[0.2, -0.5, ...], [0.1, 0.3, ...], ...]
+    ↓ Transformer Layers
+    ↓
+Output: Prediction or representation
+```
+
+<Note>
+  Different tokenizers produce different tokens. Context window limits matter: \"How do I fit my long document in the model?\" → \"Maybe summarize it or chunk it into smaller parts first.\"
+</Note>
+
+## Reference
+
+[Jay Alammar – Illustrated Word2Vec](https://jalammar.github.io/illustrated-word2vec/)
+
+**Estimated time: 1-2 hours**

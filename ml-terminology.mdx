@@ -1,0 +1,65 @@
+---
+title: \"Key Machine Learning Terminology\"
+description: \"Understand essential ML concepts: parameters, hyperparameters, epochs, loss, accuracy, overfitting, and more.\"
+sidebarTitle: \"ML Terminology\"
+icon: \"list\"
+keywords: [\"hyperparameters\", \"loss\", \"accuracy\", \"overfitting\", \"training\", \"parameters\"]
+---
+
+## Topic
+
+Machine learning introduces many specialized terms. Understanding them is crucial for reading papers, documentation, and working with models.
+
+## Core terms
+
+**Parameters**: Values learned from data during training. Also called \"weights\" or \"model weights.\" Examples: coefficients in linear regression, weights in neural networks.
+
+**Hyperparameters**: Settings you choose before training (learning rate, batch size, number of layers). Unlike parameters, hyperparameters are not learned from data.
+
+**Epoch**: One complete pass through the entire training dataset. If you train for 10 epochs, the model sees every training example 10 times.
+
+**Batch size**: Number of examples processed before updating model weights. Larger batches = more memory but faster training.
+
+**Loss**: A measure of how wrong the model is. Lower loss = better model. Calculated on training data during training.
+
+**Accuracy**: Percentage of correct predictions. For classification: (correct predictions / total predictions) × 100%. Only meaningful for balanced datasets.
+
+## Advanced terms
+
+**Overfitting**: Model memorizes training data instead of learning generalizable patterns. It performs well on training data but poorly on new data.
+
+**Underfitting**: Model is too simple to capture the relationship. Poor performance on both training and new data.
+
+**Checkpoint**: A saved snapshot of model weights at a point during training (e.g., after best epoch).
+
+**Inference**: Using a trained model to make predictions on new data.
+
+**Convergence**: When loss stops decreasing significantly. The model has learned as much as it can.
+
+## Evaluation metrics
+
+| Metric | Use Case | Formula |
+|--------|----------|---------|
+| Accuracy | Multi-class classification | (TP + TN) / Total |
+| Precision | When false positives are costly | TP / (TP + FP) |
+| Recall | When false negatives are costly | TP / (TP + FN) |
+| F1-Score | Balance precision and recall | 2 × (Precision × Recall) / (Precision + Recall) |
+
+Where: TP = True Positives, TN = True Negatives, FP = False Positives, FN = False Negatives
+
+## Confusion matrix
+
+A table showing how many predictions were correct vs. incorrect:
+
+```
+             Predicted Positive  |  Predicted Negative
+────────────────────────────────────────────────────
+Actual Positive      TP           |       FN
+Actual Negative      FP           |       TN
+```
+
+<Note>
+  Don't just look at accuracy. Precision, recall, and F1-score give a fuller picture of model performance.
+</Note>
+
+**Estimated time: 1-2 hours**

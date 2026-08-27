@@ -1,0 +1,74 @@
+---
+title: "Reading Stack Traces and Debugging Basics"
+description: "Understand Python tracebacks, common errors, and basic debugging techniques."
+sidebarTitle: "Stack Traces & Debugging"
+icon: "magnifying-glass"
+keywords: ["debugging", "traceback", "errors", "exceptions", "try/except"]
+---
+
+## Topic
+
+When Python hits an error, it prints a traceback showing where and why. Learning to read tracebacks helps you fix bugs fast.
+
+## Reading a Python traceback
+
+```
+Traceback (most recent call last):
+  File "script.py", line 10, in <module>
+    result = divide(10, 0)
+  File "script.py", line 5, in divide
+    return a / b
+ZeroDivisionError: division by zero
+```
+
+**Read from bottom to top:**
+
+1. **Error type and message** (bottom): `ZeroDivisionError: division by zero` — tells you what went wrong.
+2. **Call stack** (middle, bottom-up): Shows the chain of function calls leading to the error.
+3. **File and line** (next to each call): Shows where each call happened.
+
+## Common errors
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| `TypeError` | Wrong data type (e.g., adding string + number) | Check your data types |
+| `KeyError` | Dictionary key doesn't exist | Use `.get()` or check keys first |
+| `ImportError` | Module not found | Install the package or check spelling |
+| `AttributeError` | Object doesn't have that attribute | Check the object's methods and properties |
+| `IndexError` | List index out of range | Check list length before accessing |
+
+## Using print() for debugging
+
+```python
+def calculate(x, y):
+    print(f"x = {x}, y = {y}")  # Debug point
+    result = x + y
+    print(f"result = {result}")  # Debug point
+    return result
+```
+
+## Try/except basics
+
+```python
+try:
+    result = 10 / 0
+except ZeroDivisionError:
+    print("Cannot divide by zero!")
+
+try:
+    data = {"name": "Alice"}
+    age = data["age"]  # KeyError
+except KeyError:
+    print("Key not found")
+    age = None
+```
+
+<Tip>
+  Use `print()` statements or a debugger to inspect variable values. Python's `pdb` module provides interactive debugging.
+</Tip>
+
+## Reference
+
+[Real Python – Understanding the Python Traceback](https://realpython.com/python-traceback/)
+
+**Estimated time: 1-2 hours**

@@ -1,0 +1,82 @@
+---
+title: "Loops and Conditionals"
+description: "Control program flow with if/elif/else statements and for/while loops."
+sidebarTitle: "Loops & Conditionals"
+icon: "shuffle"
+keywords: ["loops", "conditionals", "if", "for", "while", "control flow"]
+---
+
+## Topic
+
+Use conditionals to make decisions and loops to repeat code.
+
+## If/elif/else statements
+
+```python
+age = 20
+
+if age < 13:
+    print("Child")
+elif age < 18:
+    print("Teenager")
+else:
+    print("Adult")
+```
+
+## For loops
+
+```python
+# Iterate over a list
+fruits = ["apple", "banana", "orange"]
+for fruit in fruits:
+    print(fruit)
+
+# Iterate with range
+for i in range(5):  # 0, 1, 2, 3, 4
+    print(i)
+
+# Iterate over dictionary
+person = {"name": "Alice", "age": 30}
+for key in person.keys():
+    print(f"{key}: {person[key]}")
+```
+
+## While loops
+
+```python
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+```
+
+## The 'in' operator
+
+```python
+fruits = ["apple", "banana"]
+if "apple" in fruits:
+    print("Found it!")
+
+if "grape" not in fruits:
+    print("Not found")
+```
+
+## Common patterns
+
+```python
+# Check multiple conditions
+x = 15
+if x > 10 and x < 20:
+    print("x is between 10 and 20")
+
+# Loop with condition
+for i in range(10):
+    if i % 2 == 0:
+        print(f"{i} is even")
+```
+
+## Reference
+
+[GeeksforGeeks – Conditional Statements](https://www.geeksforgeeks.org/python/conditional-statements-in-python/)
+
+**Estimated time: 1-2 hours**
