@@ -1,0 +1,348 @@
+---
+title: "Mintlify features"
+description: "A reference for the Mintlify page features used and available in this documentation project."
+sidebarTitle: "Feature reference"
+icon: "sparkles"
+tag: "REFERENCE"
+keywords: ["Mintlify", "page metadata", "MDX", "documentation features"]
+boost: 1.2
+hideFooterPagination: true
+---
+
+This page records which Mintlify features this project uses, which remain available, and how to add each one.
+
+## Features used
+
+### Page frontmatter
+
+Every documentation page uses YAML frontmatter for metadata.
+
+```yaml
+---
+title: "Networking"
+description: "Configure Linux networking, interfaces, routes, hostnames, and network services."
+sidebarTitle: "Networking"
+icon: "network"
+keywords: ["Linux networking", "interfaces", "routes"]
+---
+```
+
+Use these fields to control the browser title, page description, sidebar label, icon, and internal search keywords.
+
+### Metadata reference
+
+Use the following fields in a page's frontmatter. Fields marked **Used** are active in this project or on this reference page.
+
+| Metadata field | What it does | Project status |
+| --- | --- | --- |
+| `title` | Sets the page title shown in the browser and navigation. | Used on all pages |
+| `description` | Adds a page summary below the title and supports SEO. | Used on all pages |
+| `sidebarTitle` | Sets a shorter title in the sidebar. | Used on curriculum pages |
+| `icon` | Displays an icon beside the page in navigation. | Used on curriculum pages |
+| `iconType` | Selects the Font Awesome icon style, such as `solid` or `brands`. | Available, not used |
+| `tag` | Displays a label beside the page title, such as `NEW` or `LAB`. | Used on this page |
+| `keywords` | Adds extra terms that improve internal search results. | Used on all pages |
+| `hidden` | Removes a page from navigation while keeping its URL accessible. | Available, not used |
+| `noindex` | Excludes a page from search, sitemaps, and AI context. | Available, not used |
+| `searchable` | Controls whether a page appears in Mintlify site search. | Available, not used |
+| `boost` | Multiplies a page's internal search ranking. | Used on this page (`1.2`) |
+| `deprecated` | Shows a deprecated label while keeping the page accessible. | Available, not used |
+| `hideFooterPagination` | Hides previous and next page links at the bottom. | Used on this page |
+| `related` | Controls related-topic links at the bottom of a page. | Available, add-on required |
+| `contextual` | Overrides the global contextual menu for one page. | Available, global setting used |
+| `groups` | Restricts access to configured authentication groups. | Available, authentication required |
+| `mode` | Changes the page layout: `wide`, `custom`, `frame`, `center`, or `assistant`. | Available, default used |
+| `openapi` / `api` | Adds an interactive API playground from an API operation. | Available, not relevant |
+| `url` | Makes a navigation item link directly to an external page. | Available, not used |
+| `timestamp` | Shows or hides the last-modified timestamp for one page. | Global setting used |
+| `lastUpdatedDate` | Overrides the displayed last-updated date. | Available, not used |
+| `"twitter:image"` | Sets a custom social sharing image. | Available, not used |
+| Custom fields | Stores project-specific metadata such as `product` or `version`. | Available, not used |
+
+### Navigation groups
+
+Pages are organized in `docs.json` under groups.
+
+```json
+{
+  "group": "Linux Learning",
+  "pages": [
+    "index",
+    "basic-commands",
+    "networking"
+  ]
+}
+```
+
+The first page in the Linux group is `index`, so the overview is the landing page.
+
+### Landing page cards
+
+The overview uses `<CardGroup>` and `<Card>` components to link to learning paths and subtopics.
+
+```mdx
+<CardGroup cols={2}>
+  <Card title="Networking" icon="network" href="/networking">
+    Inspect interfaces, routes, services, and connectivity.
+  </Card>
+</CardGroup>
+```
+
+### Notes, warnings, and steps
+
+The curriculum uses callouts for guidance and warnings.
+
+```mdx
+<Note>
+  Use a disposable lab environment for system changes.
+</Note>
+
+<Warning>
+  Confirm device names before formatting a disk.
+</Warning>
+```
+
+`quickstart.mdx` also demonstrates `<Steps>` and `<Step>` components.
+
+### Reusable snippets
+
+Pages import shared MDX files from `snippets/`.
+
+```mdx
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
+<LinuxLabSafety />
+```
+
+This project uses text snippets, nested snippets, and a parameterized package-install snippet.
+
+### Nested snippets
+
+A parent snippet imports its child snippet inside the parent file.
+
+```mdx
+import LinuxCommandGuidance from './linux-command-guidance.mdx';
+
+<LinuxCommandGuidance />
+```
+
+The page imports only the parent snippet. Each snippet resolves its own imports.
+
+### Parameterized snippets
+
+The package installation snippet accepts values from the page.
+
+```mdx
+import PackageInstall from './snippets/package-install.mdx';
+
+<PackageInstall packageManager="sudo apt" packageName="curl" />
+```
+
+The same snippet can render a different command:
+
+```mdx
+<PackageInstall packageManager="sudo dnf" packageName="curl" />
+```
+
+### Copyable code blocks
+
+Fenced code blocks provide Mintlify's copy control in the rendered page.
+
+```bash
+ip address show
+ip route
+ping -c 4 8.8.8.8
+```
+
+Use `text` blocks for sample output so readers do not accidentally copy output as a command.
+
+### Search keywords
+
+Pages use `keywords` to improve internal search without adding unrelated words to visible content.
+
+```yaml
+keywords: ["Linux networking", "hostname", "interfaces", "routes"]
+```
+
+### Contextual tools
+
+The project enables the contextual menu globally in `docs.json` for copy, view, AI tools, MCP, Cursor, and VS Code.
+
+```json
+"contextual": {
+  "options": ["copy", "view", "chatgpt", "claude", "perplexity", "mcp", "cursor", "vscode"]
+}
+```
+
+### Last-modified timestamps
+
+`docs.json` enables timestamps for all pages:
+
+```json
+"metadata": {
+  "timestamp": true
+}
+```
+
+Mintlify uses the last Git commit date for each page unless `lastUpdatedDate` is set in that page's frontmatter.
+
+## Features not currently used
+
+These features are supported by Mintlify but are not enabled on the curriculum pages yet.
+
+### Sidebar tags
+
+This page uses `tag: "REFERENCE"` as an example. Add a tag when a page needs a visible label such as `NEW`, `LAB`, or `BETA`.
+
+```yaml
+tag: "LAB"
+```
+
+### Page layouts
+
+The curriculum uses the default layout. Choose another mode only when the page needs a different reading experience.
+
+```yaml
+mode: "wide"
+```
+
+Available modes are `wide`, `custom`, `frame`, `center`, and `assistant`. The `assistant` mode requires the assistant to be enabled for the deployment.
+
+### Related topics
+
+Related topics require the Related Pages add-on. When enabled, use this metadata to control the links shown at the bottom of a page.
+
+```yaml
+related:
+  - "permissions"
+  - "user-management"
+```
+
+Use `related: false` to hide the section on a specific page.
+
+### Search ranking
+
+Use `boost` to prioritize an important page in internal search. This feature is used on this reference page with `boost: 1.2`.
+
+```yaml
+boost: 1.2
+```
+
+### Search and indexing controls
+
+Keep a page visible but exclude it from internal search with `searchable: false`:
+
+```yaml
+searchable: false
+```
+
+Use `noindex: true` to exclude a page from search engines, sitemaps, site search, and AI context:
+
+```yaml
+noindex: true
+```
+
+Use `hidden: true` for pages that should be accessible by URL but removed from navigation. Hidden pages are also excluded from indexing.
+
+### Deprecated pages
+
+Mark an old page without removing it:
+
+```yaml
+deprecated: true
+```
+
+Mintlify displays a deprecated label while keeping the page accessible.
+
+### Footer pagination
+
+Hide previous and next links on standalone pages:
+
+```yaml
+hideFooterPagination: true
+```
+
+This page uses that setting because it is a reference page rather than a sequential lesson.
+
+### Custom contextual settings
+
+Override the global contextual menu for one page:
+
+```yaml
+contextual:
+  options: ["copy", "view"]
+```
+
+Use `options: []` to disable the menu on a page.
+
+### Custom metadata and SEO
+
+Mintlify accepts custom YAML metadata and SEO fields.
+
+```yaml
+product: "Linux Learning"
+version: "1.0"
+"twitter:image": "/images/social-preview.jpg"
+```
+
+Use these when search previews, social cards, or version information need to be customized.
+
+### Last updated date override
+
+Use a fixed date when Git history does not represent the content's actual update date:
+
+```yaml
+lastUpdatedDate: "2026-08-26"
+```
+
+### External pages
+
+Link a navigation item directly to an external resource:
+
+```yaml
+title: "Mintlify documentation"
+url: "https://www.mintlify.com/docs"
+```
+
+### API pages
+
+API documentation can create an interactive playground from an OpenAPI operation:
+
+```yaml
+openapi: "GET /users"
+```
+
+This project is a Linux and Git curriculum, so it does not currently need API playground pages.
+
+### Access-controlled pages
+
+Restrict a page to configured authentication groups:
+
+```yaml
+groups: ["instructors"]
+```
+
+Authentication must be configured before using this feature.
+
+### React or JSX snippets
+
+Mintlify supports reusable `.jsx` snippets for custom components:
+
+```jsx
+export const StatusBadge = ({ label }) => <span>{label}</span>;
+```
+
+This project does not use JSX snippets because the curriculum only needs Markdown, MDX components, and reusable text.
+
+## Recommended next additions
+
+For this project, the most useful future additions are:
+
+- Add `related` links after enabling the Related Pages add-on.
+- Add `tag: "LAB"` to practical assessment pages.
+- Add a fixed `lastUpdatedDate` only when content is imported from an external source.
+- Use `mode: "wide"` only for pages with wide tables or diagrams.
+
+<Tip>
+  Keep page metadata focused. Add a feature when it improves navigation, search, readability, or maintenance for your readers.
+</Tip>

@@ -1,0 +1,35 @@
+---
+title: "Log management"
+description: "View and analyze Linux system logs with syslog and journald."
+sidebarTitle: "Log management"
+icon: "file-text"
+keywords: ["Linux logs", "syslog", "journald", "log analysis"]
+---
+
+Learn where Linux records system activity and how to investigate those records.
+
+## Topic
+
+Read traditional syslog files and query structured logs stored by `systemd-journald`.
+
+## Commands to implement it
+
+```bash
+sudo journalctl -b --no-pager -n 20
+sudo journalctl -u ssh --since today
+sudo journalctl -p warning..alert --no-pager
+sudo tail -n 20 /var/log/syslog
+```
+
+On some distributions, the main system log is `/var/log/messages` instead of `/var/log/syslog`.
+
+## Output
+
+```text
+Aug 26 10:20:14 linux-lab sshd[1220]: Accepted publickey for student
+Aug 26 10:20:14 linux-lab systemd[1]: Started OpenBSD Secure Shell server.
+```
+
+<Note>
+	Use `journalctl -f` to follow new log entries in real time. Press `Ctrl+C` to stop following.
+</Note>

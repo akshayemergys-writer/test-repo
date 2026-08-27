@@ -1,0 +1,42 @@
+---
+title: "Linux boot process"
+description: "Understand how Linux starts from firmware through the kernel and systemd."
+sidebarTitle: "Linux boot process"
+icon: "play-circle"
+keywords: ["Linux boot", "BIOS", "UEFI", "GRUB", "kernel", "systemd", "runlevels"]
+---
+
+Learn the stages a Linux system passes through before it becomes ready for use.
+
+## Topic
+
+Understand the sequence from BIOS or UEFI firmware to GRUB, the kernel, and `systemd`.
+
+## Commands to implement it
+
+```bash
+systemd-analyze time
+systemd-analyze blame
+systemctl get-default
+systemctl list-units --type=target --state=active
+```
+
+Use `journalctl -b` to inspect messages from the current boot.
+
+```bash
+journalctl -b --no-pager -n 20
+```
+
+## Output
+
+```text
+Startup finished in 4.112s (firmware) + 1.850s (loader) + 2.214s (kernel) + 3.901s (userspace)
+```
+
+```text
+multi-user.target
+```
+
+<Note>
+	Modern `systemd` targets replace traditional runlevels. For example, `multi-user.target` is commonly associated with runlevel 3 and `graphical.target` with runlevel 5.
+</Note>

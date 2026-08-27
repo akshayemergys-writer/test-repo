@@ -1,0 +1,49 @@
+---
+title: "File system management"
+description: "Understand the Linux file system and manage files, directories, links, and archives."
+sidebarTitle: "File system management"
+icon: "folder-tree"
+keywords: ["Linux file system", "files", "directories", "links", "tar", "gzip", "zip"]
+---
+
+Learn how Linux organizes data and how to manage files and directories safely.
+
+## Topic
+
+Explore the file system hierarchy, manage files and directories, create links, and compress archives.
+
+## Commands to implement it
+
+```bash
+ls /
+mkdir -p ~/lab/files
+touch ~/lab/files/example.txt
+cp ~/lab/files/example.txt ~/lab/files/copy.txt
+mv ~/lab/files/copy.txt ~/lab/files/renamed.txt
+ln ~/lab/files/example.txt ~/lab/files/hard-link.txt
+ln -s ~/lab/files/example.txt ~/lab/files/soft-link.txt
+tar -czf ~/lab/files.tar.gz ~/lab/files
+```
+
+Use `rm` only after checking the path. The archive command may print a warning because the source path is inside the home directory being archived.
+
+## Output
+
+```text
+bin  boot  dev  etc  home  lib  media  mnt  opt  proc  root  run  sbin  tmp  usr  var
+```
+
+```bash
+ls -l ~/lab/files
+```
+
+```text
+-rw-r--r-- 2 student student 0 Aug 26 10:15 example.txt
+-rw-r--r-- 2 student student 0 Aug 26 10:15 hard-link.txt
+lrwxrwxrwx 1 student student 30 Aug 26 10:15 soft-link.txt -> /home/student/lab/files/example.txt
+-rw-r--r-- 1 student student 0 Aug 26 10:15 renamed.txt
+```
+
+<Note>
+	A hard link points to the same inode as the original file. A soft link stores a path and can become broken if that path is removed.
+</Note>

@@ -1,7 +1,7 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mintlify Starter Kit",
+  "name": "Linux and Git Learning",
   "colors": {
     "primary": "#16A34A",
     "light": "#07C983",
@@ -11,10 +11,35 @@
   "navigation": {
     "pages": [
       {
-        "group": "Getting Started",
+        "group": "Linux Learning",
         "pages": [
           "index",
-          "quickstart"
+          "basic-commands",
+          "user-management",
+          "file-system-management",
+          "services-management",
+          "disk-storage-management",
+          "permissions",
+          "package-repo-management",
+          "log-management",
+          "performance-management",
+          "linux-boot-process",
+          "networking",
+          "troubleshooting-steps",
+          "assignment",
+          "nfs"
+        ]
+      },
+      {
+        "group": "Git and GitHub",
+        "pages": [
+          "git-and-github"
+        ]
+      },
+      {
+        "group": "Mintlify Features",
+        "pages": [
+          "mintlify-features"
         ]
       }
     ],
@@ -61,6 +86,9 @@
       "cursor",
       "vscode"
     ]
+  },
+  "metadata": {
+    "timestamp": true
   },
   "footer": {
     "socials": {

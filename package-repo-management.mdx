@@ -1,0 +1,58 @@
+---
+title: "Package and repository management"
+description: "Install, update, remove, and inspect Linux packages and repositories."
+sidebarTitle: "Package and repository management"
+icon: "box"
+keywords: ["Linux packages", "yum", "dnf", "apt", "RPM", "DPKG", "repositories"]
+---
+
+import PackageManagerNote from './snippets/package-manager-note.mdx';
+import PackageInstall from './snippets/package-install.mdx';
+
+Learn how Linux package managers install software and manage software sources.
+
+<PackageManagerNote />
+
+## Topic
+
+Search for, install, update, remove, and inspect software packages using Debian- or RPM-based tools.
+
+## Commands to implement it
+
+For Debian and Ubuntu:
+
+```bash
+sudo apt update
+apt search curl
+dpkg -s curl
+sudo apt remove curl
+```
+
+<PackageInstall packageManager="sudo apt" packageName="curl" />
+
+For Fedora, RHEL, and related systems:
+
+```bash
+sudo dnf check-update
+dnf search curl
+rpm -q curl
+sudo dnf remove curl
+```
+
+<PackageInstall packageManager="sudo dnf" packageName="curl" />
+
+## Output
+
+```text
+curl:
+	Installed: 7.88.1-10+deb12u8
+	Status: install ok installed
+```
+
+```text
+curl.x86_64    8.5.0-1.fc40    @updates
+```
+
+<Note>
+	`dpkg` and `rpm` inspect individual package files, while `apt` and `dnf` resolve dependencies and retrieve packages from repositories.
+</Note>

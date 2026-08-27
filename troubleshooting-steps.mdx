@@ -1,0 +1,56 @@
+---
+title: "Troubleshooting steps"
+description: "Use a structured approach to diagnose Linux boot, network, and application issues."
+sidebarTitle: "Troubleshooting"
+icon: "wrench"
+keywords: ["Linux troubleshooting", "boot issues", "network issues", "application issues"]
+---
+
+Learn a repeatable process for isolating and resolving common Linux problems.
+
+## Topic
+
+Collect facts first, isolate the failing layer, test one change at a time, and verify the result.
+
+## Commands to implement it
+
+For boot and service issues:
+
+```bash
+systemctl --failed
+journalctl -b -p err --no-pager
+systemctl status service-name
+```
+
+For network issues:
+
+```bash
+ip address
+ip route
+ping -c 4 127.0.0.1
+getent hosts example.com
+curl -v https://example.com
+```
+
+For application issues:
+
+```bash
+ps aux | grep application-name
+ss -tuln
+journalctl -u application-name --since "10 minutes ago"
+```
+
+## Output
+
+```text
+	UNIT             LOAD   ACTIVE SUB    DESCRIPTION
+● service-name.service loaded failed failed Example service
+```
+
+```text
+curl: (6) Could not resolve host: example.com
+```
+
+<Note>
+	Start with the smallest useful check. A failed DNS lookup, for example, should be investigated before debugging the application itself.
+</Note>

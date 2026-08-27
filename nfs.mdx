@@ -1,0 +1,57 @@
+---
+title: "NFS"
+description: "Learn the basics of NFS and set up shared storage between Linux systems."
+sidebarTitle: "NFS"
+icon: "share-2"
+keywords: ["NFS", "Network File System", "NFS server", "NFS client", "mount NFS"]
+---
+
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
+Learn how to share directories between Linux systems using the Network File System (NFS).
+
+<LinuxLabSafety />
+
+## Topic
+
+Export a directory from an NFS server and mount that export on a client system.
+
+## Commands to implement it
+
+On the NFS server:
+
+```bash
+sudo apt install nfs-kernel-server
+sudo mkdir -p /srv/nfs/share
+sudo chown nobody:nogroup /srv/nfs/share
+echo "/srv/nfs/share 192.168.1.0/24(rw,sync,no_subtree_check)" | sudo tee -a /etc/exports
+sudo exportfs -rav
+sudo systemctl enable --now nfs-server
+```
+
+On the NFS client:
+
+```bash
+sudo apt install nfs-common
+sudo mkdir -p /mnt/nfs
+sudo mount -t nfs 192.168.1.10:/srv/nfs/share /mnt/nfs
+findmnt /mnt/nfs
+sudo umount /mnt/nfs
+```
+
+Replace the IP addresses and package commands for your distribution. Restrict exports to trusted networks.
+
+## Output
+
+```text
+/srv/nfs/share  192.168.1.0/24
+```
+
+```text
+TARGET    SOURCE                            FSTYPE OPTIONS
+/mnt/nfs  192.168.1.10:/srv/nfs/share      nfs4   rw,relatime
+```
+
+<Note>
+	NFS permissions are affected by both the export options and normal Linux ownership and mode bits on the shared directory.
+</Note>

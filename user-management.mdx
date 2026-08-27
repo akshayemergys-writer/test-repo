@@ -1,0 +1,40 @@
+---
+title: "User management"
+description: "Manage Linux users, passwords, and group membership from the terminal."
+sidebarTitle: "User management"
+icon: "users"
+keywords: ["Linux users", "useradd", "passwd", "groups"]
+---
+
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
+Learn how to manage local user accounts and group membership.
+
+<LinuxLabSafety />
+
+## Topic
+
+Create users, set passwords, remove accounts, and manage group membership.
+
+## Commands to implement it
+
+```bash
+sudo useradd -m -s /bin/bash learner
+sudo passwd learner
+sudo groupadd developers
+sudo usermod -aG developers learner
+id learner
+sudo userdel -r learner
+```
+
+Do not run the deletion command on a real account unless you have confirmed the username and backed up required data.
+
+## Output
+
+```text
+uid=1001(learner) gid=1001(learner) groups=1001(learner),1002(developers)
+```
+
+<Note>
+	The `-aG` options append a user to a supplementary group. Omitting `-a` can replace the user's existing supplementary groups.
+</Note>

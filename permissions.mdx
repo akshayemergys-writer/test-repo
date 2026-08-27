@@ -1,0 +1,45 @@
+---
+title: "Permissions"
+description: "Control access to Linux files and directories with permissions, ownership, and ACLs."
+sidebarTitle: "Permissions"
+icon: "lock"
+keywords: ["Linux permissions", "ownership", "chmod", "ACL"]
+---
+
+Learn how Linux controls access to files and directories.
+
+## Topic
+
+Read permission bits, change modes and ownership, and grant additional access with ACLs.
+
+## Commands to implement it
+
+```bash
+touch ~/example.txt
+ls -l ~/example.txt
+chmod 640 ~/example.txt
+sudo chown student:student ~/example.txt
+getfacl ~/example.txt
+setfacl -m u:analyst:r ~/example.txt
+getfacl ~/example.txt
+```
+
+Replace `student` and `analyst` with accounts that exist on your system.
+
+## Output
+
+```text
+-rw-r----- 1 student student 0 Aug 26 10:15 /home/student/example.txt
+```
+
+```text
+user::rw-
+user:analyst:r--
+group::r--
+mask::r--
+other::---
+```
+
+<Note>
+	In `640`, the digits represent owner, group, and other permissions: read/write, read, and no access.
+</Note>

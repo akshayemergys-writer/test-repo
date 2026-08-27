@@ -1,0 +1,56 @@
+---
+title: "Disk and storage management"
+description: "Partition, format, mount, and monitor Linux storage, including LVM."
+sidebarTitle: "Disk and storage"
+icon: "hard-drive"
+keywords: ["Linux storage", "partitions", "mount", "disk space", "LVM"]
+---
+
+import LinuxLabSafety from './snippets/linux-lab-safety.mdx';
+
+Learn the core tasks for preparing and managing Linux disks and file systems.
+
+<LinuxLabSafety />
+
+## Topic
+
+Inspect disks, create file systems, mount storage, check usage, and manage logical volumes.
+
+## Commands to implement it
+
+```bash
+lsblk
+sudo fdisk -l
+df -h
+du -sh /var/log
+findmnt
+```
+
+```bash
+sudo mkfs.ext4 /dev/sdb1
+sudo mkdir -p /mnt/data
+sudo mount /dev/sdb1 /mnt/data
+sudo umount /mnt/data
+```
+
+Example LVM workflow on a test disk:
+
+```bash
+sudo pvcreate /dev/sdb1
+sudo vgcreate data_vg /dev/sdb1
+sudo lvcreate -L 5G -n data_lv data_vg
+sudo mkfs.ext4 /dev/data_vg/data_lv
+```
+
+## Output
+
+```text
+NAME   SIZE TYPE MOUNTPOINT
+sda     40G disk
+├─sda1  1G part /boot
+└─sda2 39G part /
+```
+
+<Note>
+	`lsblk` is a useful first check because it shows device names, partitions, file systems, and mount points without changing storage.
+</Note>

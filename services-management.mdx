@@ -1,0 +1,38 @@
+---
+title: "Services management"
+description: "Manage Linux services and inspect their states, status, and logs with systemd."
+sidebarTitle: "Services management"
+icon: "server"
+keywords: ["systemd", "Linux services", "service status", "journald"]
+---
+
+Learn how to control background services with `systemd`.
+
+## Topic
+
+Inspect service states, start and stop services, enable them at boot, and read their logs.
+
+## Commands to implement it
+
+```bash
+systemctl status ssh
+sudo systemctl start ssh
+sudo systemctl stop ssh
+sudo systemctl enable ssh
+sudo systemctl disable ssh
+journalctl -u ssh --no-pager -n 20
+```
+
+Replace `ssh` with the service name installed on your system.
+
+## Output
+
+```text
+● ssh.service - OpenBSD Secure Shell server
+		 Loaded: loaded (...; enabled)
+		 Active: active (running)
+```
+
+<Note>
+	`active`, `inactive`, and `failed` describe the current runtime state. `enabled` and `disabled` describe whether a service starts automatically at boot.
+</Note>
