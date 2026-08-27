@@ -1,0 +1,97 @@
+---
+title: "Understanding Common AI/ML Libraries"
+description: "Get an overview of key Python libraries used in machine learning and AI."
+sidebarTitle: "AI/ML Libraries Overview"
+icon: "brain"
+keywords: ["numpy", "pandas", "scikit-learn", "tensorflow", "pytorch", "libraries"]
+---
+
+## Topic
+
+Python's ecosystem includes powerful libraries for AI and machine learning. Understanding what each does helps you recognize patterns in code and documentation.
+
+## Essential libraries overview
+
+### Data manipulation
+
+```python
+import numpy as np      # Numerical computing, arrays
+import pandas as pd     # Data frames and tables
+```
+
+### Machine learning
+
+```python
+import scikit-learn     # Classical ML (regression, classification)
+from sklearn.model_selection import train_test_split
+```
+
+### Deep learning
+
+```python
+import torch           # PyTorch - deep learning framework
+import tensorflow       # TensorFlow - deep learning framework
+```
+
+### Natural language processing
+
+```python
+from transformers import pipeline  # Hugging Face - pre-trained models
+import openai                        # OpenAI API - GPT models
+```
+
+### Language models and chains
+
+```python
+import langchain       # LLM orchestration
+import pydantic        # Data validation
+```
+
+### Web frameworks
+
+```python
+import fastapi         # Fast web API framework
+from flask import Flask # Lightweight web framework
+```
+
+## Reading import statements
+
+When you see:
+
+```python
+from transformers import AutoTokenizer
+```
+
+It means:
+- Look in the `transformers` package
+- Get the `AutoTokenizer` class or function
+
+When you see:
+
+```python
+import numpy as np
+```
+
+It means:
+- Import `numpy` and call it `np` (shorthand)
+- Use it as `np.array()`, `np.random()`, etc.
+
+## Recognizing library patterns
+
+Each library has conventions:
+
+- **NumPy**: `np.array()`, `np.mean()`, `np.reshape()`, `.shape`
+- **Pandas**: `pd.read_csv()`, `df.loc[]`, `df.groupby()`, `.describe()`
+- **PyTorch**: `torch.tensor()`, `.backward()`, `.parameters()`
+- **TensorFlow**: `tf.keras.Sequential()`, `.compile()`, `.fit()`
+- **Transformers**: `pipeline("task")`, `AutoModel.from_pretrained()`
+
+<Note>
+  You don't need to master all libraries at once. Focus on the ones relevant to your project, then learn others as needed.
+</Note>
+
+## Reference
+
+[Analytics Vidhya – Python Libraries for AI and ML](https://www.analyticsvidhya.com/blog/2026/01/python-libraries-for-ai-and-machine-learning/)
+
+**Estimated time: 1-2 hours**

@@ -1,0 +1,61 @@
+---
+title: "Understanding Project Folder Structure"
+description: "Explore typical Python project layout and what each directory and file does."
+sidebarTitle: "Project Folder Structure"
+icon: "folder-tree"
+keywords: ["project structure", "folder layout", "best practices", "README", "requirements"]
+---
+
+## Topic
+
+A well-organized Python project follows a consistent structure that makes code maintainable and collaboration-friendly.
+
+## Typical project layout
+
+```
+my-project/
+├── src/                 # Source code
+│   └── my_package/
+│       ├── __init__.py
+│       ├── main.py
+│       └── utils.py
+├── tests/               # Test files
+│   ├── test_main.py
+│   └── test_utils.py
+├── docs/                # Documentation
+│   └── README.md
+├── data/                # Data files
+│   ├── raw/
+│   └── processed/
+├── notebooks/           # Jupyter notebooks
+│   └── exploration.ipynb
+├── README.md            # Project overview
+├── requirements.txt     # Dependencies
+├── .env                 # Environment variables
+├── .gitignore           # Git ignore rules
+├── config.py            # Configuration
+└── setup.py             # Package setup
+```
+
+## What each folder/file does
+
+- **src/**: Contains your main application code.
+- **tests/**: Unit tests and integration tests.
+- **docs/**: Documentation files and guides.
+- **data/**: Raw and processed datasets.
+- **notebooks/**: Exploratory Jupyter notebooks.
+- **README.md**: Project overview, usage, and setup instructions.
+- **requirements.txt**: List of package dependencies.
+- **.env**: Environment-specific variables (don't commit).
+- **.gitignore**: Files to exclude from version control.
+- **setup.py**: Package metadata and installation script.
+
+<Tip>
+  Keep your project organized from the start. It becomes harder to refactor later.
+</Tip>
+
+## Reference
+
+[Medium – Understanding Web Project Folder Structure](https://medium.com/@mohitkhubchandani88/understanding-web-project-folder-structure-6cc7ae62fb40)
+
+**Estimated time: 1-2 hours**

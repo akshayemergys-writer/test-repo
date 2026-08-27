@@ -1,0 +1,117 @@
+---
+title: "Model Evaluation and Metrics"
+description: "Learn which metrics matter for different tasks and how to interpret classification reports."
+sidebarTitle: "Model Evaluation"
+icon: "chart-bar"
+keywords: ["evaluation", "metrics", "accuracy", "precision", "recall", "F1-score"]
+---
+
+## Topic
+
+Metrics tell you how well your model performs. Different tasks need different metrics.
+
+## Classification metrics
+
+### Accuracy
+
+Percentage of correct predictions. Simple but can be misleading with imbalanced data.
+
+```
+Accuracy = (Correct Predictions) / (Total Predictions)
+```
+
+**When to use**: Balanced datasets where all errors are equally important.
+
+### Precision
+
+Of the positive predictions, how many were actually correct? (Minimizes false positives)
+
+```
+Precision = TP / (TP + FP)
+```
+
+**When to use**: Email spam detection (want to avoid marking good emails as spam).
+
+### Recall
+
+Of the actual positives, how many did we correctly identify? (Minimizes false negatives)
+
+```
+Recall = TP / (TP + FN)
+```
+
+**When to use**: Disease detection (want to find all cases, even if it means false alarms).
+
+### F1-Score
+
+Harmonic mean of precision and recall. Balances both metrics.
+
+```
+F1 = 2 × (Precision × Recall) / (Precision + Recall)
+```
+
+**When to use**: When you want a single score balancing precision and recall.
+
+## Reading a classification report
+
+Example scikit-learn output:
+
+```
+              precision    recall  f1-score   support
+
+           0       0.92      0.95      0.93       100
+           1       0.88      0.82      0.85        50
+
+    accuracy                           0.90       150
+   macro avg       0.90      0.88      0.89       150
+weighted avg       0.90      0.90      0.90       150
+```
+
+**Interpretation**:
+- **Class 0**: 92% precision, 95% recall, F1 of 0.93, with 100 examples
+- **Class 1**: 88% precision, 82% recall, F1 of 0.85, with 50 examples
+- **Overall accuracy**: 90% of predictions were correct
+- **Macro avg**: Average of metrics across classes (treats both classes equally)
+- **Weighted avg**: Average weighted by class frequency (respects imbalance)
+
+## Confusion matrix interpretation
+
+```
+Predicted:  Pos   Neg
+Actual Pos:  90   10    (90 correct, 10 missed)
+Actual Neg:  5    45    (45 correct, 5 false alarms)
+```
+
+- **Top-left (90)**: True Positives – correct positive predictions
+- **Top-right (10)**: False Negatives – missed positives
+- **Bottom-left (5)**: False Positives – incorrect positive predictions
+- **Bottom-right (45)**: True Negatives – correct negative predictions
+
+## Regression metrics
+
+| Metric | Formula | Use Case |
+|--------|---------|----------|
+| MAE | Average of absolute errors | Easy to interpret (same units as target) |
+| MSE | Average of squared errors | Penalizes large errors more |
+| RMSE | Square root of MSE | Same units as target, emphasizes outliers |
+| R² | Proportion of variance explained | "% of variance captured by model" |
+
+## Choosing the right metric
+
+| Scenario | Best Metric |
+|----------|------------|
+| Balanced dataset | Accuracy, F1 |
+| Imbalanced dataset | Precision, Recall, F1 |
+| Cost of false positives high | Precision |
+| Cost of false negatives high | Recall |
+| Need one number | F1 or ROC-AUC |
+
+<Note>
+  Don't rely on a single metric. Check precision, recall, F1, and confusion matrix together for a complete picture.
+</Note>
+
+## Reference
+
+[DataCamp – Model Evaluation Basics](https://www.datacamp.com/tutorial/machine-learning-models-evaluation-basics)
+
+**Estimated time: 1-2 hours**

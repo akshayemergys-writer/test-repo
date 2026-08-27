@@ -1,0 +1,64 @@
+---
+title: "Virtual Environments and requirements.txt"
+description: "Create isolated Python environments and manage project dependencies."
+sidebarTitle: "Virtual Environments & requirements.txt"
+icon: "box-open"
+keywords: ["virtual environment", "venv", "requirements.txt", "pip freeze", "isolation"]
+---
+
+## Topic
+
+Virtual environments isolate project dependencies. Each project has its own environment so packages don't conflict.
+
+## Creating and using a virtual environment
+
+```bash
+# Create a virtual environment
+python -m venv myenv
+
+# Activate it (macOS/Linux)
+source myenv/bin/activate
+
+# Activate it (Windows)
+myenv\Scripts\activate
+
+# You'll see the environment name in your terminal prompt: (myenv)
+
+# Deactivate the environment
+deactivate
+```
+
+## Managing dependencies with requirements.txt
+
+```bash
+# Freeze current environment to a file
+pip freeze > requirements.txt
+
+# Install all packages from requirements.txt
+pip install -r requirements.txt
+```
+
+Example `requirements.txt`:
+
+```text
+requests==2.31.0
+numpy==1.24.3
+pandas>=1.5.0,<2.0.0
+python-dotenv==1.0.0
+```
+
+<Warning>
+  Never commit your virtual environment folder to git. Add `venv/` or `env/` to your `.gitignore`.
+</Warning>
+
+## Why virtual environments matter
+
+- Avoid package version conflicts between projects.
+- Make projects reproducible and portable.
+- Keep your global Python clean.
+
+## Reference
+
+[Python Packaging Guide – Virtual Environments](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/)
+
+**Estimated time: 1-2 hours**

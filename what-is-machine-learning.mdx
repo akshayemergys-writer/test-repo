@@ -1,0 +1,82 @@
+title: "What is Machine Learning?"
+description: "Understand supervised, unsupervised, and reinforcement learning, and the difference between training and inference."
+sidebarTitle: "What is ML?"
+icon: "graduation-cap"
+keywords: ["machine learning", "supervised learning", "unsupervised learning", "training", "inference"]
+
+## Topic
+
+Machine learning enables computers to learn from data instead of following explicit instructions. There are three main categories.
+
+## Learning paradigms
+
+### Supervised Learning
+
+The model learns from labeled examples (input → expected output).
+
+
+Example: A model trained on emails labeled as "spam" or "not spam" learns to classify new emails.
+
+### Unsupervised Learning
+
+The model finds patterns in unlabeled data without being told what to look for.
+
+- **Clustering**: Group similar items (customer segments)
+- **Dimensionality reduction**: Simplify data while keeping important info
+
+Example: A model groups customers by purchase behavior without being told what groups to find.
+
+### Reinforcement Learning
+
+The model learns by interacting with an environment and receiving rewards or penalties.
+
+Example: A game AI learns to play by trial-and-error, receiving higher rewards for winning moves.
+
+## Training vs. Inference
+
+**Training**: The process of learning from data. The model sees examples and updates its internal weights.
+
+```
+Raw Data → Training Process → Trained Model
+```
+
+**Inference**: Using a trained model to make predictions on new, unseen data.
+
+```
+New Input → Trained Model → Prediction
+```
+
+Think of it like learning to drive:
+- **Training**: Hours of practice (learning from examples)
+- **Inference**: Actually driving to work (using what you learned)
+
+## What is a model?
+
+A model is a mathematical function learned from data. It has internal parameters (weights) that were adjusted during training to make accurate predictions.
+
+## Datasets, Features, and Labels
+
+- **Dataset**: Collection of examples used for training/testing
+- **Features**: Input variables (e.g., house size, location, age)
+- **Labels**: Expected outputs or ground truth (e.g., house price)
+
+```
+Dataset:
+┌──────────────────────────────────────────┐
+│ Features          │ Label                │
+├─────────────────────────────────────────┤
+│ Size, Location    │ Price                │
+│ 2000 sq ft, NYC   │ $500,000             │
+│ 1500 sq ft, LA    │ $400,000             │
+└──────────────────────────────────────────┘
+```
+
+<Note>
+  The quality of your data determines the quality of your model. Garbage in, garbage out.
+</Note>
+
+## Reference
+
+[Google ML Crash Course – Introduction](https://developers.google.com/machine-learning/crash-course)
+
+**Estimated time: 1-2 hours**

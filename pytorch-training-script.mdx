@@ -1,0 +1,154 @@
+---
+title: "Reading a PyTorch Training Script"
+description: "Understand the anatomy of a training loop: dataset, model, forward pass, loss, backward, optimizer step."
+sidebarTitle: "PyTorch Training Script"
+icon: "graduation-cap"
+keywords: ["training loop", "forward pass", "backward pass", "optimizer", "loss"]
+---
+
+## Topic
+
+Most deep learning code follows a similar structure. Understanding a training script helps you debug and modify models.
+
+## Anatomy of a training loop
+
+```python
+import torch
+from torch import nn
+from torch.optim import Adam
+from torch.utils.data import DataLoader
+
+# 1. Load dataset
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+
+# 2. Define model
+model = MyNeuralNetwork()
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
+# 3. Define loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = Adam(model.parameters(), lr=1e-3)
+
+# 4. Training loop
+for epoch in range(num_epochs):
+    for batch_idx, (images, labels) in enumerate(train_loader):
+        # Move to device (GPU)
+        images, labels = images.to(device), labels.to(device)
+        
+        # Forward pass
+        predictions = model(images)
+        loss = loss_fn(predictions, labels)
+        
+        # Backward pass
+        optimizer.zero_grad()  # Clear gradients
+        loss.backward()        # Compute gradients
+        optimizer.step()       # Update weights
+        
+        # Log progress
+        if batch_idx % 100 == 0:
+            print(f"Epoch {epoch}, Batch {batch_idx}, Loss {loss.item()}")
+```
+
+## Key components explained
+
+### Dataset loading
+
+```python
+train_loader = DataLoader(dataset, batch_size=32)
+```
+
+- **Batch**: Small group of examples (32 here) processed together
+- **Shuffle**: Randomize order for better learning
+- Yields batches of `(input, target)` tuples
+
+### Model definition
+
+```python
+model = MyNeuralNetwork()
+model.to(device)  # Move to GPU
+```
+
+- Define architecture once
+- Move to device (GPU) if available
+
+### Loss function
+
+```python
+loss_fn = nn.CrossEntropyLoss()  # Classification
+loss_fn = nn.MSELoss()           # Regression
+```
+
+- Measures how wrong predictions are
+- Lower loss = better model
+
+### Optimizer
+
+```python
+optimizer = Adam(model.parameters(), lr=1e-3)
+```
+
+- Updates model weights to reduce loss
+- Learning rate `lr` controls step size
+- Common optimizers: Adam, SGD, AdamW
+
+### Forward pass
+
+```python
+predictions = model(images)
+loss = loss_fn(predictions, labels)
+```
+
+- Pass input through model
+- Calculate loss between predictions and true labels
+
+### Backward pass
+
+```python
+optimizer.zero_grad()  # Clear old gradients
+loss.backward()        # Calculate gradients (∂loss/∂weight)
+optimizer.step()       # Update weights using gradients
+```
+
+1. **Zero gradients**: PyTorch accumulates gradients; clear them first
+2. **Backward**: Compute how much each weight contributed to the loss
+3. **Step**: Adjust weights in direction that reduces loss
+
+## Model.train() vs model.eval()
+
+```python
+# During training
+model.train()
+# Some layers (Dropout, BatchNorm) behave differently
+
+# During validation/testing
+model.eval()
+with torch.no_grad():  # Don't track gradients
+    predictions = model(test_images)
+```
+
+- **`model.train()`**: Enables dropout, updates batch norm statistics
+- **`model.eval()`**: Disables dropout, uses learned batch norm statistics
+- **`torch.no_grad()`**: Skip gradient computation (memory/speed savings)
+
+## Understanding each block's purpose
+
+| Block | Purpose |
+|-------|---------|
+| Load dataset | Provide training examples in batches |
+| Define model | Choose neural network architecture |
+| Define loss | Measure prediction error |
+| Define optimizer | Decide how to update weights |
+| Forward pass | Get predictions from model |
+| Backward pass | Calculate gradients (how to improve) |
+| Step | Actually improve by updating weights |
+
+<Note>
+  The backward pass is automatic thanks to PyTorch's autograd. You don't manually calculate derivatives.
+</Note>
+
+## Reference
+
+[PyTorch – Optimizing Parameters](https://pytorch.org/tutorials/beginner/basics/optimization_tutorial.html)
+
+**Estimated time: 2-3 hours**

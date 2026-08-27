@@ -1,0 +1,91 @@
+---
+title: "Understanding and Using JSON"
+description: "Parse and work with JSON data structures in Python."
+sidebarTitle: "JSON Basics"
+icon: "braces"
+keywords: ["JSON", "json module", "parsing", "serialization", "API responses"]
+---
+
+## Topic
+
+JSON (JavaScript Object Notation) is a text format for storing structured data. Python's `json` module handles conversion between JSON strings and Python objects.
+
+## JSON basics
+
+JSON mirrors Python structures:
+
+- **Object `{}`** → Python `dict`
+- **Array `[]`** → Python `list`
+- **String `"text"`** → Python `str`
+- **Number `42`** → Python `int` or `float`
+- **Boolean `true`/`false`** → Python `True`/`False`
+- **Null `null`** → Python `None`
+
+## Parsing JSON strings
+
+```python
+import json
+
+json_string = '{"name": "Alice", "age": 30, "active": true}'
+data = json.loads(json_string)  # String to Python dict
+print(data["name"])  # "Alice"
+```
+
+## Converting Python to JSON
+
+```python
+import json
+
+python_dict = {"name": "Bob", "age": 25, "scores": [85, 90, 78]}
+json_string = json.dumps(python_dict)  # Python dict to string
+print(json_string)
+# {"name": "Bob", "age": 25, "scores": [85, 90, 78]}
+```
+
+## Loading and saving JSON files
+
+```python
+import json
+
+# Load from file
+with open("data.json", "r") as file:
+    data = json.load(file)
+
+# Save to file
+with open("output.json", "w") as file:
+    json.dump(data, file, indent=2)
+```
+
+## Typical JSON shapes in AI/API responses
+
+```python
+# Chat API response
+{
+    "id": "msg_123",
+    "role": "assistant",
+    "content": "Hello, how can I help?",
+    "usage": {
+        "input_tokens": 10,
+        "output_tokens": 15
+    }
+}
+
+# Search results
+{
+    "results": [
+        {"id": 1, "title": "Article 1", "score": 0.95},
+        {"id": 2, "title": "Article 2", "score": 0.87}
+    ],
+    "total": 2
+}
+```
+
+<Note>
+  Use `.loads()` for strings and `.load()` for files. Similarly, use `.dumps()` for strings and `.dump()` for files.
+</Note>
+
+## Reference
+
+[W3Schools – Python JSON](https://www.w3schools.com/python/python_json.asp)
+
+**Estimated time: 1-2 hours**

@@ -1,0 +1,151 @@
+---
+title: "Machine Learning Workflow Overview"
+description: "Understand the high-level pipeline: data → preprocessing → training → evaluation → deployment."
+sidebarTitle: "ML Workflow"
+icon: "arrow-down-up-across"
+keywords: ["workflow", "pipeline", "data preparation", "training", "evaluation", "deployment"]
+---
+
+## Topic
+
+Every ML project follows a similar pipeline. Understanding this flow helps you organize projects and map folder structures.
+
+## The ML workflow pipeline
+
+```
+Raw Data
+    ↓
+Data Collection & Cleaning
+    ↓
+Exploratory Data Analysis (EDA)
+    ↓
+Data Preprocessing
+    ↓
+Model Selection
+    ↓
+Training
+    ↓
+Evaluation
+    ↓
+Deployment
+    ↓
+Monitoring
+```
+
+## Stage-by-stage breakdown
+
+### 1. Data Collection & Cleaning
+
+**What happens**: Gather raw data from various sources and fix quality issues.
+
+**Outputs**:
+- Clean dataset free of errors, duplicates, and missing values
+- Data documentation (source, collection method, format)
+
+**Folder**: `data/raw/` (original) and `data/processed/` (cleaned)
+
+### 2. Exploratory Data Analysis (EDA)
+
+**What happens**: Visualize and understand the data. Find patterns, outliers, and correlations.
+
+**Outputs**:
+- Summary statistics, visualizations, insights
+- Notebook documenting findings
+
+**Folder**: `notebooks/`
+
+### 3. Data Preprocessing
+
+**What happens**: Transform raw data into a format the model can use.
+
+**Outputs**:
+- Feature-engineered dataset
+- Preprocessing code/pipeline
+- Data splits: train, validation, test
+
+**Files**: `train_data.csv`, `test_data.csv`, `preprocess.py`
+
+### 4. Model Selection
+
+**What happens**: Choose an algorithm (logistic regression, decision tree, neural network, etc.).
+
+**Outputs**:
+- Selected model architecture
+- Initial configuration
+
+### 5. Training
+
+**What happens**: Feed data to the model and update its weights to minimize loss.
+
+**Outputs**:
+- Trained model (saved weights/parameters)
+- Training logs/history
+- Training metrics plot
+
+**Files**: `model.pt`, `training_log.csv`, `model.pkl`
+
+### 6. Evaluation
+
+**What happens**: Test the trained model on unseen data (validation or test set).
+
+**Outputs**:
+- Performance metrics (accuracy, precision, recall, F1)
+- Error analysis report
+- Confusion matrix or detailed predictions
+
+**Files**: `eval_metrics.json`, `confusion_matrix.png`
+
+### 7. Deployment
+
+**What happens**: Move the trained model to production where it serves real predictions.
+
+**Outputs**:
+- Model artifact (containerized or API-ready)
+- Serving code (REST API, FastAPI, etc.)
+- Documentation on model usage
+
+**Folder**: `api/`, `models/`, `deployment/`
+
+### 8. Monitoring
+
+**What happens**: Track model performance in production and retrain if accuracy drops.
+
+**Outputs**:
+- Performance dashboards
+- Alerts for model degradation
+- Plan for retraining
+
+## Mapping to project structure
+
+```
+my-ml-project/
+├── data/
+│   ├── raw/           # Original data
+│   └── processed/     # Cleaned, preprocessed data
+├── notebooks/
+│   ├── eda.ipynb      # Exploratory analysis
+│   └── model_dev.ipynb  # Model development
+├── src/
+│   ├── data_preprocessing.py
+│   ├── model.py
+│   ├── train.py
+│   └── evaluate.py
+├── models/
+│   └── trained_model.pkl  # Saved model
+├── api/
+│   ├── app.py         # FastAPI app for serving
+│   └── requirements.txt
+├── logs/              # Training logs
+├── results/           # Metrics, plots, reports
+└── README.md
+```
+
+<Note>
+  This pipeline is iterative. After evaluation, you might go back to preprocessing or try a different model. Don't expect linear progress.
+</Note>
+
+## Reference
+
+[NVIDIA – Machine Learning in Practice: ML Workflows](https://developer.nvidia.com/blog/machine-learning-in-practice-ml-workflows/)
+
+**Estimated time: 1-2 hours**

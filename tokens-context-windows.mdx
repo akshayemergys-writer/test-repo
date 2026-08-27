@@ -1,0 +1,179 @@
+---
+title: "Tokens and Context Windows"
+description: "Deep dive into token limits, context window constraints, and token counting tools."
+sidebarTitle: "Tokens & Context Windows"
+icon: "window-restore"
+keywords: ["tokens", "context window", "cost", "token limits", "tokenizer"]
+---
+
+## Topic
+
+Token limits are a fundamental constraint in working with LLMs. Understanding them affects architecture decisions and costs.
+
+## What is a token?
+
+A token is a chunk of text. The tokenizer breaks text into tokens:
+
+```python
+import tiktoken
+
+# OpenAI's tokenizer
+enc = tiktoken.encoding_for_model("gpt-4")
+
+text = "Hello, world!"
+tokens = enc.encode(text)
+print(tokens)  # [9906, 11, 1917, 0]
+print(len(tokens))  # 4 tokens
+```
+
+## Token-to-word ratio
+
+Rough estimates (varies by language and tokenizer):
+
+```
+1 token ≈ 0.75 words (or 4 characters)
+
+Examples:
+- "Hello" = 1 token
+- "Beautiful" = 2 tokens ("Beau" + "tiful")
+- "Hello, how are you?" = 6 tokens
+```
+
+**Rule of thumb**: 1000 tokens ≈ 750 words
+
+## Context window limits
+
+Each model has a maximum context window:
+
+```
+GPT-3.5 Turbo: 4K (3,000 words)
+GPT-4: 8K (6,000 words)
+GPT-4 Turbo: 128K (96,000 words)
+Claude 3 Opus: 200K (150,000 words)
+Llama 2: 4K (3,000 words)
+```
+
+When you hit the limit:
+
+```
+User: Here's a 50K token document, answer questions about it.
+Model: ERROR - 50K tokens > 4K window
+```
+
+## Why context window matters
+
+### Problem 1: Long documents don't fit
+
+```
+Your document: 20K tokens
+Model context: 8K tokens
+Result: Model only sees beginning, misses important info
+```
+
+### Problem 2: Trade-off with output
+
+```
+Model context: 8K total
+Input document: 6K tokens
+System prompt: 1K tokens
+Available for output: 1K tokens ← Very short response!
+```
+
+## Solutions
+
+### 1. Summarization
+
+Pre-summarize long documents:
+
+```
+Original: 20K tokens
+Summarized: 2K tokens
+Now fits with context to spare
+```
+
+### 2. Chunking
+
+Split into smaller parts and process separately:
+
+```
+Document (20K) → Chunks (2K each) → Process 10 times
+```
+
+### 3. RAG (Retrieval Augmented Generation)
+
+Retrieve only relevant chunks:
+
+```
+Full document stored in vector DB
+User question: "What's the revenue?"
+Retrieve: Only revenue-related chunks (1K tokens)
+Feed to model with full context available
+```
+
+### 4. Streaming
+
+If generating long text, use streaming to get started response immediately:
+
+```
+Don't wait for entire response
+Stream tokens as they're generated
+User sees response starting immediately
+```
+
+## Token costs (API pricing)
+
+Most APIs charge per token:
+
+```
+GPT-4: $0.01 per 1K input tokens, $0.03 per 1K output tokens
+
+Example:
+Input: 5K tokens = $0.05
+Output: 2K tokens = $0.06
+Total: $0.11 per API call
+```
+
+**Cost implications**:
+- Longer context = higher costs
+- More API calls = higher costs
+- Batch processing cheaper than single requests
+
+## Counting tokens programmatically
+
+### OpenAI
+
+```python
+import tiktoken
+
+enc = tiktoken.encoding_for_model("gpt-4")
+tokens = enc.encode("Your text here")
+print(len(tokens))
+```
+
+### Hugging Face
+
+```python
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained("gpt2")
+tokens = tokenizer.encode("Your text here")
+print(len(tokens))
+```
+
+## Optimization strategies
+
+1. **Use shorter prompts**: Fewer input tokens = lower cost
+2. **Batch similar requests**: Process in parallel to amortize overhead
+3. **Cache context**: For multi-turn conversations, cache system prompt
+4. **Choose the right model**: Larger context = better for long docs but costlier
+5. **Use RAG**: Only include relevant info, not entire documents
+
+<Note>
+  Token management is critical for building cost-effective LLM applications. Underestimating token counts is a common mistake that leads to expensive surprises.
+</Note>
+
+## Reference
+
+[OpenAI – Tokenizer Tool](https://platform.openai.com/tokenizer)
+
+**Estimated time: 1-2 hours**

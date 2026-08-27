@@ -1,0 +1,117 @@
+---
+title: "Large Language Models"
+description: "Understand LLMs: what they are, tokens vs words, context windows, and common models."
+sidebarTitle: "Large Language Models"
+icon: "microchip"
+keywords: ["LLM", "language models", "GPT", "context window", "tokens"]
+---
+
+## Topic
+
+Large language models (LLMs) are the foundation of modern generative AI. Understanding their characteristics is crucial for using them effectively.
+
+## What is an LLM?
+
+An LLM is a large neural network trained on massive amounts of text to predict the next word (and by extension, generate coherent text).
+
+**"Large"** refers to:
+- **Parameters**: Billions to trillions (GPT-3: 175B, GPT-4: ~1T)
+- **Training data**: Terabytes of text (Internet, books, articles)
+- **Compute**: Trained on thousands of GPUs
+
+**Process**:
+1. Input: "The capital of France is"
+2. Model predicts next token: "Paris"
+3. Model predicts next: "." (period)
+4. Continue until you have a complete response
+
+## Tokens vs words
+
+**Token**: The unit a model processes. Usually smaller than words.
+
+```
+Text: "I'm learning AI"
+
+Words: ["I'm", "learning", "AI"]         (3 words)
+
+Tokens: ["I", "'m", "learning", "AI"]   (4 tokens)
+```
+
+Why tokens matter:
+- Models count limits in tokens, not words
+- Longer tokens cost more (API pricing is per-token)
+- Languages differ: Chinese might need more tokens per word
+
+## Context window
+
+**Context window**: Maximum number of tokens a model can process at once.
+
+```
+GPT-3.5: 4K tokens (~3,000 words)
+GPT-4: 8K / 32K / 128K tokens (~100,000 words)
+Claude 3: 200K tokens (~150,000 words)
+```
+
+**Implication**: Models can't see documents longer than their context window.
+
+```
+Document: 20K tokens (15K words)
+Model context: 8K tokens
+Problem: Document doesn't fit!
+
+Solution:
+1. Summarize document
+2. Split into chunks
+3. Use RAG (retrieve relevant chunks)
+```
+
+## Common LLMs
+
+### Open-source
+
+- **LLaMA 2** (Meta): 7B, 13B, 70B parameters
+- **Mistral** (Mistral AI): 7B parameters
+- **Falcon** (Technology Innovation Institute): 7B, 40B parameters
+
+### Proprietary (API)
+
+- **GPT-4, GPT-3.5** (OpenAI): State-of-the-art
+- **Claude 3** (Anthropic): Strong reasoning, long context
+- **Gemini** (Google): Multimodal (text + image)
+- **LLaMA 2 via AWS Bedrock**: Hosted open-source models
+
+## Open vs closed source
+
+| Aspect | Open Source | Proprietary |
+|--------|-----------|-----------|
+| Cost | Free (if self-hosted) | Pay per API call |
+| Control | Full control, fine-tune | No control, API only |
+| Performance | Good, but smaller | Best performance |
+| Privacy | On-premises possible | Data sent to vendor |
+| Latency | Depends on hardware | High (API calls) |
+
+## Input → output flow
+
+```
+User input: "Explain quantum computing in simple terms."
+    ↓
+Tokenization: ["Explain", "quantum", "computing", "in", "simple", "terms", "."]
+    ↓
+LLM processing (iterative token generation)
+    ↓
+Generated tokens: ["Quantum", "computing", "uses", "..."]
+    ↓
+Detokenization: "Quantum computing uses quantum bits..."
+    ↓
+User output: Complete paragraph
+```
+
+<Note>
+  LLMs are "next word prediction" at scale. They don't truly understand; they predict plausible continuations. This is why they sometimes hallucinate (generate false information).
+</Note>
+
+## Reference
+
+[Hugging Face – Generative AI Visual Explainer](https://huggingface.co/docs/transformers/quicktour)
+
+**Estimated time: 1-2 hours**

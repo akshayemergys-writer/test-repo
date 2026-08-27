@@ -1,0 +1,74 @@
+---
+title: "Logging Basics"
+description: "Use Python's logging module to record application events and diagnose issues."
+sidebarTitle: "Logging Basics"
+icon: "file-lines"
+keywords: ["logging", "log levels", "configuration", "debugging", "production"]
+---
+
+## Topic
+
+Logging records what your program is doing. It's better than `print()` statements for production code.
+
+## Basic logging setup
+
+```python
+import logging
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+)
+
+logger = logging.getLogger(__name__)
+
+logger.debug("Debug message")  # Detailed info
+logger.info("Info message")    # General info
+logger.warning("Warning message")  # Something unexpected
+logger.error("Error message")  # A serious problem
+logger.critical("Critical message")  # A very serious problem
+```
+
+## Log levels (in order of severity)
+
+1. **DEBUG** (10): Detailed information for diagnosing problems.
+2. **INFO** (20): General information about program execution.
+3. **WARNING** (30): Something unexpected or potentially problematic.
+4. **ERROR** (40): A serious problem that prevented a task.
+5. **CRITICAL** (50): A very serious problem that may cause the program to stop.
+
+## Logging to files
+
+```python
+import logging
+
+logging.basicConfig(
+    filename="app.log",
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
+
+logging.info("Application started")
+logging.error("An error occurred")
+```
+
+## Logging vs print()
+
+| Aspect | logging | print() |
+|--------|---------|---------|
+| Timestamps | Built-in | Manual |
+| Severity levels | DEBUG, INFO, WARNING, ERROR, CRITICAL | None |
+| Filtering | Easy | Hard |
+| Production ready | Yes | No |
+| Performance | Minimal overhead | Can slow down | 
+
+<Note>
+  In production, use logging to record events. In interactive scripts, `print()` is fine for immediate feedback.
+</Note>
+
+## Reference
+
+[Real Python – Logging in Python](https://realpython.com/python-logging/)
+
+**Estimated time: 1-2 hours**

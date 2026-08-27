@@ -1,0 +1,187 @@
+---
+title: "Prompt Engineering Fundamentals"
+description: "Master advanced prompting techniques: system prompts, zero-shot, few-shot, and chain-of-thought."
+sidebarTitle: "Prompt Engineering Advanced"
+icon: "wand-magic-sparkles"
+keywords: ["prompt engineering", "system prompt", "few-shot", "chain-of-thought"]
+---
+
+## Topic
+
+Prompt engineering is the practice of crafting prompts to get better outputs. Small changes can have big impacts on model behavior.
+
+## System prompts
+
+A system prompt sets the model's personality and behavior:
+
+```python
+client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+        {
+            "role": "system",
+            "content": """You are an expert Python programmer.
+            Provide clear, concise explanations.
+            Use code examples when appropriate.
+            If you don't know something, say so."""
+        },
+        {"role": "user", "content": "How do I read a file?"}
+    ]
+)
+```
+
+Effective system prompts:
+- Define role/expertise
+- Specify output format
+- Set tone and style
+- Provide constraints ("be concise", "don't use jargon")
+
+## Few-shot prompting (in-context learning)
+
+Show examples to guide the model:
+
+```python
+messages = [
+    {"role": "user", "content": "Classify sentiment: 'Great product!' → POSITIVE"},
+    {"role": "assistant", "content": "Understood. I'll classify sentiment as POSITIVE or NEGATIVE."},
+    {"role": "user", "content": "Classify sentiment: 'Very disappointed.' → NEGATIVE"},
+    {"role": "assistant", "content": "Got it."},
+    {"role": "user", "content": "Classify sentiment: 'It's okay, nothing special.'"}
+]
+```
+
+**Benefits**:
+- More consistent output format
+- Better handling of edge cases
+- "Teaches" the model your preferences
+
+## Chain-of-thought prompting
+
+Ask for step-by-step reasoning:
+
+**Bad prompt**:
+```
+Q: If Alice has 3 apples and buys 5 more, how many does she have?
+```
+
+**Good prompt**:
+```
+Q: If Alice has 3 apples and buys 5 more, how many does she have?
+
+Let's think step by step:
+1. Alice starts with 3 apples
+2. She buys 5 more
+3. Total = 3 + 5 = 8 apples
+```
+
+Results in better reasoning and fewer errors.
+
+## Role prompting
+
+Assign a specific role for more authentic responses:
+
+```
+"As a medical student, explain what causes type 2 diabetes."
+vs
+"Explain what causes type 2 diabetes."
+
+The first leads to more medically-accurate, educational language.
+```
+
+## Prompt templates for reproducibility
+
+Store templates as files for consistency:
+
+```python
+SENTIMENT_TEMPLATE = """
+Classify the sentiment of the following text as POSITIVE, NEGATIVE, or NEUTRAL.
+Respond with only the classification, no explanation.
+
+Text: {text}
+Classification:
+"""
+
+def classify_sentiment(text):
+    prompt = SENTIMENT_TEMPLATE.format(text=text)
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.0
+    )
+    return response.choices[0].message.content
+```
+
+## Structured output
+
+Guide the model to output specific format:
+
+```
+Prompt: "Extract the following information and return as JSON:
+- Name (string)
+- Age (number)
+- Occupation (string)
+
+Text: 'John Smith, 35, is a software engineer.'
+
+Return ONLY valid JSON, no other text."
+
+Expected output:
+{"name": "John Smith", "age": 35, "occupation": "software engineer"}
+```
+
+## Temperature and parameters
+
+Adjust model behavior:
+
+```python
+# High-confidence classification
+temperature=0.0
+max_tokens=10
+
+# Creative brainstorming
+temperature=1.0
+max_tokens=500
+
+# Balanced chat
+temperature=0.7
+max_tokens=200
+```
+
+## Iteration and testing
+
+Good prompts emerge through iteration:
+
+```python
+def test_prompt(prompt_template, test_cases):
+    results = []
+    for test_input, expected in test_cases:
+        prompt = prompt_template.format(input=test_input)
+        response = client.chat.completions.create(
+            model="gpt-4",
+            messages=[{"role": "user", "content": prompt}],
+            temperature=0.0
+        )
+        actual = response.choices[0].message.content
+        is_correct = actual == expected
+        results.append((test_input, expected, actual, is_correct))
+    
+    accuracy = sum(1 for r in results if r[3]) / len(results)
+    return accuracy, results
+```
+
+## Common pitfalls
+
+1. **Vague prompts**: "Summarize this" → "Summarize this in 2-3 sentences for a business executive"
+2. **Conflicting instructions**: Ask for brevity AND detail
+3. **Assuming understanding**: Don't rely on implied context
+4. **No output format spec**: "Give me results" → "Return a JSON object with keys: name, score, category"
+
+<Tip>
+  Test your prompts with multiple inputs. One example doesn't guarantee consistency.
+</Tip>
+
+## Reference
+
+[Prompting Guide – Prompt Engineering](https://www.promptingguide.ai/)
+
+**Estimated time: 1-2 hours**

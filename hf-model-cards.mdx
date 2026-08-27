@@ -1,0 +1,117 @@
+---
+title: "Model Cards and Documentation"
+description: "Understand model card structure and how to read and write responsible AI documentation."
+sidebarTitle: "Model Cards"
+icon: "rectangle-list"
+keywords: ["model cards", "documentation", "responsible AI", "limitations", "bias"]
+---
+
+## Topic
+
+Model cards document pre-trained models for transparency and responsible use. They're critical for understanding a model's strengths, limitations, and ethical considerations.
+
+## Model card structure
+
+### Model description
+
+Brief overview of what the model does, its architecture, and what problem it solves.
+
+```
+BERT is an encoder-based Transformer model trained on English Wikipedia 
+and BookCorpus. It excels at understanding context in text for tasks like 
+classification, NER, and question answering.
+```
+
+### Intended use
+
+Recommended use cases and what the model is designed for.
+
+```
+- Sentiment analysis
+- Named entity recognition
+- Text classification
+- Question answering
+```
+
+### Limitations
+
+Known biases, performance gaps, and when the model might fail.
+
+```
+- Trained only on English text; may not perform well on other languages
+- Can reflect biases from training data (e.g., gender, cultural biases)
+- Performance drops on misspelled or informal text
+- Limited context window (512 tokens)
+```
+
+### Training details
+
+Technical information about training:
+
+- **Dataset**: What data was used
+- **Model size**: Number of parameters
+- **Training procedure**: Optimization, hyperparameters
+- **Compute resources**: GPU/TPU hours
+
+```
+Trained on:
+- English Wikipedia (2.5B words)
+- BookCorpus (800M words)
+
+Model size: 110M parameters
+Optimization: Adam (lr=1e-4, warmup over 10K steps)
+```
+
+### Evaluation results
+
+Performance metrics on standard benchmarks.
+
+```
+GLUE (General Language Understanding Evaluation):
+- CoLA: 83.5
+- SST-2: 93.5
+- MNLI: 84.6
+```
+
+## Why model cards matter
+
+- **Transparency**: Users understand what the model can and can't do
+- **Reproducibility**: Documented details allow others to replicate results
+- **Responsible AI**: Acknowledge limitations and potential harms
+- **Trust**: Builds confidence in model capabilities
+
+## Reading a model card
+
+When evaluating a model, check:
+
+1. **Is it designed for my task?** Look at intended use and benchmarks.
+2. **What data was it trained on?** Affects performance on similar data.
+3. **What are the known limitations?** Understand failure modes.
+4. **Are there documented biases?** Be aware of fairness concerns.
+5. **Who created it?** Reputable organizations or individuals?
+
+## Example: Checking a sentiment analysis model
+
+```
+Model: distilbert-base-uncased-finetuned-sst-2-english
+
+Intended use: Sentiment classification (binary: positive/negative)
+Training data: SST-2 dataset (Stanford Sentiment Treebank)
+Limitations: 
+  - May not generalize to other domains (e.g., social media, reviews)
+  - Performance on sarcasm and negation is lower
+  - Trained on English only
+Evaluation: 
+  - Accuracy on SST-2: 91.3%
+  - Inference time: ~50ms per example
+```
+
+<Tip>
+  Always read the limitations section. Understanding what a model can't do is as important as knowing what it can.
+</Tip>
+
+## Reference
+
+[Hugging Face – Model Card Guide](https://huggingface.co/docs/hub/model-cards)
+
+**Estimated time: 1-2 hours**
