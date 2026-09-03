@@ -6,57 +6,72 @@ icon: "boxes-stacked"
 keywords: ["Docker", "Kubernetes", "containers", "orchestration", "DevOps"]
 ---
 
-Build practical container and Kubernetes skills through a structured learning path.
+This dashboard presents the journey from a single container to a production-ready Kubernetes workload.
 
 <CardGroup cols={2}>
-  <Card title="Start with containers" icon="cube" href="/container-fundamentals">
+  <Card title="Begin with Docker" icon="cube" href="/container-fundamentals">
     Learn images, containers, Dockerfiles, registries, and the container lifecycle.
   </Card>
-  <Card title="Start with Kubernetes" icon="dharmachakra" href="/kubernetes-overview">
-    Understand clusters, workloads, networking, storage, scaling, and security.
+  <Card title="Continue with Kubernetes" icon="dharmachakra" href="/kubernetes-overview">
+    See how Kubernetes coordinates containers across a cluster.
   </Card>
 </CardGroup>
 
-## Learning path
+## Demo roadmap
 
-<CardGroup cols={2}>
-  <Card title="Container fundamentals" icon="cube" href="/container-fundamentals">
-    Learn what containers are and how Docker runs them.
-  </Card>
+<Steps>
+  <Step title="Package the application">
+    Start with [Container fundamentals](/container-fundamentals) and learn how Docker turns application code into a repeatable image.
+  </Step>
+  <Step title="Coordinate workloads">
+    Move through [Container orchestration](/container-orchestration) to understand scaling, traffic distribution, and recovery.
+  </Step>
+  <Step title="Understand the cluster">
+    Use [Kubernetes overview](/kubernetes-overview) and [Kubernetes architecture](/kubernetes-architecture) to see where control-plane decisions happen.
+  </Step>
+  <Step title="Operate an application">
+    Learn Pods, Deployments, Services, configuration, storage, scaling, and security through the pages below.
+  </Step>
+</Steps>
+
+## Explore the curriculum
+
+<CardGroup cols={3}>
   <Card title="Container orchestration" icon="sitemap" href="/container-orchestration">
-    Understand why teams use orchestration and what it provides.
+    Why manual container operations stop scaling.
   </Card>
   <Card title="Kubernetes overview" icon="dharmachakra" href="/kubernetes-overview">
-    Learn Kubernetes concepts, use cases, and its relationship with Docker.
+    Cluster concepts, features, and use cases.
   </Card>
   <Card title="Kubernetes architecture" icon="diagram-project" href="/kubernetes-architecture">
-    Explore control plane and worker node components.
+    Control plane, nodes, and request flow.
   </Card>
-  <Card title="Pods" icon="boxes-stacked" href="/pods">
-    Deploy and understand Kubernetes' smallest workload unit.
-  </Card>
-  <Card title="ReplicaSets" icon="copy" href="/replicasets">
-    Maintain the desired number of running pod replicas.
+  <Card title="Pods and ReplicaSets" icon="boxes-stacked" href="/pods">
+    Workload units, desired state, and self-healing.
   </Card>
   <Card title="Deployments" icon="rocket" href="/deployments">
-    Manage rolling updates, rollbacks, and application releases.
+    Rolling releases, strategies, and rollbacks.
   </Card>
   <Card title="Services and networking" icon="network-wired" href="/services-networking">
-    Expose workloads and connect services inside and outside a cluster.
+    Stable access, DNS, and Pod communication.
   </Card>
   <Card title="Configuration and labels" icon="file-code" href="/configuration-yaml-labels">
-    Write manifests and organize resources with labels and selectors.
+    YAML manifests, labels, selectors, and configuration data.
   </Card>
   <Card title="Storage" icon="hard-drive" href="/storage-pv-pvc">
-    Persist application data with volumes, PVs, and PVCs.
+    Volumes, PersistentVolumes, and claims.
   </Card>
   <Card title="Scaling and updates" icon="arrows-up-down" href="/scaling-updates">
-    Scale workloads and release changes with minimal downtime.
+    HPA, zero-downtime updates, and recovery.
   </Card>
   <Card title="Security" icon="shield-halved" href="/security-rbac-secrets">
-    Control access with RBAC, namespaces, Secrets, and ConfigMaps.
+    Authentication, RBAC, namespaces, and secrets.
   </Card>
 </CardGroup>
+
+<Note>
+  The curriculum is arranged from foundational container concepts through Kubernetes operations, with each card providing direct access to its topic.
+</Note>
 
 ## Reference links
 

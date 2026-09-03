@@ -10,6 +10,8 @@ keywords: ["Kubernetes ReplicaSet", "desired state", "Pod scaling", "self-healin
 
 A ReplicaSet keeps a specified number of matching Pods running. It creates replacements when Pods fail or are removed.
 
+The command examples use `nginx:latest`, a Docker image for the Nginx web server. `latest` is an image tag, meaning a human-readable label for an image version. In production, use a specific version such as `nginx:1.27` so the workload does not change unexpectedly.
+
 ## Commands to implement it
 
 ```bash

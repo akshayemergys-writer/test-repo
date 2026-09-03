@@ -6,9 +6,50 @@ icon: "file-code"
 keywords: ["Kubernetes YAML", "manifests", "labels", "selectors", "annotations", "ConfigMap"]
 ---
 
-## Topic
+Kubernetes resources are commonly described in YAML manifests. YAML makes the desired state reviewable and repeatable, while labels and selectors connect related resources.
 
-Kubernetes resources are commonly described in YAML manifests. Labels identify resources, selectors find matching resources, annotations store non-identifying metadata, and ConfigMaps hold non-sensitive configuration.
+The Deployment example runs `nginx:1.27`, a versioned Docker image containing the Nginx web server. The `image` field tells Kubernetes which packaged application to start; Kubernetes does not build that image from the YAML file.
+
+## YAML manifest structure
+
+Most objects use `apiVersion`, `kind`, `metadata`, and `spec`. The `data` field is used by objects such as ConfigMaps and Secrets.
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  labels:
+    app: web
+    environment: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: nginx:1.27
+          ports:
+            - containerPort: 80
+```
+
+## Labels, selectors, and annotations
+
+- **Labels** identify objects, such as `app: web` or `environment: demo`.
+- **Selectors** find objects with matching labels. A Deployment selector must match its Pod template labels.
+- **Annotations** store metadata for tools and integrations, but they are not normally used to select workloads.
+
+Use labels to group workloads by application, team, environment, or version. Use selectors to make a Service target only the intended Pods.
+
+## ConfigMaps and configuration
+
+ConfigMaps hold non-sensitive values such as feature flags, log levels, or environment names. Mount them as files or expose them as environment variables so the same image can run in multiple environments.
 
 ## Commands to implement it
 
@@ -35,15 +76,8 @@ data:
   MODE: development
 ```
 
-## Output
-
-```text
-NAME        DATA   AGE
-app-config  1      10s
-```
-
 <Note>
-  YAML indentation matters. ConfigMaps are not designed for passwords or keys; use Secrets for sensitive values.
+  YAML indentation matters. ConfigMaps are not designed for passwords or keys; use Secrets for sensitive values. For persistent application data, continue to [Storage: PV and PVC](/storage-pv-pvc).
 </Note>
 
 ## Reference link

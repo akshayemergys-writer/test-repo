@@ -25,7 +25,8 @@
           "configuration-yaml-labels",
           "storage-pv-pvc",
           "scaling-updates",
-          "security-rbac-secrets"
+          "security-rbac-secrets",
+          "demo-references"
         ]
       }
     ],

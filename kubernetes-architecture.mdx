@@ -6,20 +6,69 @@ icon: "diagram-project"
 keywords: ["Kubernetes architecture", "API server", "scheduler", "controller manager", "etcd", "kubelet"]
 ---
 
-## Topic
+Kubernetes separates decision-making from workload execution. The control plane stores intent and coordinates the cluster. Worker nodes provide the compute where Pods actually run.
 
-A Kubernetes cluster contains a control plane that makes decisions and worker nodes that run workloads.
+In this page, `kubectl` means the Kubernetes command-line tool, and CI means **continuous integration**: an automated system that builds and tests application changes. Both can send requests to the API server.
 
-## Components
+## Control plane vs. worker nodes
 
-- **API server**: Front door for Kubernetes API requests.
-- **Scheduler**: Selects a suitable node for new Pods.
-- **Controller manager**: Reconciles actual state with desired state.
-- **etcd**: Stores cluster state.
-- **Kubelet**: Runs and monitors Pods on each worker node.
-- **Kube-proxy**: Helps implement Service networking on nodes.
+| Control plane | Worker nodes |
+| --- | --- |
+| Exposes and validates the Kubernetes API | Run application Pods |
+| Stores cluster state | Host the container runtime |
+| Schedules workloads | Run kubelet and kube-proxy |
+| Reconciles desired and actual state | Report node and Pod health |
 
-## Commands to implement it
+## Control plane components
+
+<CardGroup cols={2}>
+  <Card title="API server" icon="right-to-bracket">
+    The authenticated front door for Kubernetes. It validates requests, serves the API, and is the coordination point for clients and controllers.
+  </Card>
+  <Card title="Scheduler" icon="calendar-check">
+    Watches for unscheduled Pods and selects a worker node using resource capacity, constraints, affinity, and taints.
+  </Card>
+  <Card title="Controller manager" icon="arrows-rotate">
+    Runs control loops such as Deployment and Node controllers. Each loop observes state and takes action to reach the declared state.
+  </Card>
+  <Card title="etcd" icon="database">
+    A consistent key-value data store containing Kubernetes API state. Protect access and back it up because the cluster depends on it.
+  </Card>
+</CardGroup>
+
+## Worker node components
+
+- **Kubelet**: Receives Pod specifications, asks the container runtime to run containers, and reports health and status to the API server.
+- **Container runtime**: Pulls images and starts containers. Kubernetes commonly uses containerd or CRI-O through the **Container Runtime Interface (CRI)**, which is the standard connection between Kubernetes and container software.
+- **Kube-proxy**: Programs node networking rules that help route Service traffic to the right Pod endpoints.
+
+## Cluster communication flow
+
+When you create a Deployment, the request follows this path:
+
+```mermaid
+sequenceDiagram
+    participant C as kubectl or CI
+    participant A as API server
+    participant E as etcd
+    participant K as Controller manager
+    participant S as Scheduler
+    participant L as Kubelet
+    participant R as Runtime
+    C->>A: Submit Deployment
+    A->>E: Persist desired state
+    A-->>C: Return accepted object
+    K->>A: Observe Deployment and create ReplicaSet
+    S->>A: Find unscheduled Pod
+    S->>A: Bind Pod to worker node
+    L->>A: Watch assigned Pod
+    L->>R: Pull image and start container
+    L->>A: Report Pod status
+```
+
+The API server is the communication hub. Components generally watch the API rather than calling each other directly, which keeps the system loosely coupled and observable.
+
+## Inspect a cluster
 
 ```bash
 kubectl get nodes -o wide
@@ -28,16 +77,8 @@ kubectl cluster-info dump --namespaces kube-system
 kubectl get --raw='/readyz?verbose'
 ```
 
-## Output
-
-```text
-NAME       STATUS   ROLES           INTERNAL-IP
-control-1  Ready    control-plane   192.168.1.10
-worker-1   Ready    <none>          192.168.1.11
-```
-
 <Note>
-  A typical request flows through the API server, is recorded in etcd, and is acted on by controllers or the scheduler before the kubelet starts the workload.
+  A healthy control plane does not guarantee a healthy application. Check node capacity, kubelet status, Pod readiness, and Service endpoints when diagnosing a request path.
 </Note>
 
 ## Reference link
