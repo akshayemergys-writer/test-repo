@@ -6,9 +6,50 @@ icon: "cpu"
 keywords: ["RDU", "Reconfigurable Dataflow Unit", "AI chip", "SambaNova hardware"]
 ---
 
-## Overview
+The **Reconfigurable Dataflow Unit (RDU)** is SambaNova's purpose-built processor for AI inference. The current public materials describe SN50 as a fifth-generation RDU designed for fast decode, agentic workloads, sustained throughput, and efficient data movement.
 
-The Reconfigurable Dataflow Unit (RDU) is SambaNova's purpose-built processor architecture for AI workloads.
+## Why an RDU is different
+
+Traditional accelerators often move intermediate data back to memory between operations. An RDU chains operations into a dataflow so related work and data can remain close together. This is intended to reduce repeated memory transfers and relaunch overhead.
+
+```mermaid
+flowchart LR
+  Request[Prompt or request] --> Decode[Decode and model operations]
+  Decode --> Local[On-chip SRAM: hot local data]
+  Local --> HBM[HBM: active weights and cache]
+  HBM --> DDR[DDR: larger model pools and cold cache]
+  DDR --> Tokens[Generated tokens]
+```
+
+## Three-tier memory
+
+- **On-chip SRAM**: The smallest and fastest tier, positioned closest to compute for frequently used data.
+- **HBM2E**: High-bandwidth memory for active model weights and hot key-value cache.
+- **DDR5**: Larger-capacity memory for prompt caches, model pools, and colder data.
+
+This hierarchy is designed to keep the right data near the right computation instead of treating every memory access the same way.
+
+## Real-world use cases
+
+- Coding assistants that need fast token generation while a developer waits.
+- Multi-step agents that repeatedly read context and call tools.
+- Large-model serving where memory capacity and sustained throughput are bottlenecks.
+- Concurrent enterprise inference where predictable latency matters across many users.
+- Energy-constrained data centers that need more useful inference per unit of power.
+
+## RDU compared with alternatives
+
+| Accelerator | Strength | SambaNova RDU positioning |
+| --- | --- | --- |
+| NVIDIA GPU | Broadest software ecosystem and flexible training/inference support | Purpose-built around inference dataflow and integrated SambaNova systems |
+| AMD Instinct | Competitive accelerator option and open software direction | Differentiates through RDU dataflow, memory hierarchy, and full-stack integration |
+| Google TPU | Strong tensor processing within Google Cloud | Offers a private or hosted SambaNova deployment path outside a single hyperscaler |
+| AWS Trainium or Inferentia | AWS-native economics and tooling | Focuses on SambaNova's integrated inference platform and open-model path |
+| Custom ASIC | Highly optimized for one workload | RDU remains reconfigurable for multiple AI model graphs |
+
+## SambaNova's edge
+
+The RDU's stated edge is the combination of dataflow execution, three-tier memory, fast decode, and scale-out through SambaRack. The meaningful business comparison is not only chip speed: evaluate tokens per second, time to first token, concurrent users, energy per token, model coverage, and total operating cost.
 
 ## How it is used
 

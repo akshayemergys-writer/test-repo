@@ -6,16 +6,31 @@ icon: "cloud"
 keywords: ["SambaCloud", "cloud AI", "inference", "SambaNova API"]
 ---
 
-## Overview
+SambaCloud is SambaNova's cloud API for building applications on supported AI models. A developer sends a prompt to an endpoint, SambaNova runs inference, and the application receives generated output. It is the fastest path from an application idea to a working model call because the customer does not operate accelerators, networking, or the inference runtime.
 
-SambaCloud is SambaNova's cloud offering for accessing supported AI models and building inference-powered applications.
+## Real-world use cases
 
-## How it is used
+- Customer-support assistants that summarize conversations and draft replies.
+- Coding assistants that generate, explain, or review code.
+- Document extraction and classification for operations or compliance teams.
+- Research and agent workflows that call a model repeatedly with different tools or context.
+- High-volume text generation where latency and throughput need to be measured at production concurrency.
 
-1. Create or access a SambaNova Cloud account.
-2. Create an API key and store it securely.
-3. Select a supported model.
-4. Send requests through the SambaNova API or an OpenAI-compatible client.
+## How a request flows
+
+```mermaid
+sequenceDiagram
+  participant App as Customer application
+  participant API as SambaCloud API
+  participant Model as Selected open model
+  participant RDU as SambaNova inference system
+  App->>API: Send prompt and model ID
+  API->>RDU: Route inference request
+  RDU->>Model: Generate tokens
+  Model-->>RDU: Return model output
+  RDU-->>API: Stream or return response
+  API-->>App: Deliver response
+```
 
 ## Example
 
@@ -46,6 +61,20 @@ SambaCloud provides managed access to SambaNova inference capabilities.
 ```
 
 This is a representative response. The exact response depends on the model and prompt used.
+
+## SambaCloud compared with alternatives
+
+| Option | Strength | When SambaCloud may be a better fit |
+| --- | --- | --- |
+| OpenAI API | Broad hosted model ecosystem and mature developer tooling | The workload benefits from SambaNova's supported open-model portfolio, inference focus, or API compatibility |
+| Anthropic API | Strong hosted language-model offering | The team wants to evaluate open models and SambaNova inference performance through a compatible API |
+| Google Vertex AI | Broad cloud AI platform and model catalog | The team wants a focused inference service rather than a broader cloud platform dependency |
+| AWS Bedrock | Access to multiple model providers within AWS | The workload is suited to SambaNova's dedicated inference path and supported integrations |
+| Azure AI | Enterprise cloud integration and governance | The team prioritizes SambaNova's inference specialization and open-model access |
+
+## SambaNova's edge
+
+SambaCloud's stated advantages are a developer-oriented API, OpenAI-compatible endpoints, support for open models, integrations with common AI tools, and an inference stack powered by SambaNova RDU hardware. Validate latency, throughput, model availability, data handling, and price for the exact workload before choosing a provider.
 
 <Note>
   Model IDs, endpoints, limits, and pricing can change. Use the current SambaNova developer documentation for live values.
