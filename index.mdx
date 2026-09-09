@@ -12,6 +12,19 @@ SambaNova provides everything needed to run AI models. Developers can access mod
   The linked SharePoint workbook requires sign-in, so private or internal offerings may not be included in this overview.
 </Note>
 
+## Presentation agenda
+
+This presentation covers:
+
+1. SambaNova's AI inference portfolio and how the products fit together.
+2. SambaCloud and how developers access models through an API.
+3. SambaManaged and private or sovereign AI inference in a customer's data center.
+4. SambaStack and its hosted or on-premises full-stack deployment options.
+5. SambaRack and the rack-scale infrastructure for large inference workloads.
+6. Dataflow Architecture and how it manages computation and data movement.
+7. RDU AI chips and their role in fast, efficient inference.
+8. Real-world use cases, competitor alternatives, and the situations where SambaNova may be a strong fit.
+
 ## Choose an offering
 
 <CardGroup cols={2}>
@@ -46,7 +59,7 @@ flowchart LR
     RDU --> Response[Fast model inference response]
 ```
 
-- **SambaCloud**: The developer entry point for calling supported models through a cloud API.
+- **SambaCloud**: The easiest place for a developer to start. An application sends a request over the internet to a SambaNova AI model and receives a response, such as a summary, answer, or generated text.
 - **SambaManaged**: A managed inference cloud deployed in a customer data center, with SambaNova operating the solution.
 - **SambaStack**: A dedicated full-stack inference platform that can be hosted by SambaNova or deployed on-premises.
 - **SambaRack**: The integrated rack-scale hardware used to run demanding inference workloads.
@@ -91,12 +104,20 @@ SambaNova's differentiation is strongest when the requirement is **inference at 
   The product pages describe publicly available capabilities and use cases. Confirm current SKUs, model availability, deployment timelines, support terms, and benchmark conditions with SambaNova before presenting them as commitments.
 </Note>
 
-## Official resources
+## Source links
 
-- [SambaNova developer documentation](https://docs.sambanova.ai/docs/en/get-started/overview)
-- [SambaCloud](https://sambanova.ai/products/sambacloud)
-- [SambaManaged](https://sambanova.ai/products/sambamanaged)
-- [SambaStack](https://sambanova.ai/products/sambastack)
-- [SambaRack](https://sambanova.ai/products/sambarack)
-- [Dataflow Architecture](https://sambanova.ai/products/dataflow-architecture)
-- [RDU AI chips](https://sambanova.ai/products/rdu-ai-chips)
+| Link | Description |
+| --- | --- |
+| [SambaNova developer documentation](https://docs.sambanova.ai/docs/en/get-started/overview) | Referenced for the SambaNova API overview, quickstart, OpenAI-compatible client usage, integrations, AI Starter Kits, and SambaStack developer guidance. |
+| [SambaCloud](https://sambanova.ai/products/sambacloud) | Referenced for SambaCloud's cloud inference service, supported open models, developer integrations, OpenAI-compatible endpoints, privacy positioning, and RDU-powered inference. |
+| [SambaManaged](https://sambanova.ai/products/sambamanaged) | Referenced for the managed inference cloud, customer data-center deployment, sovereign AI, turnkey operations, data-center monetization, and deployment timeline claims. |
+| [SambaStack](https://sambanova.ai/products/sambastack) | Referenced for the dedicated full-stack platform, hosted and on-premises deployment, model bundles, prompt caching, authentication, and enterprise inference use cases. |
+| [SambaRack](https://sambanova.ai/products/sambarack) | Referenced for rack-scale infrastructure, SN50, RDU-based efficiency, multi-rack scaling, large-model inference, cooling options, and turnkey data-center deployment. |
+| [Dataflow Architecture](https://sambanova.ai/products/dataflow-architecture) | Referenced for programmable compute and memory units, reduced data movement, multi-chip scaling, memory tiers, speed, energy, and agentic caching concepts. |
+| [RDU AI chips](https://sambanova.ai/products/rdu-ai-chips) | Referenced for SN40 and SN50 RDU capabilities, fast decode, three-tier memory, agentic workloads, scale-out, and comparisons with GPUs and other accelerators. |
+
+## Summary
+
+SambaNova provides a complete path for AI inference, from a developer API to dedicated data-center infrastructure. SambaCloud is the easiest entry point for application developers. SambaManaged provides a managed private inference cloud. SambaStack combines software and dedicated hardware for hosted or on-premises deployments. SambaRack supplies the rack-scale system, while Dataflow Architecture and RDU chips provide the underlying execution technology.
+
+The central message is that SambaNova is designed to help organizations run AI inference with a choice of cloud access, private deployment, integrated infrastructure, and purpose-built hardware. The final product decision should be based on the required model, latency, throughput, data location, power, support, availability, and total cost.

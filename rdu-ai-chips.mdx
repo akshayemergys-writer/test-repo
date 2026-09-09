@@ -6,7 +6,9 @@ icon: "cpu"
 keywords: ["RDU", "Reconfigurable Dataflow Unit", "AI chip", "SambaNova hardware"]
 ---
 
-The **Reconfigurable Dataflow Unit (RDU)** is SambaNova's purpose-built processor for AI inference. The current public materials describe SN50 as a fifth-generation RDU designed for fast decode, agentic workloads, sustained throughput, and efficient data movement.
+## What is an RDU?
+
+The **Reconfigurable Dataflow Unit (RDU)** is SambaNova's purpose-built processor for AI inference. A processor is the hardware that performs calculations. **SN50** is the fifth-generation RDU described in the official product material. It is designed for fast token generation, **agentic workloads** (AI systems that perform multiple steps and use tools), sustained throughput, and efficient data movement.
 
 ## Why an RDU is different
 
@@ -37,7 +39,7 @@ This hierarchy is designed to keep the right data near the right computation ins
 - Concurrent enterprise inference where predictable latency matters across many users.
 - Energy-constrained data centers that need more useful inference per unit of power.
 
-## RDU compared with alternatives
+## How it has an edge over competitors
 
 | Accelerator | Strength | SambaNova RDU positioning |
 | --- | --- | --- |
@@ -47,16 +49,16 @@ This hierarchy is designed to keep the right data near the right computation ins
 | AWS Trainium or Inferentia | AWS-native economics and tooling | Focuses on SambaNova's integrated inference platform and open-model path |
 | Custom ASIC | Highly optimized for one workload | RDU remains reconfigurable for multiple AI model graphs |
 
-## SambaNova's edge
-
 The RDU's stated edge is the combination of dataflow execution, three-tier memory, fast decode, and scale-out through SambaRack. The meaningful business comparison is not only chip speed: evaluate tokens per second, time to first token, concurrent users, energy per token, model coverage, and total operating cost.
 
-## How it is used
+## How to use an RDU
 
-- Select a SambaNova system that includes RDU hardware.
-- Deploy supported models through SambaStack or SambaCloud.
-- Measure throughput, latency, and energy efficiency for the target workload.
-- Scale across the available infrastructure configuration.
+1. Select a SambaNova system that includes RDU hardware.
+2. Deploy supported models through SambaStack or SambaCloud.
+3. Measure throughput, latency, and energy efficiency for the target workload.
+4. Scale across the available infrastructure configuration.
+
+Applications do not call the chip directly. They call a SambaNova software platform, which routes the request to the RDU hardware.
 
 <Note>
   An RDU is hardware infrastructure rather than a standalone application API. Applications access it through SambaNova software and platform layers.

@@ -6,9 +6,11 @@ icon: "workflow"
 keywords: ["dataflow architecture", "SambaNova architecture", "AI dataflow", "RDU"]
 ---
 
-Dataflow Architecture is the execution model behind SambaNova's AI systems. Instead of repeatedly moving intermediate results between a processor and external memory, it arranges model operations as a streaming pipeline so data can stay close to the compute that uses it.
+## What is Dataflow Architecture?
 
-## Why data movement matters
+Dataflow Architecture is the execution model behind SambaNova's AI systems. An execution model describes how a processor organizes calculations and moves data. Instead of repeatedly moving intermediate results between a processor and external memory, Dataflow arranges model operations as a streaming pipeline so data can stay close to the computation that uses it.
+
+## Special features
 
 AI inference is not only a compute problem. Moving data between processor, memory, and accelerator can add latency and consume energy. Dataflow treats the model as a graph of operations and keeps related computation and data movement coordinated.
 
@@ -21,7 +23,9 @@ flowchart LR
     PMU2 --> Output[Generated tokens]
 ```
 
-The platform uses grids of **Programmable Compute Units (PCUs)** and **Programmable Memory Units (PMUs)**. PCUs perform model operations, while PMUs keep data close to those operations. Additional memory tiers, including HBM and DDR, hold model weights, active cache, and larger model or prompt data.
+The platform uses grids of **Programmable Compute Units (PCUs)** and **Programmable Memory Units (PMUs)**. PCUs perform model operations, while PMUs keep data close to those operations. **HBM**, or high-bandwidth memory, stores active model data close to the processor. **DDR**, or double data rate memory, provides larger-capacity storage for model pools and less frequently accessed data.
+
+Additional features include programmable operation graphs, parallel memory and compute, multi-chip scaling, and multiple memory tiers for frequently and infrequently used data. **Hot data** is accessed frequently; **cold data** is accessed less frequently.
 
 ## Real-world use cases
 
@@ -31,7 +35,7 @@ The platform uses grids of **Programmable Compute Units (PCUs)** and **Programma
 - Large-model inference in a data center where power and cooling are constrained.
 - Sovereign AI deployments that need predictable performance on dedicated infrastructure.
 
-## Dataflow compared with alternatives
+## How it has an edge over competitors
 
 | Execution approach | Core idea | Where Dataflow can have an edge |
 | --- | --- | --- |
@@ -40,9 +44,11 @@ The platform uses grids of **Programmable Compute Units (PCUs)** and **Programma
 | Custom ASIC | Design silicon for a narrow workload | Retains reconfigurability for multiple model graphs and supported workloads |
 | CPU inference | Use general-purpose processors | Purpose-built data movement and parallelism for larger, higher-throughput inference |
 
-## SambaNova's edge
-
 SambaNova's stated edge is to optimize the complete path from model graph to chip, memory hierarchy, and rack. The public architecture materials emphasize reduced data movement, configurable compute and memory grids, multi-chip scaling, and energy efficiency. These advantages should be demonstrated with the target model, batch size, context length, concurrency, and latency objective.
+
+## How to use it
+
+Dataflow Architecture is not a separate API that an application calls. It is built into SambaNova hardware and software. A customer uses it by selecting a SambaNova platform, deploying a supported model, and measuring the resulting latency, throughput, cache behavior, and energy efficiency.
 
 ## How it fits the portfolio
 
