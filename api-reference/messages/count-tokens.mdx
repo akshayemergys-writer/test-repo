@@ -1,0 +1,14 @@
+---
+title: "Count Tokens for a Message Request"
+description: "Estimate input tokens before sending a Messages request."
+sidebarTitle: "Count tokens"
+icon: "hash"
+---
+
+`POST /v1/messages/count_tokens` estimates the input tokens for a Messages request. Send the same system prompt, messages, tools, and tool choice you plan to use in the actual request.
+
+Use the result for context-window planning, cost estimates, and request validation.
+
+## Practical use case: prevent oversized requests
+
+Before sending a long legal document and tool definitions, an application can count tokens and shorten or split the input if it approaches the selected model's context limit.

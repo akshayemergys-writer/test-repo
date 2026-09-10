@@ -1,0 +1,24 @@
+---
+title: "API Error Codes"
+description: "Interpret errors and troubleshoot failed SambaNova API requests."
+sidebarTitle: "Error codes"
+icon: "circle-alert"
+---
+
+Common responses include:
+
+| Status | Meaning |
+| ---: | --- |
+| `400` | Invalid request body, parameter, role, or model input |
+| `401` | Missing or invalid API key |
+| `404` | Unknown endpoint or unavailable model |
+| `408` | Request timeout |
+| `429` | Rate limit exceeded |
+| `500` | Internal server error |
+| `503` | Service temporarily unavailable |
+
+Record the `request_id` returned with an error and include it when contacting support. Never send API keys in support tickets.
+
+## Practical use case: production error handling
+
+An API client can retry `429` and `503` responses with backoff, correct `400` requests without retrying, refresh credentials for `401`, and log the request ID for every unresolved failure.

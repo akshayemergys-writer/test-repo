@@ -1,0 +1,14 @@
+---
+title: "SambaStack Configuration Reference"
+description: "Reference Helm and deployment configuration options."
+sidebarTitle: "Configuration reference"
+icon: "file-cog"
+---
+
+The SambaStack configuration reference covers the `sambastack` and `sambastack-models` Helm charts, including ingress, TLS, high availability, service tiers, and model bundle configuration.
+
+Keep configuration versioned, review changes before applying them, and test chart upgrades in a non-production environment.
+
+## Practical use case: promote a tested configuration
+
+A platform team can commit Helm values to version control, test ingress and model settings in staging, then promote the reviewed configuration to production with a known rollback point.

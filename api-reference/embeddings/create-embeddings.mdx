@@ -1,0 +1,21 @@
+---
+title: "Create Embeddings"
+description: "Convert one or more text inputs into vectors."
+sidebarTitle: "Create embeddings"
+icon: "network"
+---
+
+`POST /v1/embeddings` returns a vector representation for each input string.
+
+```json
+{
+  "model": "E5-Mistral-7B-Instruct",
+  "input": ["First document", "Second document"]
+}
+```
+
+The response contains `data[].embedding`, `data[].index`, and usage information. Check model availability because embeddings support can be deployment-specific.
+
+## Practical use case: index a knowledge base
+
+An ingestion job can embed each policy document, store the vectors with document IDs, and later retrieve the closest documents for a user's question before calling a chat model.

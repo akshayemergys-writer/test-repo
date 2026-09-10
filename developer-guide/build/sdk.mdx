@@ -1,0 +1,35 @@
+---
+title: "SambaNova SDK"
+description: "Use the official Python or JavaScript SDK."
+sidebarTitle: "SambaNova SDK"
+icon: "braces"
+---
+
+SambaNova provides Python and JavaScript/TypeScript SDKs with typed request and response fields, synchronous and asynchronous support, and access to the REST APIs.
+
+## Practical use case: standardize backend access
+
+A platform team can wrap the SambaNova SDK in an internal service, centralize authentication and retries, and let several applications call one approved inference interface.
+
+```bash
+pip install sambanova
+npm install sambanova
+```
+
+Python:
+
+```python
+from sambanova import SambaNova
+
+client = SambaNova(
+    base_url="https://api.sambanova.ai/v1",
+    api_key="your-api-key",
+)
+completion = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=[{"role": "user", "content": "Hello"}],
+)
+print(completion.choices[0].message.content)
+```
+
+Use the JavaScript package in server-side environments and keep credentials out of client-side bundles.

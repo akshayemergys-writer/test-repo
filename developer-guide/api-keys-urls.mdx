@@ -1,0 +1,43 @@
+---
+title: "API Keys and URLs"
+description: "Find the credentials and endpoints used to connect to SambaNova."
+sidebarTitle: "API Keys and URLs"
+icon: "key"
+---
+
+You need a SambaNova API key and a base URL to send requests. Each user can generate and use up to 25 API keys. Save a key when it is created because it cannot be viewed again.
+
+## SambaCloud
+
+Create a key in the [SambaCloud API portal](https://cloud.sambanova.ai/apis).
+
+| Use | URL |
+| --- | --- |
+| Base URL for SDKs and compatible clients | `https://api.sambanova.ai/v1` |
+| Chat completions endpoint | `https://api.sambanova.ai/v1/chat/completions` |
+
+Authenticate with a bearer token:
+
+```http
+Authorization: Bearer YOUR_SAMBANOVA_API_KEY
+```
+
+## SambaStack
+
+Ask your system administrator for the local API-key generation tool and base URL. SambaStack URLs and key-management procedures are specific to your deployment.
+
+## Store keys safely
+
+Use an environment variable or secret manager. Do not commit API keys to source control, place them in browser code, or include them in logs.
+
+```bash
+export SAMBANOVA_API_KEY="your-api-key"
+```
+
+<Warning>
+  Revoke and replace a key immediately if it may have been exposed.
+</Warning>
+
+## Practical use case: configure separate environments
+
+A team can keep one key and base URL for development, a separate credential for staging, and a restricted production key stored in a secret manager. This prevents a test application from using production access accidentally.

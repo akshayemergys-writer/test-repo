@@ -1,0 +1,14 @@
+---
+title: "Transcribe Audio"
+description: "Transcribe audio into the input language."
+sidebarTitle: "Transcriptions"
+icon: "audio-lines"
+---
+
+`POST /v1/audio/transcriptions` accepts a multipart audio file and a model such as `Whisper-Large-v3`. Supported formats include WAV, MP3, FLAC, M4A, Ogg, and WebM, with a 25 MB file limit.
+
+Use `response_format` as `json` or `text`. `language` can improve accuracy and latency.
+
+## Practical use case: call-center search
+
+Transcribe recorded calls, attach the text to customer cases, and make the transcripts searchable for quality review and compliance audits.

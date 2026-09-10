@@ -1,0 +1,44 @@
+---
+title: "Vision and Multimodal"
+description: "Send images with text prompts to vision-capable models."
+sidebarTitle: "Vision"
+icon: "image"
+---
+
+Vision requests use a multimodal `content` array containing text and an `image_url` block. Images are currently passed as base64 data.
+
+```python
+import base64
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sambanova.ai/v1", api_key="your-key")
+with open("sample.jpg", "rb") as image_file:
+    encoded = base64.b64encode(image_file.read()).decode("utf-8")
+
+response = client.chat.completions.create(
+    model="gemma-4-31B-it",
+    messages=[{"role": "user", "content": [
+        {"type": "text", "text": "Describe this image."},
+        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded}"}},
+    ]}],
+)
+print(response.choices[0].message.content)
+```
+
+Check the model catalog for current multimodal support and input limits.
+
+## Practical use case: inspect an invoice
+
+An accounts-payable workflow can send a scanned invoice with a prompt asking for the vendor, invoice number, and total. The application can then validate the extracted values before saving them to its finance system.
+
+```python
+response = client.chat.completions.create(
+    model="gemma-4-31B-it",
+    messages=[{"role": "user", "content": [
+        {"type": "text", "text": "Extract the vendor, invoice number, and total."},
+        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{encoded}"}},
+    ]}],
+    response_format={"type": "json_object"},
+)
+print(response.choices[0].message.content)
+```

@@ -1,0 +1,14 @@
+---
+title: "Deploy Models and Bundles"
+description: "Plan and manage SambaStack model deployments."
+sidebarTitle: "Deploy models"
+icon: "rocket"
+---
+
+Model deployment covers deploying a single model, deploying a bundle, creating custom bundles, deploying custom checkpoints, selecting service configurations, migrating bundle configuration, and troubleshooting deployments.
+
+Use a single model for a focused service. Use a bundle when the deployment requires multiple coordinated components such as a talker and vocoder. Validate resource capacity and health before exposing the endpoint.
+
+## Practical use case: deploy a voice service
+
+An administrator can deploy a Qwen3-TTS bundle containing its talker and vocoder components, verify health, and expose the audio endpoint only after both components are ready.

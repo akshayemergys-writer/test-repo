@@ -1,0 +1,47 @@
+---
+title: "Anthropic Compatibility"
+description: "Use the Anthropic client library with SambaNova Messages APIs."
+sidebarTitle: "Anthropic Compatibility"
+icon: "message-circle"
+---
+
+SambaNova supports Anthropic-compatible client libraries for conversational and tool-capable applications.
+
+```bash
+pip install anthropic
+```
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    base_url="https://api.sambanova.ai/v1",
+    api_key="your-sambanova-api-key",
+)
+
+message = client.messages.create(
+    model="gpt-oss-120b",
+    max_tokens=1024,
+    messages=[{"role": "user", "content": "Explain embeddings in two sentences."}],
+)
+print(message.content[0].text)
+```
+
+The compatible endpoint is `POST /v1/messages`. Use the [Messages API](messages) page for streaming, thinking, tool use, and migration limitations. Token counting is available through `POST /v1/messages/count_tokens`.
+
+## Practical use case: migrate a support assistant
+
+An existing Anthropic-based customer-support assistant can point its client at SambaNova while retaining its Messages API code. The assistant can continue receiving a user question and return a typed text block for the support interface.
+
+```python
+message = client.messages.create(
+    model="gpt-oss-120b",
+    max_tokens=512,
+    system="Answer using the company's support policy.",
+    messages=[{"role": "user", "content": "How do I reset my password?"}],
+)
+
+answer = message.content[0].text
+```
+
+Before production migration, compare supported content blocks, tool behavior, and model output against your existing test cases.

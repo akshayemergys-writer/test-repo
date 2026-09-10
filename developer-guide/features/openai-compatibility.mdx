@@ -1,0 +1,49 @@
+---
+title: "OpenAI Compatibility"
+description: "Use OpenAI client libraries with SambaNova inference APIs."
+sidebarTitle: "OpenAI Compatibility"
+icon: "code"
+---
+
+SambaNova APIs are designed to work with OpenAI client libraries. Install the client and change the `base_url`, API key, and model ID.
+
+```bash
+pip install openai
+```
+
+```python
+from openai import OpenAI
+
+client = OpenAI(
+    base_url="https://api.sambanova.ai/v1",
+    api_key="your-sambanova-api-key",
+)
+
+response = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=[{"role": "user", "content": "Hello from SambaNova."}],
+)
+print(response.choices[0].message.content)
+```
+
+Set `stream=True` for incremental output. SambaNova also supports the OpenAI Responses API for selected models. Check the [Responses API](responses) page for its differences and limitations.
+
+SambaNova-specific options include `top_k`. `presence_penalty` and `frequency_penalty` are accepted for compatibility but are not currently implemented. Tool calls cannot be combined with `n > 1`.
+
+## Practical use case: migrate an existing assistant
+
+An application already using the OpenAI Python client can try SambaNova without rewriting its conversation logic. Keep the existing `chat.completions.create()` call and change the `base_url`, API key, and model ID.
+
+```python
+client = OpenAI(
+    base_url="https://api.sambanova.ai/v1",
+    api_key="SAMBANOVA_API_KEY",
+)
+
+response = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=conversation_history,
+)
+```
+
+This is useful for comparing latency, quality, and cost across providers while keeping the application interface stable.

@@ -1,0 +1,104 @@
+---
+title: "Function Calling and JSON Mode"
+description: "Build tool-using workflows and structured model responses."
+sidebarTitle: "Function Calling"
+icon: "wrench"
+---
+
+Function calling lets a model select a function and generate arguments that your application executes.
+
+Define a JSON Schema function in `tools`, then choose `tool_choice` as `auto`, `required`, `none`, or a specific function. Always validate generated arguments before executing code.
+
+```json
+{
+  "type": "function",
+  "function": {
+    "name": "get_weather",
+    "description": "Get current weather for a city",
+    "parameters": {
+      "type": "object",
+      "properties": {"city": {"type": "string"}},
+      "required": ["city"]
+    }
+  }
+}
+```
+
+When a response contains `tool_calls`, execute the requested function and append the assistant tool-call message and a `tool` result message before the follow-up request.
+
+## Practical example: order tracking
+
+Imagine an online store where a customer asks, “Where is my order?” The model can identify that it needs order information, but your application remains responsible for querying the order system.
+
+```python
+import json
+from openai import OpenAI
+
+client = OpenAI(
+  base_url="https://api.sambanova.ai/v1",
+  api_key="YOUR_API_KEY",
+)
+
+tools = [{
+  "type": "function",
+  "function": {
+    "name": "get_order_status",
+    "description": "Find the shipping status of an order.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "order_id": {
+          "type": "string",
+          "description": "The customer's order number.",
+        }
+      },
+      "required": ["order_id"],
+    },
+  },
+}]
+
+def get_order_status(order_id):
+  orders = {
+    "ORD-12345": {
+      "status": "Out for delivery",
+      "expected_delivery": "Today",
+    }
+  }
+  return orders.get(order_id, {"status": "Order not found"})
+
+messages = [{"role": "user", "content": "Where is order ORD-12345?"}]
+
+completion = client.chat.completions.create(
+  model="Meta-Llama-3.3-70B-Instruct",
+  messages=messages,
+  tools=tools,
+)
+
+assistant_message = completion.choices[0].message
+messages.append(assistant_message.model_dump())
+
+if assistant_message.tool_calls:
+  tool_call = assistant_message.tool_calls[0]
+  arguments = json.loads(tool_call.function.arguments)
+
+  if not arguments["order_id"].startswith("ORD-"):
+    raise ValueError("Invalid order ID")
+
+  result = get_order_status(arguments["order_id"])
+  messages.append({
+    "role": "tool",
+    "tool_call_id": tool_call.id,
+    "content": json.dumps(result),
+  })
+
+  final_response = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=messages,
+    tools=tools,
+  )
+  print(final_response.choices[0].message.content)
+```
+
+The first request asks the model what action is needed. Your application then validates the generated order ID and queries the order system. The second request supplies the tool result, allowing the model to respond with something like: “Your order is out for delivery and is expected to arrive today.”
+
+For structured output, set `response_format` to `{"type": "json_object"}` or use `json_schema`. In JSON mode, explicitly tell the model to output JSON. Supported function-calling models include `Meta-Llama-3.3-70B-Instruct`, `gpt-oss-120b`, `DeepSeek-V3.1`, `DeepSeek-V3.2`, and `MiniMax-M2.7`.

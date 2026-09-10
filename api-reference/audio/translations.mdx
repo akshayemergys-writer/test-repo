@@ -1,0 +1,14 @@
+---
+title: "Translate Audio into English"
+description: "Transcribe supported audio and return English text."
+sidebarTitle: "Translations"
+icon: "languages"
+---
+
+`POST /v1/audio/translations` uses `Whisper-Large-v3` to translate audio from a supported input language into English. Send the audio as multipart form data and optionally provide the ISO-639-1 `language` value.
+
+The endpoint supports `json` and `text` response formats.
+
+## Practical use case: multilingual support
+
+A global support team can translate recorded Spanish or French calls into English so a centralized review team can search and summarize them consistently.

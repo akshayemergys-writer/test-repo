@@ -1,0 +1,21 @@
+---
+title: "Create a Model Response"
+description: "Create typed model output with the Responses API."
+sidebarTitle: "Create model response"
+icon: "blocks"
+---
+
+`POST /v1/responses` accepts `input` and returns typed output items. Supported models currently include `gpt-oss-120b` and `MiniMax-M2.7`.
+
+```json
+{
+  "model": "gpt-oss-120b",
+  "input": "Summarize the benefits of RAG."
+}
+```
+
+The API is stateless. Include prior output items for multi-turn conversations. Only client-executed function tools are supported.
+
+## Practical use case: coding assistant
+
+A coding assistant can submit a task as `input`, inspect typed `function_call` items, run approved tools locally, and send the tool output back for the model's final response.

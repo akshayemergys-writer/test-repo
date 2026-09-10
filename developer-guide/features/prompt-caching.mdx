@@ -1,0 +1,40 @@
+---
+title: "Prompt Caching"
+description: "Reduce latency and input cost for repeated prompt prefixes."
+sidebarTitle: "Prompt Caching"
+icon: "database-zap"
+---
+
+Automatic Prefix Caching is enabled by default for `MiniMax-M2.7` on SambaCloud. It reuses computation for identical leading tokens; it does not store prompt text for reuse by the model.
+
+Caching is useful for long system prompts, repeated examples, RAG context, and multi-turn conversations. Keep the prefix byte-for-byte stable and change only the later user message.
+
+Inspect `usage.prompt_tokens_details`:
+
+```json
+{
+  "cached_tokens": 4096,
+  "cache_creation_tokens": 0
+}
+```
+
+A shared prefix must reach 4,096 tokens and can be at most 192,000 tokens. Cache state is local to a serving node, uses LRU eviction, and is not guaranteed to persist. Other models return `cached_tokens: 0`.
+
+## Practical use case: repeated policy questions
+
+A compliance assistant may send the same long policy handbook with every question. Keep the handbook in an unchanged system prompt and vary only the user's question so later requests can reuse the processed prefix.
+
+```python
+policy = load_policy_handbook()
+
+response = client.chat.completions.create(
+  model="MiniMax-M2.7",
+  messages=[
+    {"role": "system", "content": policy},
+    {"role": "user", "content": "Can a manager approve this expense?"},
+  ],
+)
+
+cached = response.usage.prompt_tokens_details.cached_tokens
+print(f"Reused {cached} prompt tokens")
+```

@@ -1,0 +1,53 @@
+---
+title: "Responses API"
+description: "Build agentic and tool-capable applications with typed response items."
+sidebarTitle: "Responses"
+icon: "blocks"
+---
+
+The Responses API is available at `POST /v1/responses` and complements Chat Completions. It returns typed output items such as `message`, `function_call`, and `reasoning`.
+
+Supported models currently include `gpt-oss-120b` and `MiniMax-M2.7`.
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sambanova.ai/v1", api_key="your-key")
+response = client.responses.create(
+    model="gpt-oss-120b",
+    input="Explain supervised learning in two sentences.",
+)
+print(response.output_text)
+```
+
+Set `stream=True` for typed SSE events. Tools are client-executed: run the returned function call and send a `function_call_output` item in a follow-up request. Structured output uses `text.format` with `json_schema` or `json_object`.
+
+The API is stateless. `previous_response_id`, built-in tools, and server-executed tools are not supported.
+
+## Practical use case: structured support ticket extraction
+
+A help-desk application can use the Responses API to extract consistent fields from an incoming ticket. The application can parse the returned JSON and route the ticket without relying on free-form text.
+
+```python
+response = client.responses.create(
+    model="gpt-oss-120b",
+    input="The customer's payment failed twice and they need help today.",
+    text={
+        "format": {
+            "type": "json_schema",
+            "name": "support_ticket",
+            "schema": {
+                "type": "object",
+                "properties": {
+                    "category": {"type": "string"},
+                    "priority": {"type": "string"},
+                },
+                "required": ["category", "priority"],
+                "additionalProperties": False,
+            },
+        }
+    },
+)
+
+print(response.output_text)
+```

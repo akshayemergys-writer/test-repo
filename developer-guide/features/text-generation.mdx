@@ -1,0 +1,44 @@
+---
+title: "Text Generation"
+description: "Generate text with synchronous, asynchronous, and streaming requests."
+sidebarTitle: "Text Generation"
+icon: "pen-line"
+---
+
+Text generation uses chat messages and a selected model. You can request a complete response, stream tokens, or use an asynchronous client.
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="https://api.sambanova.ai/v1", api_key="your-key")
+stream = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=[{"role": "user", "content": "Write a short welcome message."}],
+    stream=True,
+)
+for chunk in stream:
+    print(chunk.choices[0].delta.content or "", end="")
+```
+
+Use `n` from 1 to 8 for multiple completions. Choose temperature, top-p, or top-k to control sampling, generally changing only one of these controls at a time. Include prior messages for multi-turn context; the model does not retain conversation state outside the request.
+
+Reasoning-capable models may support `chat_template_kwargs: {"enable_thinking": true}`. Reasoning increases output tokens and latency, so reserve it for tasks that benefit from deeper analysis.
+
+## Practical use case: generate product descriptions
+
+An e-commerce application can generate several candidate descriptions, then let an editor select the best one. Setting `n=3` returns three independent choices.
+
+```python
+response = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=[{
+        "role": "user",
+        "content": "Write a 40-word description for a waterproof hiking backpack.",
+    }],
+    n=3,
+    temperature=0.7,
+)
+
+for choice in response.choices:
+    print(choice.message.content)
+```

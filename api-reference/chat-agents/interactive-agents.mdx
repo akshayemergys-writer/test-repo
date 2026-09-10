@@ -1,0 +1,14 @@
+---
+title: "Interactive Agents"
+description: "Run multi-turn agent workflows with thread context."
+sidebarTitle: "Interactive agents"
+icon: "messages-square"
+---
+
+Interactive agent endpoints use a two-step or multi-turn workflow. The first request creates or returns a thread identifier; later requests include that identifier to continue the task, approve a plan, or provide additional input.
+
+Interactive deep research can return a plan for approval before producing the final report.
+
+## Practical use case: analyst approval workflow
+
+An analyst can review a research plan, approve or revise it, and then resume the same thread so the agent produces a report using the approved scope.

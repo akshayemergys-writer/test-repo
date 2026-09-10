@@ -1,0 +1,39 @@
+---
+title: "SambaCloud Models"
+description: "Review production and preview models available on SambaCloud."
+sidebarTitle: "Models"
+icon: "cpu"
+---
+
+SambaCloud model availability changes over time. Use the complete model ID in API requests.
+
+## Production models
+
+Production models are intended for production workloads.
+
+| Provider | Model ID | Context length | Modalities |
+| --- | --- | ---: | --- |
+| MiniMax | `MiniMax-M2.7` | 192k tokens | Text |
+| DeepSeek | `DeepSeek-V3.1` | 128k tokens | Text |
+| Meta | `Meta-Llama-3.3-70B-Instruct` | 128k tokens | Text |
+| OpenAI | `gpt-oss-120b` | 128k tokens | Text |
+
+## Preview models
+
+Preview models are for evaluation and experimentation. They have limited capacity and may be removed with short notice.
+
+| Provider | Model ID | Context length | Modalities |
+| --- | --- | ---: | --- |
+| MiniMax | `MiniMax-M3` | 1M tokens | Text, image |
+| DeepSeek | `DeepSeek-V3.2` | 32k tokens | Text |
+| Google | `gemma-4-31B-it` | 128k tokens | Text, image, video |
+
+`MiniMax-M3` supports text and image input on SambaCloud, but not video. `gemma-4-31B-it` supports text, image, and video input, but not audio.
+
+<Note>
+  Check this page before deploying. Model IDs, context lengths, modalities, and availability are subject to change.
+</Note>
+
+## Practical use case: choose a production model
+
+A team can use a production text model for a customer assistant, evaluate a preview multimodal model for invoice inspection, and keep preview workloads isolated until their availability and behavior are stable.

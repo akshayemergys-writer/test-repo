@@ -1,0 +1,22 @@
+---
+title: "Create Completion"
+description: "Generate text from a raw prompt with the Completions API."
+sidebarTitle: "Create completion"
+icon: "text-cursor-input"
+---
+
+`POST /v1/completions` accepts a raw `prompt` string. Use this endpoint when your application renders a custom chat template or needs direct control over prompt formatting.
+
+```json
+{
+  "model": "Meta-Llama-3.1-8B-Instruct",
+  "prompt": "Write a short welcome message.",
+  "max_tokens": 128
+}
+```
+
+The generated text is returned in `choices[0].text`.
+
+## Practical use case: custom checkpoint prompting
+
+An on-premises team with a fine-tuned checkpoint can render its own prompt template, send the raw prompt to this endpoint, and parse the returned text into the application's expected assistant format.
