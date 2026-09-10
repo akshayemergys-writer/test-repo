@@ -1,0 +1,22 @@
+---
+title: "Create Chat-Based Completion"
+description: "Generate a response from a conversation using Chat Completions."
+sidebarTitle: "Create chat completion"
+icon: "message-square"
+---
+
+`POST /v1/chat/completions` accepts a model ID and an array of messages, then returns an assistant response.
+
+```json
+{
+  "model": "gpt-oss-120b",
+  "messages": [{"role": "user", "content": "Explain RAG."}],
+  "stream": false
+}
+```
+
+Use `stream: true` for server-sent events. The generated text is available at `choices[0].message.content`. See the [function calling guide](/developer-guide/features/function-calling) for tools and JSON mode.
+
+## Practical use case: customer support chat
+
+Send the customer's question and recent conversation messages to generate a support reply. Stream the response when the interface should show the answer as it is generated.

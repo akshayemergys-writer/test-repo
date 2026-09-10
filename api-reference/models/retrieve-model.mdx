@@ -1,0 +1,14 @@
+---
+title: "Retrieve Model Metadata"
+description: "Get metadata for one available model."
+sidebarTitle: "Retrieve model"
+icon: "scan-search"
+---
+
+`GET /v1/models/{model}` returns metadata for a specific model ID. Use the exact model identifier from the list-models response.
+
+A missing or unavailable model returns an error. Model metadata can include capabilities, context length, modalities, and lifecycle information.
+
+## Practical use case: validate a deployment
+
+An operations check can retrieve the configured model before rollout and confirm that its context length and modalities match the application's expected workload.

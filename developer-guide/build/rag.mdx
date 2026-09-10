@@ -1,0 +1,24 @@
+---
+title: "RAG Workflows"
+description: "Ground model responses in retrieved external information."
+sidebarTitle: "RAG"
+icon: "search-check"
+---
+
+Retrieval-augmented generation (RAG) retrieves relevant information at request time and includes it in the model prompt. This keeps answers current without retraining the model and can reduce unsupported claims.
+
+## Typical workflow
+
+1. Parse documents and retain source metadata.
+2. Split documents into context-sized chunks.
+3. Generate embeddings for each chunk.
+4. Store vectors and content in a vector database.
+5. Embed the user query and retrieve similar chunks.
+6. Optionally rerank the results.
+7. Ask the model to answer using the retrieved context.
+
+Common integration choices include LangChain, LlamaIndex, Haystack, Neo4j, Milvus, and LangFlow. The [enterprise knowledge retriever starter kit](https://github.com/sambanova/ai-starter-kit/tree/main/enterprise_knowledge_retriever) provides an end-to-end example.
+
+## Practical use case: answer questions from policy documents
+
+An HR assistant can parse policy PDFs, split them into chunks, embed and index them, retrieve the most relevant passages for each question, and ask the model to answer only from that context.

@@ -1,0 +1,16 @@
+---
+title: "Reasoning Models"
+description: "Use reasoning models for complex planning, analysis, and verification."
+sidebarTitle: "Reasoning Models"
+icon: "brain"
+---
+
+Reasoning models spend additional tokens analyzing a problem before producing an answer. They are useful for report generation, workflow planning, coding, mathematics, and complex document analysis.
+
+## Practical use case: investigate a complex incident
+
+An operations team can give a reasoning model logs, symptoms, and constraints, ask it to propose a ranked diagnosis plan, and have an engineer verify each suggested action before execution.
+
+For DeepSeek-R1, use a direct user prompt with minimal extra system instructions. Suggested settings are temperature `0.6` and top-p `0.95` for general reasoning, or temperature `0.7` and top-p `1.0` for math-style reasoning. Streaming can make the longer generation feel more responsive.
+
+Reasoning increases latency and token usage. Use a standard model for simple tasks. Function calling with DeepSeek-R1 may be unstable; use a model with stronger tool-calling support when tool reliability matters.

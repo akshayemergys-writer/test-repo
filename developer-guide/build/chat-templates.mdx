@@ -1,0 +1,21 @@
+---
+title: "Custom Chat Templates"
+description: "Render prompts and parse model output for custom checkpoints."
+sidebarTitle: "Chat Templates"
+icon: "brackets"
+---
+
+Use custom chat templates when you need full control over prompt formatting, are deploying a fine-tuned checkpoint, or need to parse a non-standard tool-call format.
+
+## Practical use case: deploy a fine-tuned support model
+
+If a fine-tuned checkpoint expects XML tool markers instead of the default format, the application can render its custom Jinja template, call `/v1/completions`, parse the XML, and convert it into the application's standard tool-call structure.
+
+The workflow is:
+
+1. Load a Jinja template from a tokenizer or define one.
+2. Render `messages`, `tools`, and generation variables locally.
+3. Send the rendered string to `POST /v1/completions`.
+4. Parse the raw output into an assistant message and tool calls.
+
+Llama-style models may emit JSON tool calls; DeepSeek-style models may use XML markers. Validate the output before executing any tool. Custom parsers run application code and are not a sandbox, so run only trusted code.

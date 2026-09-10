@@ -1,0 +1,32 @@
+---
+title: "Video Input"
+description: "Send video alongside text to supported multimodal models."
+sidebarTitle: "Video"
+icon: "video"
+---
+
+Video input uses a `video_url` content block containing a URL or base64-encoded video. It is currently supported on `gemma-4-31B-it` on SambaCloud and SambaStack 1.2.
+
+```json
+{
+  "type": "video_url",
+  "video_url": {"url": "data:video/mp4;base64,<encoded-video>"}
+}
+```
+
+Current requirements are a maximum duration of 60 seconds, 2 frames per second, and 100 MB maximum file size. The file must contain readable duration metadata. Use `video_url`, not `video`, or validation will fail.
+
+## Practical use case: review a training video
+
+A workplace application can send a short training clip with a question such as “Does the employee follow the three safety steps?” The model returns a text explanation that a reviewer can verify before recording the result.
+
+```python
+response = client.chat.completions.create(
+  model="gemma-4-31B-it",
+  messages=[{"role": "user", "content": [
+    {"type": "text", "text": "List the safety steps demonstrated in this video."},
+    {"type": "video_url", "video_url": {"url": video_data_url}},
+  ]}],
+)
+print(response.choices[0].message.content)
+```

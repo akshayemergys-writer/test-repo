@@ -1,0 +1,40 @@
+---
+title: "Embeddings"
+description: "Convert text into vectors for search and retrieval workflows."
+sidebarTitle: "Embeddings"
+icon: "network"
+---
+
+Embeddings represent text as vectors whose distances can measure semantic relatedness. They are useful for search, recommendations, classification, and RAG. The embeddings API follows the OpenAI structure.
+
+This feature is available for SambaStack users. `E5-Mistral-7B-Instruct` is not available on SambaCloud.
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="your-sambastack-url/v1", api_key="your-key")
+response = client.embeddings.create(
+    model="E5-Mistral-7B-Instruct",
+    input=["First document", "Second document"],
+)
+print(response.data[0].embedding)
+```
+
+Pass either a string or an array of strings to `input`.
+
+## Practical use case: semantic document search
+
+A knowledge-base application can embed its documents once, store the vectors, and embed each new user question. It then retrieves documents whose vectors are closest to the question before sending that context to a chat model.
+
+```python
+question = "How do I rotate an API key?"
+response = client.embeddings.create(
+    model="E5-Mistral-7B-Instruct",
+    input=question,
+)
+
+query_vector = response.data[0].embedding
+matching_documents = vector_store.search(query_vector, limit=5)
+```
+
+The vector store and similarity metric are application choices; embeddings only provide the numerical representation.

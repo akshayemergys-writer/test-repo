@@ -1,0 +1,22 @@
+---
+title: "Create a Message"
+description: "Generate a response using the Anthropic-compatible Messages endpoint."
+sidebarTitle: "Create message"
+icon: "messages-square"
+---
+
+`POST /v1/messages` accepts a top-level `system` prompt and a `messages` array. Authentication supports bearer authentication and the Anthropic `x-api-key` header.
+
+```json
+{
+  "model": "gpt-oss-120b",
+  "max_tokens": 1024,
+  "messages": [{"role": "user", "content": "Hello"}]
+}
+```
+
+Responses contain typed blocks such as `text`, `thinking`, and `tool_use`.
+
+## Practical use case: Anthropic-based help desk
+
+A help-desk service already using the Anthropic SDK can point its client to SambaNova and use the returned text blocks to answer common support questions while routing tool-use blocks to internal services.

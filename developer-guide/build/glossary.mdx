@@ -1,0 +1,25 @@
+---
+title: "Glossary"
+description: "Definitions for common SambaNova developer terms."
+sidebarTitle: "Glossary"
+icon: "book-marked"
+---
+
+| Term | Meaning |
+| --- | --- |
+| API key | Secret credential used to authenticate requests. |
+| Endpoint | URL path that identifies an API operation. |
+| Model ID | Complete model name used in an API request. |
+| Production model | Model intended for production workloads and supported for stability and quality. |
+| Preview model | Model for evaluation and experimentation that may change or be removed quickly. |
+| Prompt | Input instructions and context sent to a model. |
+| Stream | Return output incrementally instead of as one completed response. |
+| Temperature | Sampling control that affects output randomness. |
+| Top-p | Nucleus sampling control based on cumulative probability. |
+| Top-k | Limits token selection to the most likely candidates. |
+| Stop sequence | String or strings that tell generation when to stop. |
+| Token | A unit of text used to measure context and usage. |
+
+## Practical use case: configure a production request
+
+An engineer can use the glossary while reviewing a request: the API key authenticates it, the endpoint receives it, the model ID selects the model, `temperature` controls variation, `max_tokens` controls output length, and streaming determines whether text arrives incrementally.

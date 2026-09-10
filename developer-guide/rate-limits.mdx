@@ -1,0 +1,56 @@
+---
+title: "Rate Limits"
+description: "Understand SambaCloud and SambaStack request limits."
+sidebarTitle: "Rate Limits"
+icon: "gauge"
+---
+
+Rate limits control how often an account can call the API. A request is one call to the SambaNova API. You reach a limit when you exceed either the per-minute or per-day allowance.
+
+- **RPM**: requests per minute
+- **RPD**: requests per day
+- **TPD**: tokens per day, used for the Free Tier
+
+## SambaCloud tiers
+
+The Free Tier applies when no payment method is linked. The Developer Tier applies when a payment method is linked. Developer Tier accounts are limited to 20 million tokens per day across all models. Contact SambaNova for higher limits.
+
+## Production model limits
+
+| Tier | Model | RPM | RPD | TPD |
+| --- | --- | ---: | ---: | ---: |
+| Developer | `MiniMax-M2.7` | 60 | 12,000 | - |
+| Developer | `DeepSeek-V3.1` | 60 | 12,000 | - |
+| Developer | `Meta-Llama-3.3-70B-Instruct` | 240 | 48,000 | - |
+| Developer | `gpt-oss-120b` | 60 | 12,000 | - |
+| Free | `DeepSeek-V3.1` | 20 | 20 | 200,000 |
+| Free | `Meta-Llama-3.3-70B-Instruct` | 20 | 20 | 200,000 |
+| Free | `gpt-oss-120b` | 20 | 20 | 200,000 |
+
+## Preview model limits
+
+| Tier | Model | RPM | RPD | TPD |
+| --- | --- | ---: | ---: | ---: |
+| Developer | `DeepSeek-V3.2` | 60 | 12,000 | - |
+| Developer | `gemma-4-31B-it` | 60 | 12,000 | - |
+| Free | `DeepSeek-V3.2` | 20 | 20 | 200,000 |
+| Free | `gemma-4-31B-it` | 20 | 20 | 200,000 |
+
+For SambaStack, rate limits are optional and are applied to user groups by the system administrator.
+
+## Response headers
+
+Responses include current limit information:
+
+| Header | Meaning |
+| --- | --- |
+| `x-ratelimit-limit-requests` | Maximum requests per minute |
+| `x-ratelimit-remaining-requests` | Requests remaining this minute |
+| `x-ratelimit-reset-requests` | Time until the minute limit resets |
+| `x-ratelimit-limit-requests-day` | Maximum requests per day |
+| `x-ratelimit-remaining-requests-day` | Requests remaining today |
+| `x-ratelimit-reset-requests-day` | Time until the daily limit resets |
+
+## Practical use case: throttle a batch job
+
+A document-processing worker can read the remaining request headers, pause when the minute or daily allowance is nearly exhausted, and resume later instead of producing avoidable `429` errors.

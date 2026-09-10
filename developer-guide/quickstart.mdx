@@ -1,0 +1,75 @@
+---
+title: "Quickstart"
+description: "Make your first SambaNova inference request."
+sidebarTitle: "Quickstart"
+icon: "rocket"
+---
+
+You need a SambaCloud account or access to a SambaStack deployment, an API key, and Python 3, Node.js, or curl.
+
+## 1. Choose a model
+
+SambaCloud developers can select a model from the [supported models](models). SambaStack developers should ask their system administrator which models are installed. The examples use `Meta-Llama-3.3-70B-Instruct`.
+
+## 2. Install a client
+
+```bash
+pip install sambanova
+```
+
+Or use the OpenAI-compatible client:
+
+```bash
+pip install openai
+```
+
+## 3. Send a request
+
+```python
+import os
+from openai import OpenAI
+
+client = OpenAI(
+    api_key=os.environ["SAMBANOVA_API_KEY"],
+    base_url="https://api.sambanova.ai/v1",
+)
+
+completion = client.chat.completions.create(
+    model="Meta-Llama-3.3-70B-Instruct",
+    messages=[
+        {"role": "system", "content": "Answer in two sentences."},
+        {"role": "user", "content": "Share a happy story with me."},
+    ],
+)
+
+print(completion.choices[0].message.content)
+```
+
+Set the key before running the file:
+
+```bash
+export SAMBANOVA_API_KEY="your-api-key"
+python hello_world.py
+```
+
+## curl
+
+```bash
+export SAMBANOVA_API_KEY="your-api-key"
+
+curl https://api.sambanova.ai/v1/chat/completions \
+  -H "Authorization: Bearer $SAMBANOVA_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "Meta-Llama-3.3-70B-Instruct",
+    "messages": [{"role": "user", "content": "Explain RAG in one sentence."}]
+  }'
+```
+
+<Tip>
+  After your first successful request, explore the feature guides and AI Starter Kits to build a complete application.
+</Tip>
+
+## Practical use case: verify an integration
+
+Before building a user interface, a developer can run the quickstart request, confirm authentication and model availability, measure a representative response, and use that result as the baseline for the application.

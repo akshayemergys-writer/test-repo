@@ -1,0 +1,53 @@
+---
+title: "SambaNova Developer Guide"
+description: "Build AI applications with SambaCloud and SambaStack."
+sidebarTitle: "Overview"
+icon: "book-open"
+---
+
+The SambaNova Developer Guide explains how to connect applications to SambaCloud and SambaStack, choose models, and build production AI workflows.
+
+SambaCloud is SambaNova's hosted API service. SambaStack is a deployment operated in your own environment. Both use related technologies, but available models, URLs, authentication, and administration responsibilities can differ.
+
+## Start here
+
+<CardGroup cols={2}>
+  <Card title="API keys and URLs" href="/developer-guide/api-keys-urls">
+    Find the credentials and base URL for SambaCloud or SambaStack.
+  </Card>
+  <Card title="Quickstart" href="/developer-guide/quickstart">
+    Send your first request with the SDK, OpenAI client, or curl.
+  </Card>
+  <Card title="Models" href="/developer-guide/models">
+    Compare supported production and preview models.
+  </Card>
+  <Card title="Rate limits" href="/developer-guide/rate-limits">
+    Understand RPM, RPD, TPD, tiers, and response headers.
+  </Card>
+</CardGroup>
+
+## What you can build
+
+- Chat and text-generation applications
+- OpenAI- or Anthropic-compatible integrations
+- Structured JSON and function-calling workflows
+- Vision, video, audio, embeddings, and text-to-speech experiences
+- Retrieval-augmented generation (RAG) and tool-using agents
+- Applications using reasoning models or custom chat templates
+
+## Product coverage
+
+Use the product that matches your operating model:
+
+| Product | Best suited for | Main responsibility |
+| --- | --- | --- |
+| SambaCloud | Hosted development and inference | SambaNova operates the service; you call the API |
+| SambaStack | Private deployment in your environment | Your organization and administrator operate the deployment |
+
+<Note>
+  Model availability, limits, endpoints, and compatibility can change. Confirm live values in the official SambaNova documentation before production deployment.
+</Note>
+
+## Practical use case: plan a new AI application
+
+A team can start with the API keys and Quickstart pages, select a production model, choose Chat Completions or Responses, and then add retrieval, tools, or multimodal input only where the application needs them.

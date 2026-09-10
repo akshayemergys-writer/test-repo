@@ -1,0 +1,14 @@
+---
+title: "Reference Architecture"
+description: "Understand SambaStack service connectivity and observability."
+sidebarTitle: "Reference architecture"
+icon: "workflow"
+---
+
+A SambaStack reference architecture connects client applications, ingress, authentication, inference services, model bundles, Kubernetes resources, hardware, and observability systems.
+
+SambaStack can also integrate with LiteLLM. Keep application traffic, administrative traffic, model artifacts, and telemetry paths distinct when designing a production environment.
+
+## Practical use case: isolate production traffic
+
+An architecture team can place application ingress on a service network, restrict administrative access to an operations network, and forward sanitized metrics and logs to observability systems.

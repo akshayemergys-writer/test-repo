@@ -1,0 +1,40 @@
+---
+title: "Audio Input"
+description: "Transcribe and translate audio with Whisper-Large-v3."
+sidebarTitle: "Audio"
+icon: "audio-lines"
+---
+
+SambaNova provides OpenAI-compatible transcription and translation endpoints using `Whisper-Large-v3`. This feature is available for SambaStack users; it is not available on SambaCloud.
+
+Supported audio formats include FLAC, MP3, MP4, MPEG, MPGA, M4A, Ogg, WAV, and WebM. Files are limited to 25 MB. Use `response_format` as `json` or `text`; other formats are not currently supported.
+
+```python
+from openai import OpenAI
+
+client = OpenAI(base_url="your-sambastack-url/v1", api_key="your-key")
+with open("audio.wav", "rb") as audio:
+    result = client.audio.transcriptions.create(
+        model="Whisper-Large-v3",
+        file=("audio.wav", audio),
+    )
+print(result)
+```
+
+Use `client.audio.translations.create()` to return English text from supported input languages.
+
+## Practical use case: transcribe a support call
+
+A contact center can transcribe a recorded call, store the text with the case, and pass it to a separate summarization workflow. Supplying the language can improve transcription accuracy and latency.
+
+```python
+with open("support-call.wav", "rb") as audio:
+    transcript = client.audio.transcriptions.create(
+        model="Whisper-Large-v3",
+        file=("support-call.wav", audio),
+        language="en",
+        response_format="text",
+    )
+
+print(transcript)
+```

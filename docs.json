@@ -21,6 +21,191 @@
           "dataflow-architecture",
           "rdu-ai-chips"
         ]
+      },
+      {
+        "group": "Developer Guide",
+        "pages": [
+          {
+            "group": "Get started",
+            "pages": [
+              "developer-guide/overview",
+              "developer-guide/api-keys-urls",
+              "developer-guide/quickstart"
+            ]
+          },
+          {
+            "group": "Models",
+            "pages": [
+              "developer-guide/models",
+              "developer-guide/rate-limits",
+              "developer-guide/deprecations"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "developer-guide/features/openai-compatibility",
+              "developer-guide/features/anthropic-compatibility",
+              "developer-guide/features/messages",
+              "developer-guide/features/text-generation",
+              "developer-guide/features/function-calling",
+              "developer-guide/features/responses",
+              "developer-guide/features/vision",
+              "developer-guide/features/video",
+              "developer-guide/features/audio",
+              "developer-guide/features/embeddings",
+              "developer-guide/features/prompt-caching",
+              "developer-guide/features/speech"
+            ]
+          },
+          {
+            "group": "Build",
+            "pages": [
+              "developer-guide/build/community",
+              "developer-guide/build/ai-starter-kits",
+              "developer-guide/build/agents",
+              "developer-guide/build/hf-spaces",
+              "developer-guide/build/rag",
+              "developer-guide/build/reasoning",
+              "developer-guide/build/sdk",
+              "developer-guide/build/chat-templates"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "developer-guide/build/glossary"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "API Reference",
+        "pages": [
+          "api-reference/overview",
+          {
+            "group": "Inference API",
+            "pages": [
+              {
+                "group": "Chat completions",
+                "pages": ["api-reference/chat-completions/create-chat-based-completion"]
+              },
+              {
+                "group": "Completions",
+                "pages": ["api-reference/completions/create-completion"]
+              },
+              {
+                "group": "Responses",
+                "pages": ["api-reference/responses/create-model-response"]
+              },
+              {
+                "group": "Messages",
+                "pages": [
+                  "api-reference/messages/create-message",
+                  "api-reference/messages/count-tokens"
+                ]
+              },
+              {
+                "group": "Embeddings",
+                "pages": ["api-reference/embeddings/create-embeddings"]
+              },
+              {
+                "group": "Audio",
+                "pages": [
+                  "api-reference/audio/transcriptions",
+                  "api-reference/audio/translations"
+                ]
+              },
+              {
+                "group": "Models",
+                "pages": [
+                  "api-reference/models/list-models",
+                  "api-reference/models/retrieve-model"
+                ]
+              }
+            ]
+          },
+          {
+            "group": "Chat Agents API",
+            "pages": [
+              "api-reference/chat-agents/overview",
+              "api-reference/chat-agents/main-agent",
+              "api-reference/chat-agents/subagents",
+              "api-reference/chat-agents/interactive-agents",
+              "api-reference/chat-agents/file-management"
+            ]
+          },
+          {
+            "group": "Using the API",
+            "pages": ["api-reference/using-the-api/error-codes"]
+          }
+        ]
+      },
+      {
+        "group": "Integrations",
+        "pages": [
+          "integrations/overview",
+          "integrations/developer-tools",
+          "integrations/frameworks",
+          "integrations/interfaces-low-code",
+          "integrations/data-infrastructure",
+          "integrations/multimodal",
+          "integrations/evaluation-monitoring"
+        ]
+      },
+      {
+        "group": "SambaStack",
+        "pages": [
+          {
+            "group": "Getting Started",
+            "pages": [
+              "sambastack-guide/introduction",
+              "sambastack-guide/hosted",
+              "sambastack-guide/on-prem"
+            ]
+          },
+          {
+            "group": "Service Administration",
+            "pages": [
+              "sambastack-guide/supported-models",
+              "sambastack-guide/deploy-models",
+              "sambastack-guide/performance",
+              "sambastack-guide/platform-administration"
+            ]
+          },
+          {
+            "group": "Hardware Administration",
+            "pages": [
+              "sambastack-guide/hardware-overview",
+              "sambastack-guide/network-power",
+              "sambastack-guide/sambarack-manager"
+            ]
+          },
+          {
+            "group": "Reference Architecture",
+            "pages": [
+              "sambastack-guide/reference-architecture",
+              "sambastack-guide/observability"
+            ]
+          },
+          {
+            "group": "Resources",
+            "pages": [
+              "sambastack-guide/configuration-reference",
+              "sambastack-guide/resources"
+            ]
+          }
+        ]
+      },
+      {
+        "group": "Release Notes",
+        "pages": [
+          "release-notes/overview",
+          "release-notes/sambacloud",
+          "release-notes/sambastack",
+          "release-notes/sambarack-manager",
+          "release-notes/runtime"
+        ]
       }
     ],
     "global": {

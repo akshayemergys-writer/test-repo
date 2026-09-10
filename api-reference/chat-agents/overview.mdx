@@ -1,0 +1,14 @@
+---
+title: "Chat Agents API"
+description: "Call SambaNova compound agents and specialized subagents."
+sidebarTitle: "Overview"
+icon: "bot"
+---
+
+The Chat Agents API provides general-purpose and specialized agents for coding, data science, deep research, and financial analysis. Some endpoints are fire-and-forget; interactive endpoints support multi-turn workflows.
+
+Agent endpoints use a separate API surface from model inference endpoints. Keep agent prompts, artifacts, and returned file IDs associated with the request that created them.
+
+## Practical use case: research assistant
+
+A research portal can route a broad question through the agent API, retain the returned thread or artifact identifiers, and present the final report with links to generated files.

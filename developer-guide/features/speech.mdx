@@ -1,0 +1,39 @@
+---
+title: "Text-to-Speech"
+description: "Generate streaming PCM audio with Qwen3-TTS on SambaStack."
+sidebarTitle: "Text-to-Speech"
+icon: "volume-2"
+---
+
+Qwen3-TTS is a SambaStack preview feature. It uses `POST /v1/audio/speech` and returns Server-Sent Events containing base64-encoded PCM audio.
+
+```json
+{
+  "model": "qwen3-tts",
+  "input": "Hello, welcome to SambaNova.",
+  "voice": "serena",
+  "language": "english",
+  "stream": true
+}
+```
+
+Streaming is required. The output is 24 kHz, mono, 32-bit float little-endian PCM. Supported languages include English, Chinese, French, German, Italian, Japanese, Korean, Portuguese, Russian, and Spanish. A request can generate up to 320 seconds of audio; split longer text into separate requests.
+
+## Practical use case: accessibility narration
+
+An education application can turn a lesson or notification into audio for learners who prefer listening. The application collects the streamed PCM chunks and writes them to a playable audio file.
+
+```python
+payload = {
+  "model": "qwen3-tts",
+  "input": "Your lesson is ready. Select start when you are ready to continue.",
+  "language": "english",
+  "stream": True,
+}
+
+for event in stream_speech(payload):
+  if event.get("audio_b64"):
+    save_audio_chunk(event["audio_b64"])
+```
+
+Because the endpoint is streaming-only, the application should handle partial audio, the final `stop` event, and mid-stream errors.

@@ -1,0 +1,27 @@
+---
+title: "SambaNova API Reference"
+description: "Endpoint reference for SambaCloud and SambaStack inference services."
+sidebarTitle: "Overview"
+icon: "book-open"
+---
+
+The SambaNova API Reference documents the endpoints used to build applications with SambaCloud and SambaStack. Both products use the same core API patterns, but URLs and available features can differ by deployment.
+
+## Product URLs
+
+- **SambaCloud:** `https://api.sambanova.ai/v1`
+- **SambaStack:** Use the base URL supplied by your system administrator.
+
+Every request requires an API key. See the [Developer Guide API keys and URLs](/developer-guide/api-keys-urls) page for setup.
+
+## API families
+
+The Inference API provides chat, text completion, Responses, Messages, embeddings, audio, and model metadata endpoints. The Chat Agents API provides compound-agent workflows and file access.
+
+<Note>
+  This local reference is organized to match the official SambaNova API Reference. Confirm deployment-specific parameters and availability against the live API specification before production use.
+</Note>
+
+## Practical use case: choose an API family
+
+An application can use Chat Completions for a conversational assistant, Responses for typed agent workflows, Messages for an Anthropic-compatible client, Embeddings for semantic search, and Audio endpoints for transcription. Choose the smallest API surface that matches the workflow.

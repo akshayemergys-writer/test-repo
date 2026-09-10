@@ -1,0 +1,33 @@
+---
+title: "Model Deprecations"
+description: "Track SambaCloud model retirement and migration guidance."
+sidebarTitle: "Deprecations"
+icon: "triangle-alert"
+---
+
+SambaNova periodically retires models that are no longer the best fit for the service. Production models receive at least two to three weeks of deprecation notice. Preview models may be promoted to production or deprecated with shorter notice.
+
+Users are notified by email, and updates are recorded in the official deprecation documentation. Test the recommended replacement before the removal date and update the model ID in your application.
+
+## Recent deprecations
+
+| Notice | Model removed or changed | Removal date | Recommended replacement |
+| --- | --- | --- | --- |
+| June 9, 2026 | `gemma-3-12b-it` | June 9, 2026 | `gemma-4-31B-it` |
+| June 9, 2026 | `Llama-4-Maverick-17B-128E-Instruct` | June 9, 2026 | `gemma-4-31B-it` |
+| May 18, 2026 | `MiniMax-M2.5` | May 18, 2026 | `MiniMax-M2.7` |
+| April 14, 2026 | `DeepSeek-V3-0324` | April 14, 2026 | `DeepSeek-V3.1` |
+| April 14, 2026 | `DeepSeek-R1-0528` | April 14, 2026 | `gpt-oss-120b` |
+| April 14, 2026 | `Meta-Llama-3.1-8B-Instruct` | April 14, 2026 | `Meta-Llama-3.3-70B-Instruct` |
+| April 6, 2026 | `DeepSeek-V3.1-Terminus` | April 6, 2026 | `DeepSeek-V3.1` |
+| March 20, 2026 | `DeepSeek-R1-Distill-Llama-70B` | March 20, 2026 | `gpt-oss-120b` |
+
+Some older models were moved to SambaStack or SambaManaged only. A deprecated cloud model may still be available in a private deployment.
+
+<Info>
+  For help with migration, contact SambaNova support at [help@sambanova.ai](mailto:help@sambanova.ai). Confirm current dates and replacements before scheduling a production migration.
+</Info>
+
+## Practical use case: migrate before removal
+
+An engineering team can monitor deprecation notices, run its regression prompts against the recommended replacement, compare quality and latency, and switch the model ID before the removal date.

@@ -1,0 +1,14 @@
+---
+title: "List Available Models"
+description: "Get model metadata available in an environment."
+sidebarTitle: "List models"
+icon: "list"
+---
+
+`GET /v1/models` returns the models available to the authenticated account or deployment. Use it to discover model IDs, capabilities, limits, and pricing metadata where provided.
+
+Do not hard-code availability across SambaCloud and SambaStack; each environment can expose a different model set.
+
+## Practical use case: capability-aware routing
+
+At startup, an application can list available models and select a text, vision, or reasoning model only when that capability is present in the current deployment.

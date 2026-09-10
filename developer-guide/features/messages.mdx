@@ -1,0 +1,47 @@
+---
+title: "Messages API"
+description: "Use the Anthropic-compatible Messages API."
+sidebarTitle: "Messages"
+icon: "messages-square"
+---
+
+The Messages API is available at `POST /v1/messages` and returns typed content blocks such as `text`, `tool_use`, and `thinking`.
+
+```python
+import anthropic
+
+client = anthropic.Anthropic(
+    base_url="https://api.sambanova.ai/v1",
+    api_key="your-sambanova-api-key",
+)
+
+message = client.messages.create(
+    model="gpt-oss-120b",
+    max_tokens=1024,
+    system="You are a helpful assistant.",
+    messages=[{"role": "user", "content": "What is RAG?"}],
+)
+print(message.content[0].text)
+```
+
+The system prompt is a top-level field. Streaming uses typed SSE events, and tools are executed by your application. Server-side tools, PDF `document` blocks, and URL image sources are not supported; use base64-encoded images instead.
+
+## Practical use case: policy-aware support replies
+
+A support application can keep its policy instructions in `system` and send the customer's question in `messages`. The application then reads the returned `text` block and displays it after applying its own safety and escalation checks.
+
+```python
+message = client.messages.create(
+    model="gpt-oss-120b",
+    max_tokens=512,
+    system="Answer only from the approved support policy. Escalate billing disputes.",
+    messages=[{
+        "role": "user",
+        "content": "My invoice is incorrect. What should I do?",
+    }],
+)
+
+for block in message.content:
+    if block.type == "text":
+        print(block.text)
+```
